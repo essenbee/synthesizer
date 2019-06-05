@@ -1,0 +1,176 @@
+﻿using System.ComponentModel;
+using System.Windows.Input;
+
+<#
+  // Model defines what properties and commands are generated
+
+  var properties = new []
+    {
+      P ("double" , "Volume"      ),
+      P ("double" , "Frequency"   ),
+      P ("string" , "VolumeLabel" ),
+    };
+
+  var commands = new []
+    {
+      C ("OnCommand"  ),
+      C ("OffCommand" ),
+    };
+
+#>
+
+
+<#
+  // The template generates the code from the model
+#>
+
+namespace synthesizer
+{
+    public partial class MainWindowViewModel : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+<#
+  foreach (var prop in properties)
+  {
+#>
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: <#=prop.Name#> (<#=prop.Type#>)
+        // --------------------------------------------------------------------
+        <#=prop.Type#> _<#=prop.Name#> = <#=prop.DefaultValue#>;
+
+        void Raise_<#=prop.Name#> ()
+        {
+          OnPropertyChanged ("<#=prop.Name#>");
+        }
+
+        public <#=prop.Type#> <#=prop.Name#>
+        {
+            get { return _<#=prop.Name#>; }
+            set
+            {
+                if (_<#=prop.Name#> == value)
+                {
+                    return;
+                }
+
+                var prev = _<#=prop.Name#>;
+
+                _<#=prop.Name#> = value;
+
+                Changed_<#=prop.Name#> (prev, _<#=prop.Name#>);
+
+                Raise_<#=prop.Name#> ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_<#=prop.Name#> (<#=prop.Type#> prev, <#=prop.Type#> current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: <#=prop.Name#> (<#=prop.Type#>)
+        // --------------------------------------------------------------------
+
+<#
+  }
+#>
+
+<#
+  foreach (var cmd in commands)
+  {
+#>
+        // --------------------------------------------------------------------
+        // BEGIN_COMMAND: <#=cmd.Name#>
+        // --------------------------------------------------------------------
+        readonly UserCommand _<#=cmd.Name#>;
+
+        bool CanExecute<#=cmd.Name#> ()
+        {
+          bool result = false;
+          CanExecute_<#=cmd.Name#> (ref result);
+
+          return result;
+        }
+
+        void Execute<#=cmd.Name#> ()
+        {
+          Execute_<#=cmd.Name#> ();
+        }
+
+        public ICommand <#=cmd.Name#> { get { return _<#=cmd.Name#>;} }
+        // --------------------------------------------------------------------
+        partial void CanExecute_<#=cmd.Name#> (ref bool result);
+        partial void Execute_<#=cmd.Name#> ();
+        // --------------------------------------------------------------------
+        // END_COMMAND: <#=cmd.Name#>
+        // --------------------------------------------------------------------
+
+<#
+  }
+#>
+
+        partial void Constructed ();
+
+        public MainWindowViewModel ()
+        {
+<#
+  foreach (var cmd in commands)
+  {
+#>
+          _<#=cmd.Name#> = new UserCommand (CanExecute<#=cmd.Name#>, Execute<#=cmd.Name#>);
+<#
+  }
+#>
+
+          Constructed ();
+        }
+
+        void ResetCanExecute ()
+        {
+<#
+  foreach (var cmd in commands)
+  {
+#>
+          _<#=cmd.Name#>.RefreshCanExecute ();
+<#
+  }
+#>
+        }
+
+        protected virtual void OnPropertyChanged (string propertyChanged)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyChanged));
+        }
+    }
+}
+
+<#+
+  class PropertyInfo
+  {
+    public readonly string Type         ;
+    public readonly string Name         ;
+    public readonly string DefaultValue ;
+
+    public PropertyInfo (string type, string name, string defaultValue)
+    {
+      Type          = type          ?? "<NoType>";
+      Name          = name          ?? "<NoName>";
+      DefaultValue  = defaultValue  ?? $"default";
+    }
+  }
+
+  static PropertyInfo P (string type, string name, string defaultValue = null) => 
+    new PropertyInfo (type, name, defaultValue);
+
+  class CommandInfo
+  {
+    public readonly string Name         ;
+
+    public CommandInfo (string name)
+    {
+      Name          = name          ?? "<NoName>";
+    }
+  }
+
+  static CommandInfo C (string name) => 
+    new CommandInfo (name);
+
+#>

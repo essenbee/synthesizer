@@ -10,4 +10,23 @@
     <PackageReference Include="NAudio" Version="1.9.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Generated_ViewModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Generated_ViewModel.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Generated_ViewModel.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Generated_ViewModel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>
