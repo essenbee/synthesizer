@@ -5,3 +5,10 @@ This is a project on my live coding stream [Codebase Alpha](https://twitch.tv/co
 Please note that, despite this being a .NET Core project, because I'm using **NAudio** and **WPF**, this code is Windows-only at this time.
 
 The NAudio Github repo can be found [here](https://github.com/naudio/NAudio).
+
+## Progress
+
+#### Episode 34
+
+A simple monophonic synthesizer was created. The code needs tidying up but its working at a basic level. Next up: add polyphony anf the ability to change the octave the keyboard covers!
+
