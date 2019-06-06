@@ -5,90 +5,105 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:synthesizer"
         mc:Ignorable="d"
-        Title="Synthesizer" Height="350" Width="550">
-<Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="55" />
-            <ColumnDefinition Width="380" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Label Grid.Row="1"
-               Grid.Column="0"
-               Margin="5,5,5,5"
-               HorizontalAlignment="Right" 
-               Content="Volume:"/>
-        <Slider Grid.Row="1"
-            Grid.Column="1"
-            Margin="5,5,5,5"
-            Orientation="Horizontal"
-            Minimum="0" Maximum="1"
-            Value="{Binding Volume}"
-            Grid.ColumnSpan="2" 
-            VerticalAlignment="Center"/>
-        <Label Grid.Row="1"
-           Grid.Column="3"
-               Width="40"
-           Margin="5,5,5,5"
+        Title="Synthesizer"
+        Height="400"
+        Width="1600"
+        >
+  <Window.LayoutTransform>
+    <ScaleTransform ScaleX="2.0" ScaleY="2.0" />
+  </Window.LayoutTransform>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition Width="55" />
+      <ColumnDefinition Width="380" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="100" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Label Grid.Row="1"
+           Grid.Column="0"
+           Margin="5"
            HorizontalAlignment="Right"
-           Content="{Binding VolumeLabel}" />
+           Content="Volume:"
+           />
+    <Slider Grid.Row="1"
+            Grid.Column="1"
+            Margin="5"
+            Orientation="Horizontal"
+            Minimum="0"
+            Maximum="1"
+            Value="{Binding Volume}"
+            Grid.ColumnSpan="2"
+            VerticalAlignment="Center"
+            />
+    <Label Grid.Row="1"
+           Grid.Column="3"
+           Width="40"
+           Margin="5"
+           HorizontalAlignment="Right"
+           Content="{Binding VolumeLabel}"
+           />
     <StackPanel Orientation="Horizontal"
                 Grid.Row="2"
-                Grid.Column="0"
-                Grid.ColumnSpan="4"
-                Margin="5,5,5,5">
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                Margin="5">
             <Label Grid.Row="1"
                Grid.Column="0"
-               Margin="5,5,5,5"
-               HorizontalAlignment="Right" 
+               Margin="5"
+               HorizontalAlignment="Right"
                Content="Octave:"/>
             <RadioButton x:Name="A2"
-                         Margin="5,5,5,5"
+                         Margin="5"
                          GroupName="Octave"
                          IsChecked="true"
                          Checked="SetOctave"
                          VerticalAlignment="Center">
                 A2
-                </RadioButton>
+            </RadioButton>
             <RadioButton x:Name="A3"
-                         Margin="5,5,5,5"
+                         Margin="5"
                          GroupName="Octave"
                          Checked="SetOctave"
                          VerticalAlignment="Center">
                 A3
             </RadioButton>
             <RadioButton x:Name="A4"
-                         Margin="5,5,5,5"
+                         Margin="5"
                          GroupName="Octave"
                          Checked="SetOctave"
                          VerticalAlignment="Center">
                 A4
             </RadioButton>
         </StackPanel>
-    <StackPanel x:Name="StackPanel1" 
+    <StackPanel x:Name="Buttons"
                 Orientation="Horizontal"
                 Grid.Row="4"
                 Grid.Column="0"
                 Grid.ColumnSpan="4"
-                Margin="5,5,5,5"
-                Grid.RowSpan="3">
-            <Button x:Name="On"
-                    Width="50"
-                Margin="5"
-                Content="On"
-                Command="{Binding OnCommand}" />
-            <Button x:Name="Off"
-                    Width="50"
-                Margin="5"
-                Content="Off"
-                Command="{Binding OffCommand}" />
-        </StackPanel>
-    </Grid>
+                Margin="5">
+      <Button x:Name="On"
+              Width="50"
+              Margin="5"
+              Content="On"
+              Command="{Binding OnCommand}"
+              />
+      <Button x:Name="Off"
+              Width="50"
+              Margin="5"
+              Content="Off"
+              Command="{Binding OffCommand}"
+              />
+    </StackPanel>
+    <local:AmplitudeVisualizer
+      Grid.Column="0"
+      Grid.ColumnSpan="4"
+      Grid.Row="0"
+      Amplitudes ="{Binding FrequencyAmplitudes}"
+      />
+  </Grid>
 </Window>

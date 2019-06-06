@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 
 
@@ -8,6 +10,8 @@ namespace synthesizer
 {
     public partial class MainWindowViewModel : INotifyPropertyChanged
     {
+        readonly Dispatcher _dispatcher;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         // --------------------------------------------------------------------
@@ -46,41 +50,6 @@ namespace synthesizer
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
-        // BEGIN_PROPERTY: Frequency (double)
-        // --------------------------------------------------------------------
-        double _Frequency = default;
-
-        void Raise_Frequency ()
-        {
-          OnPropertyChanged ("Frequency");
-        }
-
-        public double Frequency
-        {
-            get { return _Frequency; }
-            set
-            {
-                if (_Frequency == value)
-                {
-                    return;
-                }
-
-                var prev = _Frequency;
-
-                _Frequency = value;
-
-                Changed_Frequency (prev, _Frequency);
-
-                Raise_Frequency ();
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Changed_Frequency (double prev, double current);
-        // --------------------------------------------------------------------
-        // END_PROPERTY: Frequency (double)
-        // --------------------------------------------------------------------
-
-        // --------------------------------------------------------------------
         // BEGIN_PROPERTY: VolumeLabel (string)
         // --------------------------------------------------------------------
         string _VolumeLabel = default;
@@ -113,6 +82,41 @@ namespace synthesizer
         partial void Changed_VolumeLabel (string prev, string current);
         // --------------------------------------------------------------------
         // END_PROPERTY: VolumeLabel (string)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: FrequencyAmplitudes (float[])
+        // --------------------------------------------------------------------
+        float[] _FrequencyAmplitudes = default;
+
+        void Raise_FrequencyAmplitudes ()
+        {
+          OnPropertyChanged ("FrequencyAmplitudes");
+        }
+
+        public float[] FrequencyAmplitudes
+        {
+            get { return _FrequencyAmplitudes; }
+            set
+            {
+                if (_FrequencyAmplitudes == value)
+                {
+                    return;
+                }
+
+                var prev = _FrequencyAmplitudes;
+
+                _FrequencyAmplitudes = value;
+
+                Changed_FrequencyAmplitudes (prev, _FrequencyAmplitudes);
+
+                Raise_FrequencyAmplitudes ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_FrequencyAmplitudes (float[] prev, float[] current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: FrequencyAmplitudes (float[])
         // --------------------------------------------------------------------
 
 
@@ -171,8 +175,9 @@ namespace synthesizer
 
         partial void Constructed ();
 
-        public MainWindowViewModel ()
+        public MainWindowViewModel (Dispatcher dispatcher)
         {
+          _dispatcher = dispatcher;
           _OnCommand = new UserCommand (CanExecuteOnCommand, ExecuteOnCommand);
           _OffCommand = new UserCommand (CanExecuteOffCommand, ExecuteOffCommand);
 
@@ -183,6 +188,11 @@ namespace synthesizer
         {
           _OnCommand.RefreshCanExecute ();
           _OffCommand.RefreshCanExecute ();
+        }
+
+        void Dispatch(Action action)
+        {
+          _dispatcher.BeginInvoke(action);
         }
 
         protected virtual void OnPropertyChanged (string propertyChanged)
