@@ -49,7 +49,7 @@ namespace synthesizer
             }
         }
 
-        void UpdateFFTAmplitudes(Complex[] frequencies)
+        void UpdateRealTimeData(float[] waveform, Complex[] frequencies)
         {
           var famps = new float[frequencies.Length/2];
           for (var iter = 0; iter < famps.Length; ++iter)
@@ -58,6 +58,7 @@ namespace synthesizer
             famps[iter] = (float)amp;
           }
 
+          Waveform = waveform;
           FrequencyAmplitudes = famps;
         }
 
@@ -70,7 +71,7 @@ namespace synthesizer
             {
                 Volume = 0.25f,
             };
-            _fftProvider = new FFTSampleProvider(8, cs => Dispatch(() => UpdateFFTAmplitudes(cs)), _volControl);
+            _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _volControl);
             Volume = 0.25;
         }
 

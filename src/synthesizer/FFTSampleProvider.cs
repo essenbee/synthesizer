@@ -9,10 +9,10 @@ namespace synthesizer
   {
     readonly int _fftPower;
     readonly int _fftWidth;
-    readonly Action<Complex[]> _sendFft;
+    readonly Action<float[], Complex[]> _sendFft;
     readonly ISampleProvider _next;
 
-    public FFTSampleProvider(int fftPower, Action<Complex[]> sendFft, ISampleProvider next)
+    public FFTSampleProvider(int fftPower, Action<float[], Complex[]> sendFft, ISampleProvider next)
     {
       _fftPower = Math.Max(fftPower, 4);
       _fftWidth = 1 << _fftPower;
@@ -25,10 +25,12 @@ namespace synthesizer
     {
       var result = _next.Read (buffer, offset, count);
 
+      var ss = new float[_fftWidth];
       var cs = new Complex[_fftWidth];
       var csLength = Math.Min(cs.Length, result);
       var step = ((float)csLength)/result;
 
+      // Downsamples the waveform. Ugly.
       var acc = 0.0F;
       var pos = 0.0F;
       var cnt = 0;
@@ -41,7 +43,9 @@ namespace synthesizer
         var inewPos = (int)newPos;
         if (inewPos > ipos)
         {
-          cs[ipos] = new Complex { X = acc/cnt, Y = 0 };
+          var s = acc/cnt;
+          ss[ipos] = s;
+          cs[ipos] = new Complex { X = s, Y = 0 };
           acc = 0.0F;
           cnt = 0;
         }
@@ -56,7 +60,7 @@ namespace synthesizer
 
       FastFourierTransform.FFT(true, _fftPower, cs);
 
-      _sendFft(cs);
+      _sendFft(ss, cs);
 
       return result;
     }

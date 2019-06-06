@@ -10,7 +10,7 @@
         Width="1600"
         >
   <Window.LayoutTransform>
-    <ScaleTransform ScaleX="2.0" ScaleY="2.0" />
+    <ScaleTransform ScaleX="1.0" ScaleY="1.0" />
   </Window.LayoutTransform>
   <Grid>
     <Grid.ColumnDefinitions>
@@ -21,16 +21,17 @@
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
       <RowDefinition Height="100" />
+      <RowDefinition Height="100" />
       <RowDefinition Height="Auto" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
-    <Label Grid.Row="1"
+    <Label Grid.Row="2"
            Grid.Column="0"
            Margin="5"
            HorizontalAlignment="Right"
            Content="Volume:"
            />
-    <Slider Grid.Row="1"
+    <Slider Grid.Row="2"
             Grid.Column="1"
             Margin="5"
             Orientation="Horizontal"
@@ -40,7 +41,7 @@
             Grid.ColumnSpan="2"
             VerticalAlignment="Center"
             />
-    <Label Grid.Row="1"
+    <Label Grid.Row="2"
            Grid.Column="3"
            Width="40"
            Margin="5"
@@ -48,12 +49,11 @@
            Content="{Binding VolumeLabel}"
            />
     <StackPanel Orientation="Horizontal"
-                Grid.Row="2"
+                Grid.Row="3"
                 Grid.Column="1"
                 Grid.ColumnSpan="3"
                 Margin="5">
-            <Label Grid.Row="1"
-               Grid.Column="0"
+            <Label
                Margin="5"
                HorizontalAlignment="Right"
                Content="Octave:"/>
@@ -82,7 +82,7 @@
         </StackPanel>
     <StackPanel x:Name="Buttons"
                 Orientation="Horizontal"
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.Column="0"
                 Grid.ColumnSpan="4"
                 Margin="5">
@@ -104,6 +104,12 @@
       Grid.ColumnSpan="4"
       Grid.Row="0"
       Amplitudes ="{Binding FrequencyAmplitudes}"
+      />
+    <local:WaveformVisualizer
+      Grid.Column="0"
+      Grid.ColumnSpan="4"
+      Grid.Row="1"
+      Waveform="{Binding Waveform}"
       />
   </Grid>
 </Window>

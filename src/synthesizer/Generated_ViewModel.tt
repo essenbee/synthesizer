@@ -11,6 +11,7 @@ using System.Windows.Threading;
       P ("double"     , "Volume"              ),
       P ("string"     , "VolumeLabel"         ),
       P ("float[]"    , "FrequencyAmplitudes" ),
+      P ("float[]"    , "Waveform"            ),
     };
 
   var commands = new []

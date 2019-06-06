@@ -28,7 +28,7 @@ namespace synthesizer
 
             for (int i = 0; i < _sampleRate; i++)
             {
-//                waveTable[i] = (float)Math.Sin(2 * Math.PI * i/_sampleRate);
+                //waveTable[i] = (float)Math.Sin(2 * Math.PI * i/_sampleRate);
                 waveTable[i] = ((float)Math.Sin(2 * Math.PI * i / _sampleRate)) > 0
                     ? 1.0f : -1.0f;
                 //waveTable[i] = (float)Math.Sin(2 * Math.PI * i / _sampleRate)

@@ -119,6 +119,41 @@ namespace synthesizer
         // END_PROPERTY: FrequencyAmplitudes (float[])
         // --------------------------------------------------------------------
 
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Waveform (float[])
+        // --------------------------------------------------------------------
+        float[] _Waveform = default;
+
+        void Raise_Waveform ()
+        {
+          OnPropertyChanged ("Waveform");
+        }
+
+        public float[] Waveform
+        {
+            get { return _Waveform; }
+            set
+            {
+                if (_Waveform == value)
+                {
+                    return;
+                }
+
+                var prev = _Waveform;
+
+                _Waveform = value;
+
+                Changed_Waveform (prev, _Waveform);
+
+                Raise_Waveform ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Waveform (float[] prev, float[] current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Waveform (float[])
+        // --------------------------------------------------------------------
+
 
         // --------------------------------------------------------------------
         // BEGIN_COMMAND: OnCommand
