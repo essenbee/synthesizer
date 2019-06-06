@@ -17,7 +17,6 @@ namespace synthesizer
         private SynthWaveProvider[] oscillators = new SynthWaveProvider[16];
         private VolumeSampleProvider _volControl;
         private MixingSampleProvider _mixer;
-        
         private IWavePlayer player;
 
         public double BaseFrequency { get; set; } = 110.0;
@@ -48,7 +47,6 @@ namespace synthesizer
         }
 
         // Construction event
-
         partial void Constructed()
         {
             Volume = 0.25;
@@ -61,7 +59,6 @@ namespace synthesizer
         }
 
         // Property events
-
         partial void Changed_Volume(double prev, double current)
         {
             if (_volControl != null)
@@ -73,7 +70,6 @@ namespace synthesizer
         }
 
         // Command events
-
         partial void CanExecute_OnCommand(ref bool result)
         {
           result = player == null;
@@ -94,7 +90,7 @@ namespace synthesizer
 
                 player.Play();
 
-                ResetCanExecute ();
+                ResetCanExecute();
             }
         }
 
@@ -110,7 +106,7 @@ namespace synthesizer
                 player.Dispose();
                 player = null;
 
-                ResetCanExecute ();
+                ResetCanExecute();
             }
         }
     }

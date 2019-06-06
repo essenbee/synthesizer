@@ -11,8 +11,12 @@ namespace synthesizer
         private double phase;
         private double phaseStep;
         private readonly double _twelfthRootOfTwo = Math.Pow(2, 1.0 / 12.0);
+        
         public WaveFormat WaveFormat { get; }
         public double BaseFrequency { get; set; } = 110.0;
+        //`
+        //` <formula f_n = f_0 \cdot (\sqrt[12]{2})^n >
+        //`
         public double Frequency => BaseFrequency * Math.Pow(_twelfthRootOfTwo, _note);
         public bool NoteOn { get; set; }
 
