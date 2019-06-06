@@ -13,6 +13,9 @@ The NAudio Github repo can be found [here](https://github.com/naudio/NAudio).
 
 A simple monophonic synthesizer was created. The code needs tidying up but its working at a basic level. Next up: add polyphony anf the ability to change the octave the keyboard covers!
 
+#### Episode 35
+
+Added a GUI octave selector and had initial stab at making the keyboard polyphonic.
 
 ## Contributors
 
