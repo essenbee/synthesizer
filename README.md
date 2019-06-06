@@ -15,7 +15,7 @@ A simple monophonic synthesizer was created. The code needs tidying up but its w
 
 #### Episode 35
 
-Added a GUI octave selector and had initial stab at making the keyboard polyphonic.
+Added a GUI octave selector and had initial stab at making the keyboard polyphonic. Merged a PR that added a T4 template to generate the view model.
 
 ## Contributors
 
