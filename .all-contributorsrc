@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "mrange",
+      "name": "mrange",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2491891?v=4",
+      "profile": "https://github.com/mrange",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "synthesizer",
+  "projectOwner": "essenbee",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
