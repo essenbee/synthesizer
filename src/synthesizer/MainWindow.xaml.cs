@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace synthesizer
 {
@@ -28,6 +17,27 @@ namespace synthesizer
             _viewModel = new MainWindowViewModel();
             DataContext = _viewModel;
             Closing += ((obj, e) => _viewModel.OffCommand.Execute(null));
+        }
+
+        private void SetOctave(object sender, RoutedEventArgs e)
+        {
+            var octaveSel = sender as RadioButton;
+
+            if (_viewModel != null)
+            {
+                switch (octaveSel.Name)
+                {
+                    case "A2":
+                        _viewModel.BaseFrequency = 110.0;
+                        break;
+                    case "A3":
+                        _viewModel.BaseFrequency = 220.0;
+                        break;
+                    case "A4":
+                        _viewModel.BaseFrequency = 440.0;
+                        break;
+                }
+            }
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

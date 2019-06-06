@@ -1,6 +1,5 @@
 ﻿using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
-using System;
 using System.Collections.Generic;
 using System.Windows.Input;
 
@@ -15,18 +14,26 @@ namespace synthesizer
             Key.OemPeriod, Key.OemQuestion,
         };
 
-        private readonly SynthWaveProvider oscillator = new SynthWaveProvider();
-        private readonly double _twefthRootOfTwo = Math.Pow(2, 1.0/12.0);
+        private SynthWaveProvider[] oscillators = new SynthWaveProvider[16];
+        private VolumeSampleProvider _volControl;
+        private MixingSampleProvider _mixer;
+        
         private IWavePlayer player;
 
-        public double BaseFrequency => 110.0f; // A2
+        public double BaseFrequency { get; set; } = 110.0;
 
         public void KeyDown(KeyEventArgs e)
         {
             var keyVal = keyboard.IndexOf(e.Key);
-            if (keyVal > -1)
+            if (keyVal > -1 && oscillators[keyVal] is null)
             {
-                Frequency = BaseFrequency * Math.Pow(_twefthRootOfTwo, keyVal);
+                oscillators[keyVal] = new SynthWaveProvider(44100, keyVal)
+                {
+                    BaseFrequency = BaseFrequency,
+                };
+
+                oscillators[keyVal].NoteOn = true;
+                _mixer.AddMixerInput(oscillators[keyVal]);
             }
         }
 
@@ -35,28 +42,34 @@ namespace synthesizer
             var keyVal = keyboard.IndexOf(e.Key);
             if (keyVal > -1)
             {
-                Frequency = 0.0f;
+                oscillators[keyVal].NoteOn = false;
+                oscillators[keyVal] = null;
             }
         }
 
-        // Constraction event
+        // Construction event
 
         partial void Constructed()
         {
             Volume = 0.25;
+            var waveFormat = WaveFormat.CreateIeeeFloatWaveFormat(44100, 1);
+            _mixer = new MixingSampleProvider(waveFormat) { ReadFully = true }; // Always produce samples
+            _volControl = new VolumeSampleProvider(_mixer)
+            {
+                Volume = 0.25f,
+            };
         }
 
         // Property events
 
         partial void Changed_Volume(double prev, double current)
         {
-          oscillator.Volume = (float)current;
-          VolumeLabel = $"{(int)(Volume * 100.0)}%";
-        }
+            if (_volControl != null)
+            {
+                _volControl.Volume = (float)current;
+            }
 
-        partial void Changed_Frequency(double prev, double current)
-        {
-          oscillator.Frequency = (float)current;
+            VolumeLabel = $"{(int)(Volume * 100.0)}%";
         }
 
         // Command events
@@ -77,7 +90,7 @@ namespace synthesizer
                 };
 
                 player = waveOutEvent;
-                player.Init(new SampleToWaveProvider(oscillator));
+                player.Init(new SampleToWaveProvider(_volControl));
 
                 player.Play();
 

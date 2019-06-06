@@ -1,7 +1,5 @@
 ﻿using NAudio.Wave;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace synthesizer
 {
@@ -9,20 +7,20 @@ namespace synthesizer
     {
         private int _sampleRate;
         private float[] waveTable;
+        private readonly int _note;
         private double phase;
         private double phaseStep;
+        private readonly double _twelfthRootOfTwo = Math.Pow(2, 1.0 / 12.0);
         public WaveFormat WaveFormat { get; }
-        public double Frequency { get; set; }
+        public double BaseFrequency { get; set; } = 110.0;
+        public double Frequency => BaseFrequency * Math.Pow(_twelfthRootOfTwo, _note);
+        public bool NoteOn { get; set; }
 
-        public float Volume { get; set; }
-
-        public SynthWaveProvider(int sampleRate = 44100)
+        public SynthWaveProvider(int sampleRate = 44100, int note = 0)
         {
+            _note = note;
             _sampleRate = sampleRate;
             var channels = 1; // Mono
-            Volume = 0.25f;
-            Frequency = 0.0f;
-
             WaveFormat = WaveFormat.CreateIeeeFloatWaveFormat(_sampleRate, channels);
             waveTable = new float[_sampleRate];
 
@@ -42,22 +40,27 @@ namespace synthesizer
 
         public int Read(float[] buffer, int offset, int count)
         {
-            phaseStep = waveTable.Length * (Frequency / WaveFormat.SampleRate);
-
-            for (int i = 0; i < count; i++)
+            if (NoteOn)
             {
-                var waveTableIndex = (int)phase % waveTable.Length;
+                phaseStep = waveTable.Length * (Frequency / WaveFormat.SampleRate);
 
-                buffer[i + offset] = waveTable[waveTableIndex] * Volume;
-                phase += phaseStep;
-
-                if (phase > waveTable.Length)
+                for (int i = 0; i < count; i++)
                 {
-                    phase -= waveTable.Length;
+                    var waveTableIndex = (int)phase % waveTable.Length;
+
+                    buffer[i + offset] = waveTable[waveTableIndex];
+                    phase += phaseStep;
+
+                    if (phase > waveTable.Length)
+                    {
+                        phase -= waveTable.Length;
+                    }
                 }
+
+                return count;
             }
 
-            return count;
+            return 0;
         }
     }
 }
