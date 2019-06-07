@@ -1,5 +1,6 @@
 # synthesizer
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+[![Build status](https://ci.appveyor.com/api/projects/status/3wbcayq7poqp3k6o/branch/master?svg=true)](https://ci.appveyor.com/project/essenbee/synthesizer/branch/master)
 
 This is a project on my live coding stream [Codebase Alpha](https://twitch.tv/codebasealpha) starting with episode 34. The aim of the project is to explore some of the features of the extensive the **NAudio** digital audio library. To do this, I'm using **.NET Core 3.0** and **WPF** to develop a simple sythesizer, starting with a monophonic keyboard, but going on throughout the project to introduce such things as polyphony, ADSR envelopes, instruments and voices, and visualisations (such as a spectrum analyser). Basically, let's see how far we can take this!
 
