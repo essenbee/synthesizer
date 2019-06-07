@@ -1,0 +1,10 @@
+version: 1.0.{build}
+image: Visual Studio 2019 Preview
+before_build:
+- cmd: >-
+    cd .\src\synthesizer
+
+    nuget restore
+build:
+  project: C:\projects\synthesizer\src\synthesizer\synthesizer.sln
+  verbosity: minimal
