@@ -11,6 +11,8 @@ Please note that, despite this being a .NET Core project, because I'm using **NA
 
 The NAudio Github repo can be found [here](https://github.com/naudio/NAudio).
 
+![Twitter](https://img.shields.io/twitter/follow/codebasealpha.svg?style=social)
+
 ## Progress
 
 #### Episode 34
