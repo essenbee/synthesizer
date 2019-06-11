@@ -4,9 +4,6 @@ using System.Windows.Input;
 
 namespace synthesizer
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private readonly MainWindowViewModel _viewModel;
@@ -14,7 +11,7 @@ namespace synthesizer
         public MainWindow()
         {
             InitializeComponent();
-            _viewModel = new MainWindowViewModel();
+            _viewModel = new MainWindowViewModel(Dispatcher);
             DataContext = _viewModel;
             Closing += ((obj, e) => _viewModel.OffCommand.Execute(null));
         }

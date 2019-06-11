@@ -9,9 +9,7 @@ namespace synthesizer
         private float[] waveTable;
         private readonly int _note;
         private double phase;
-        private double phaseStep;
         private readonly double _twelfthRootOfTwo = Math.Pow(2, 1.0 / 12.0);
-        
         public WaveFormat WaveFormat { get; }
         public double BaseFrequency { get; set; } = 110.0;
         //`
@@ -30,7 +28,7 @@ namespace synthesizer
 
             for (int i = 0; i < _sampleRate; i++)
             {
-                // waveTable[i] = (float)Math.Sin(2 * Math.PI * i/_sampleRate);
+                //waveTable[i] = (float)Math.Sin(2 * Math.PI * i/_sampleRate);
                 waveTable[i] = ((float)Math.Sin(2 * Math.PI * i / _sampleRate)) > 0
                     ? 1.0f : -1.0f;
                 //waveTable[i] = (float)Math.Sin(2 * Math.PI * i / _sampleRate)
@@ -46,7 +44,7 @@ namespace synthesizer
         {
             if (NoteOn)
             {
-                phaseStep = waveTable.Length * (Frequency / WaveFormat.SampleRate);
+                var phaseStep = waveTable.Length * (Frequency / WaveFormat.SampleRate);
 
                 for (int i = 0; i < count; i++)
                 {

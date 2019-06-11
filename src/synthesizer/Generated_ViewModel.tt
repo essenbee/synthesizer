@@ -1,14 +1,17 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 <#
   // Model defines what properties and commands are generated
 
   var properties = new []
     {
-      P ("double" , "Volume"      ),
-      P ("double" , "Frequency"   ),
-      P ("string" , "VolumeLabel" ),
+      P ("double"     , "Volume"              ),
+      P ("string"     , "VolumeLabel"         ),
+      P ("float[]"    , "FrequencyAmplitudes" ),
+      P ("float[]"    , "Waveform"            ),
     };
 
   var commands = new []
@@ -28,6 +31,8 @@ namespace synthesizer
 {
     public partial class MainWindowViewModel : INotifyPropertyChanged
     {
+        readonly Dispatcher _dispatcher;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
 <#
@@ -109,8 +114,9 @@ namespace synthesizer
 
         partial void Constructed ();
 
-        public MainWindowViewModel ()
+        public MainWindowViewModel (Dispatcher dispatcher)
         {
+          _dispatcher = dispatcher;
 <#
   foreach (var cmd in commands)
   {
@@ -135,6 +141,11 @@ namespace synthesizer
 #>
         }
 
+        void Dispatch(Action action)
+        {
+          _dispatcher.BeginInvoke(action);
+        }
+
         protected virtual void OnPropertyChanged (string propertyChanged)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyChanged));
@@ -157,7 +168,7 @@ namespace synthesizer
     }
   }
 
-  static PropertyInfo P (string type, string name, string defaultValue = null) => 
+  static PropertyInfo P (string type, string name, string defaultValue = null) =>
     new PropertyInfo (type, name, defaultValue);
 
   class CommandInfo
@@ -170,7 +181,7 @@ namespace synthesizer
     }
   }
 
-  static CommandInfo C (string name) => 
+  static CommandInfo C (string name) =>
     new CommandInfo (name);
 
 #>
