@@ -154,6 +154,146 @@ namespace synthesizer
         // END_PROPERTY: Waveform (float[])
         // --------------------------------------------------------------------
 
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Attack (float)
+        // --------------------------------------------------------------------
+        float _Attack = default;
+
+        void Raise_Attack ()
+        {
+          OnPropertyChanged ("Attack");
+        }
+
+        public float Attack
+        {
+            get { return _Attack; }
+            set
+            {
+                if (_Attack == value)
+                {
+                    return;
+                }
+
+                var prev = _Attack;
+
+                _Attack = value;
+
+                Changed_Attack (prev, _Attack);
+
+                Raise_Attack ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Attack (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Attack (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Decay (float)
+        // --------------------------------------------------------------------
+        float _Decay = default;
+
+        void Raise_Decay ()
+        {
+          OnPropertyChanged ("Decay");
+        }
+
+        public float Decay
+        {
+            get { return _Decay; }
+            set
+            {
+                if (_Decay == value)
+                {
+                    return;
+                }
+
+                var prev = _Decay;
+
+                _Decay = value;
+
+                Changed_Decay (prev, _Decay);
+
+                Raise_Decay ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Decay (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Decay (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Sustain (float)
+        // --------------------------------------------------------------------
+        float _Sustain = default;
+
+        void Raise_Sustain ()
+        {
+          OnPropertyChanged ("Sustain");
+        }
+
+        public float Sustain
+        {
+            get { return _Sustain; }
+            set
+            {
+                if (_Sustain == value)
+                {
+                    return;
+                }
+
+                var prev = _Sustain;
+
+                _Sustain = value;
+
+                Changed_Sustain (prev, _Sustain);
+
+                Raise_Sustain ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Sustain (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Sustain (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Release (float)
+        // --------------------------------------------------------------------
+        float _Release = default;
+
+        void Raise_Release ()
+        {
+          OnPropertyChanged ("Release");
+        }
+
+        public float Release
+        {
+            get { return _Release; }
+            set
+            {
+                if (_Release == value)
+                {
+                    return;
+                }
+
+                var prev = _Release;
+
+                _Release = value;
+
+                Changed_Release (prev, _Release);
+
+                Raise_Release ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Release (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Release (float)
+        // --------------------------------------------------------------------
+
 
         // --------------------------------------------------------------------
         // BEGIN_COMMAND: OnCommand

@@ -12,6 +12,10 @@ using System.Windows.Threading;
       P ("string"     , "VolumeLabel"         ),
       P ("float[]"    , "FrequencyAmplitudes" ),
       P ("float[]"    , "Waveform"            ),
+	  P ("float"      , "Attack"              ),
+	  P ("float"      , "Decay"               ),
+	  P ("float"      , "Sustain"             ),
+	  P ("float"      , "Release"             ),
     };
 
   var commands = new []

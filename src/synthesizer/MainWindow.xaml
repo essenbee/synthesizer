@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:synthesizer"
         mc:Ignorable="d"
         Title="Synthesizer"
-        Height="400"
+        Height="700"
         Width="1600"
         >
   <Window.LayoutTransform>
@@ -23,6 +23,9 @@
       <RowDefinition Height="100" />
       <RowDefinition Height="100" />
       <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="200" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
     <Label Grid.Row="2"
@@ -49,7 +52,7 @@
            Content="{Binding VolumeLabel}"
            />
     <StackPanel Orientation="Horizontal"
-                Grid.Row="3"
+                Grid.Row="4"
                 Grid.Column="1"
                 Grid.ColumnSpan="3"
                 Margin="5">
@@ -80,7 +83,20 @@
                 A4
             </RadioButton>
         </StackPanel>
-    <StackPanel x:Name="Buttons"
+
+        <Label Content="Envelope ADSR" 
+               Grid.Row="4" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Center"/>
+       
+        <StackPanel Orientation="Horizontal" Grid.Row="5">
+            <Slider Orientation="Vertical" Margin="8" Minimum="0.0" Maximum="2.0" Value="{Binding Attack}"></Slider>
+            <Slider Orientation="Vertical" Margin="8" Minimum="0.0" Maximum="2.0" Value="{Binding Decay}"></Slider>
+            <Slider Orientation="Vertical" Margin="8" Minimum="0.0" Maximum="1.0" Value="{Binding Sustain}"></Slider>
+            <Slider Orientation="Vertical" Margin="8" Minimum="0.0" Maximum="2.0" Value="{Binding Release}"></Slider>
+        </StackPanel>
+
+        <StackPanel x:Name="Buttons"
                 Orientation="Horizontal"
                 Grid.Row="3"
                 Grid.Column="0"

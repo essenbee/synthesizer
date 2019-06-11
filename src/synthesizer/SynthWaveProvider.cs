@@ -1,4 +1,6 @@
-﻿using NAudio.Wave;
+﻿using NAudio.Dsp;
+using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 using System;
 
 namespace synthesizer
@@ -6,63 +8,117 @@ namespace synthesizer
     public class SynthWaveProvider : ISampleProvider
     {
         private int _sampleRate;
-        private float[] waveTable;
         private readonly int _note;
-        private double phase;
         private readonly double _twelfthRootOfTwo = Math.Pow(2, 1.0 / 12.0);
+        private readonly SignalGenerator _source;
+        private readonly EnvelopeGenerator _adsr;
         public WaveFormat WaveFormat { get; }
-        public double BaseFrequency { get; set; } = 110.0;
+
+        private float attackSeconds;
+        public float AttackSeconds
+        {
+            get => attackSeconds;
+            set
+            {
+                attackSeconds = value;
+                _adsr.AttackRate = attackSeconds * WaveFormat.SampleRate;
+            }
+        }
+
+        private float decaySeconds;
+        public float DecaySeconds
+        {
+            get => decaySeconds;
+            set
+            {
+                decaySeconds = value;
+                _adsr.DecayRate = decaySeconds * WaveFormat.SampleRate;
+            }
+        }
+
+        private float sustainLevel;
+        public float SustainLevel
+        {
+            get => sustainLevel;
+            set
+            {
+                sustainLevel = value;
+                _adsr.SustainLevel = sustainLevel;
+            }
+        }
+
+        private float releaseSeconds;
+        public float ReleaseSeconds
+        {
+            get => releaseSeconds;
+
+            set
+            {
+                releaseSeconds = value;
+                _adsr.ReleaseRate = releaseSeconds * WaveFormat.SampleRate;
+            }
+        }
+
+        private double baseFrequency;
+        public double BaseFrequency
+        {
+            get => baseFrequency;
+            set
+            {
+                baseFrequency = value;
+                if (_source != null)
+                {
+                    _source.Frequency = Frequency;
+                }
+            }
+        }
         //`
         //` <formula f_n = f_0 \cdot (\sqrt[12]{2})^n >
         //`
         public double Frequency => BaseFrequency * Math.Pow(_twelfthRootOfTwo, _note);
-        public bool NoteOn { get; set; }
 
-        public SynthWaveProvider(int sampleRate = 44100, int note = 0)
+        public SynthWaveProvider(SignalGeneratorType waveType = SignalGeneratorType.Sin,
+            int sampleRate = 44100, int note = 0)
         {
             _note = note;
             _sampleRate = sampleRate;
             var channels = 1; // Mono
             WaveFormat = WaveFormat.CreateIeeeFloatWaveFormat(_sampleRate, channels);
-            waveTable = new float[_sampleRate];
+            _adsr = new EnvelopeGenerator();
 
-            for (int i = 0; i < _sampleRate; i++)
+            //Defaults
+            AttackSeconds = 0.01f;
+            DecaySeconds = 0.0f;
+            SustainLevel = 1.0f;
+            ReleaseSeconds = 0.3f;
+
+            _source = new SignalGenerator(_sampleRate, channels)
             {
-                //waveTable[i] = (float)Math.Sin(2 * Math.PI * i/_sampleRate);
-                waveTable[i] = ((float)Math.Sin(2 * Math.PI * i / _sampleRate)) > 0
-                    ? 1.0f : -1.0f;
-                //waveTable[i] = (float)Math.Sin(2 * Math.PI * i / _sampleRate)
-                //    + (float)Math.Sin(4 * Math.PI * i / _sampleRate)
-                //    + (float)Math.Sin(6 * Math.PI * i / _sampleRate)
-                //    + (float)Math.Sin(8 * Math.PI * i / _sampleRate)
-                //    + (float)Math.Sin(10 * Math.PI * i / _sampleRate);
-                // waveTable[i] = (float)i / _sampleRate;
-            }
+                Frequency = Frequency,
+                Type = waveType,
+                Gain = 1.0f,
+            };
+
+            _adsr.Gate(true);
         }
+
+        public void Stop() => _adsr.Gate(false);
 
         public int Read(float[] buffer, int offset, int count)
         {
-            if (NoteOn)
+            if (_adsr.State == EnvelopeGenerator.EnvelopeState.Idle)
             {
-                var phaseStep = waveTable.Length * (Frequency / WaveFormat.SampleRate);
-
-                for (int i = 0; i < count; i++)
-                {
-                    var waveTableIndex = (int)phase % waveTable.Length;
-
-                    buffer[i + offset] = waveTable[waveTableIndex];
-                    phase += phaseStep;
-
-                    if (phase > waveTable.Length)
-                    {
-                        phase -= waveTable.Length;
-                    }
-                }
-
-                return count;
+                return 0; // we've finished
             }
 
-            return 0;
+            var samples = _source.Read(buffer, offset, count);
+
+            for (var i = 0; i < samples; i++)
+            {
+                buffer[offset++] *= _adsr.Process();
+            }
+
+            return samples;
         }
     }
 }

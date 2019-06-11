@@ -20,6 +20,7 @@ namespace synthesizer
         private VolumeSampleProvider _volControl;
         private MixingSampleProvider _mixer;
         private FFTSampleProvider _fftProvider;
+        private TremoloSampleProvider _tremolo;
         private IWavePlayer _player;
 
         public double BaseFrequency { get; set; } = 110.0;
@@ -29,13 +30,17 @@ namespace synthesizer
             var keyVal = keyboard.IndexOf(e.Key);
             if (keyVal > -1 &&  _oscillators[keyVal] is null)
             {
-                _oscillators[keyVal] = new SynthWaveProvider(44100, keyVal)
+                _oscillators[keyVal] = new SynthWaveProvider(SignalGeneratorType.SawTooth, 44100, keyVal)
                 {
                     BaseFrequency = BaseFrequency,
+                    AttackSeconds = Attack,
+                    DecaySeconds = Decay,
+                    SustainLevel = Sustain,
+                    ReleaseSeconds = Release,
                 };
 
-                _oscillators[keyVal].NoteOn = true;
-                _mixer.AddMixerInput(_oscillators[keyVal]);
+                _mixer.AddMixerInput(new LowPassFilterSampleProvider(_oscillators[keyVal]));
+                //_mixer.AddMixerInput(_oscillators[keyVal]);
             }
         }
 
@@ -44,7 +49,7 @@ namespace synthesizer
             var keyVal = keyboard.IndexOf(e.Key);
             if (keyVal > -1)
             {
-                _oscillators[keyVal].NoteOn = false;
+                _oscillators[keyVal].Stop();
                 _oscillators[keyVal] = null;
             }
         }
@@ -71,8 +76,16 @@ namespace synthesizer
             {
                 Volume = 0.25f,
             };
-            _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _volControl);
+
+            _tremolo = new TremoloSampleProvider(_volControl);
+            _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _tremolo);
+            //_fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _volControl);
+
             Volume = 0.25;
+            Attack = 0.01f;
+            Decay = 0.0f;
+            Sustain = 1.0f;
+            Release = 0.3f;
         }
 
         // Property events
