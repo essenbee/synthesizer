@@ -190,6 +190,41 @@ namespace synthesizer
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: AttackLabel (string)
+        // --------------------------------------------------------------------
+        string _AttackLabel = default;
+
+        void Raise_AttackLabel ()
+        {
+          OnPropertyChanged ("AttackLabel");
+        }
+
+        public string AttackLabel
+        {
+            get { return _AttackLabel; }
+            set
+            {
+                if (_AttackLabel == value)
+                {
+                    return;
+                }
+
+                var prev = _AttackLabel;
+
+                _AttackLabel = value;
+
+                Changed_AttackLabel (prev, _AttackLabel);
+
+                Raise_AttackLabel ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_AttackLabel (string prev, string current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: AttackLabel (string)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
         // BEGIN_PROPERTY: Decay (float)
         // --------------------------------------------------------------------
         float _Decay = default;
@@ -222,6 +257,41 @@ namespace synthesizer
         partial void Changed_Decay (float prev, float current);
         // --------------------------------------------------------------------
         // END_PROPERTY: Decay (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: DecayLabel (string)
+        // --------------------------------------------------------------------
+        string _DecayLabel = default;
+
+        void Raise_DecayLabel ()
+        {
+          OnPropertyChanged ("DecayLabel");
+        }
+
+        public string DecayLabel
+        {
+            get { return _DecayLabel; }
+            set
+            {
+                if (_DecayLabel == value)
+                {
+                    return;
+                }
+
+                var prev = _DecayLabel;
+
+                _DecayLabel = value;
+
+                Changed_DecayLabel (prev, _DecayLabel);
+
+                Raise_DecayLabel ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_DecayLabel (string prev, string current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: DecayLabel (string)
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
@@ -260,6 +330,41 @@ namespace synthesizer
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: SustainLabel (string)
+        // --------------------------------------------------------------------
+        string _SustainLabel = default;
+
+        void Raise_SustainLabel ()
+        {
+          OnPropertyChanged ("SustainLabel");
+        }
+
+        public string SustainLabel
+        {
+            get { return _SustainLabel; }
+            set
+            {
+                if (_SustainLabel == value)
+                {
+                    return;
+                }
+
+                var prev = _SustainLabel;
+
+                _SustainLabel = value;
+
+                Changed_SustainLabel (prev, _SustainLabel);
+
+                Raise_SustainLabel ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_SustainLabel (string prev, string current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: SustainLabel (string)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
         // BEGIN_PROPERTY: Release (float)
         // --------------------------------------------------------------------
         float _Release = default;
@@ -292,6 +397,41 @@ namespace synthesizer
         partial void Changed_Release (float prev, float current);
         // --------------------------------------------------------------------
         // END_PROPERTY: Release (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: ReleaseLabel (string)
+        // --------------------------------------------------------------------
+        string _ReleaseLabel = default;
+
+        void Raise_ReleaseLabel ()
+        {
+          OnPropertyChanged ("ReleaseLabel");
+        }
+
+        public string ReleaseLabel
+        {
+            get { return _ReleaseLabel; }
+            set
+            {
+                if (_ReleaseLabel == value)
+                {
+                    return;
+                }
+
+                var prev = _ReleaseLabel;
+
+                _ReleaseLabel = value;
+
+                Changed_ReleaseLabel (prev, _ReleaseLabel);
+
+                Raise_ReleaseLabel ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_ReleaseLabel (string prev, string current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: ReleaseLabel (string)
         // --------------------------------------------------------------------
 
 

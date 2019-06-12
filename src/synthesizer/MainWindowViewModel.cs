@@ -83,7 +83,7 @@ namespace synthesizer
 
             Volume = 0.25;
             Attack = 0.01f;
-            Decay = 0.0f;
+            Decay = 0.01f;
             Sustain = 1.0f;
             Release = 0.3f;
         }
@@ -93,6 +93,26 @@ namespace synthesizer
         {
           _volControl.Volume = (float)current;
           VolumeLabel = $"{(int)(Volume * 100.0)}%";
+        }
+
+        partial void Changed_Attack(float prev, float current)
+        {
+            AttackLabel = $"{(int)(Attack * 100.0)} ms";
+        }
+
+        partial void Changed_Decay(float prev, float current)
+        {
+            DecayLabel = $"{(int)(Decay * 100.0)} ms";
+        }
+
+        partial void Changed_Sustain(float prev, float current)
+        {
+            SustainLabel = $"{(int)(Sustain * 100.0)}%";
+        }
+
+        partial void Changed_Release(float prev, float current)
+        {
+            ReleaseLabel = $"{(int)(Release * 100.0)} ms";
         }
 
         // Command events

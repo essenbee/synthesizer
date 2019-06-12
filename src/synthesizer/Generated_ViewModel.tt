@@ -13,9 +13,13 @@ using System.Windows.Threading;
       P ("float[]"    , "FrequencyAmplitudes" ),
       P ("float[]"    , "Waveform"            ),
 	  P ("float"      , "Attack"              ),
+	  P ("string"     , "AttackLabel"         ),
 	  P ("float"      , "Decay"               ),
+	  P ("string"     , "DecayLabel"         ),
 	  P ("float"      , "Sustain"             ),
+	  P ("string"     , "SustainLabel"         ),
 	  P ("float"      , "Release"             ),
+	  P ("string"     , "ReleaseLabel"         ),
     };
 
   var commands = new []
