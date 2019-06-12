@@ -23,6 +23,10 @@ A simple monophonic synthesizer was created. The code needs tidying up but its w
 
 Added a GUI octave selector and had initial stab at making the keyboard polyphonic. Merged a PR that added a T4 template to generate the view model.
 
+#### Episode 36
+
+Merged a PR that added a spectrum analyser and waveform visualizer to the GUI. Moved from wavetables to signal generators in the `SynthWaveProvider` class, and implemented ADSR envelopes to shape the sound profile of notes. Finally, created a low pass filter and a tremolo effect for the synthesizer. The GUI elements of these latter were left for another stream.
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
