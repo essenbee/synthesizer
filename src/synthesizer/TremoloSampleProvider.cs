@@ -6,7 +6,7 @@ namespace synthesizer
     public class TremoloSampleProvider : ISampleProvider
     {
         private readonly ISampleProvider _source;
-        private readonly ISampleProvider _lfo;
+        private readonly SignalGenerator _lfo;
         
         public WaveFormat WaveFormat => _source.WaveFormat;
 
@@ -29,7 +29,10 @@ namespace synthesizer
 
             for (int i = 0; i < samples; i++)
             {
-                buffer[offset + i] += buffer[offset + i] * lfoBuffer[offset + 1];
+                if (_lfo.Gain > 0.0f)
+                {
+                    buffer[offset + i] += buffer[offset + i] * lfoBuffer[offset + i];
+                }
             }
 
             return samples;

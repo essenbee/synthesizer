@@ -15,11 +15,15 @@ using System.Windows.Threading;
 	  P ("float"      , "Attack"              ),
 	  P ("string"     , "AttackLabel"         ),
 	  P ("float"      , "Decay"               ),
-	  P ("string"     , "DecayLabel"         ),
+	  P ("string"     , "DecayLabel"          ),
 	  P ("float"      , "Sustain"             ),
-	  P ("string"     , "SustainLabel"         ),
+	  P ("string"     , "SustainLabel"        ),
 	  P ("float"      , "Release"             ),
-	  P ("string"     , "ReleaseLabel"         ),
+	  P ("string"     , "ReleaseLabel"        ),
+	  P ("int"        , "CutOff"              ),
+	  P ("string"     , "CutOffLabel"         ),
+	  P ("float"      , "Q"                   ),
+	  P ("string"     , "QLabel"              ),
     };
 
   var commands = new []

@@ -434,6 +434,146 @@ namespace synthesizer
         // END_PROPERTY: ReleaseLabel (string)
         // --------------------------------------------------------------------
 
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: CutOff (int)
+        // --------------------------------------------------------------------
+        int _CutOff = default;
+
+        void Raise_CutOff ()
+        {
+          OnPropertyChanged ("CutOff");
+        }
+
+        public int CutOff
+        {
+            get { return _CutOff; }
+            set
+            {
+                if (_CutOff == value)
+                {
+                    return;
+                }
+
+                var prev = _CutOff;
+
+                _CutOff = value;
+
+                Changed_CutOff (prev, _CutOff);
+
+                Raise_CutOff ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_CutOff (int prev, int current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: CutOff (int)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: CutOffLabel (string)
+        // --------------------------------------------------------------------
+        string _CutOffLabel = default;
+
+        void Raise_CutOffLabel ()
+        {
+          OnPropertyChanged ("CutOffLabel");
+        }
+
+        public string CutOffLabel
+        {
+            get { return _CutOffLabel; }
+            set
+            {
+                if (_CutOffLabel == value)
+                {
+                    return;
+                }
+
+                var prev = _CutOffLabel;
+
+                _CutOffLabel = value;
+
+                Changed_CutOffLabel (prev, _CutOffLabel);
+
+                Raise_CutOffLabel ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_CutOffLabel (string prev, string current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: CutOffLabel (string)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Q (float)
+        // --------------------------------------------------------------------
+        float _Q = default;
+
+        void Raise_Q ()
+        {
+          OnPropertyChanged ("Q");
+        }
+
+        public float Q
+        {
+            get { return _Q; }
+            set
+            {
+                if (_Q == value)
+                {
+                    return;
+                }
+
+                var prev = _Q;
+
+                _Q = value;
+
+                Changed_Q (prev, _Q);
+
+                Raise_Q ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Q (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Q (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: QLabel (string)
+        // --------------------------------------------------------------------
+        string _QLabel = default;
+
+        void Raise_QLabel ()
+        {
+          OnPropertyChanged ("QLabel");
+        }
+
+        public string QLabel
+        {
+            get { return _QLabel; }
+            set
+            {
+                if (_QLabel == value)
+                {
+                    return;
+                }
+
+                var prev = _QLabel;
+
+                _QLabel = value;
+
+                Changed_QLabel (prev, _QLabel);
+
+                Raise_QLabel ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_QLabel (string prev, string current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: QLabel (string)
+        // --------------------------------------------------------------------
+
 
         // --------------------------------------------------------------------
         // BEGIN_COMMAND: OnCommand

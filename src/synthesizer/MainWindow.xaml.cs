@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using NAudio.Wave.SampleProviders;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -37,6 +38,33 @@ namespace synthesizer
             }
         }
 
+        private void SetWaveform(object sender, RoutedEventArgs e)
+        {
+            var octaveSel = sender as RadioButton;
+
+            if (_viewModel != null)
+            {
+                switch (octaveSel.Name)
+                {
+                    case "Sine":
+                        _viewModel.WaveType = SignalGeneratorType.Sin;
+                        break;
+                    case "SawTooth":
+                        _viewModel.WaveType = SignalGeneratorType.SawTooth;
+                        break;
+                    case "Square":
+                        _viewModel.WaveType = SignalGeneratorType.Square;
+                        break;
+                    case "Triangle":
+                        _viewModel.WaveType = SignalGeneratorType.Triangle;
+                        break;
+                    case "White":
+                        _viewModel.WaveType = SignalGeneratorType.White;
+                        break;
+                }
+            }
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
@@ -47,6 +75,22 @@ namespace synthesizer
         {
             base.OnKeyUp(e);
             _viewModel.KeyUp(e);
+        }
+
+        private void LowPassFilter_Checked(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel != null)
+            {
+                _viewModel.EnableLpf = true;
+            }
+        }
+
+        private void LowPassFilter_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel != null)
+            {
+                _viewModel.EnableLpf = false;
+            }
         }
     }
 }

@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1600"
     Height="700"
+    Background="LightGray"
     mc:Ignorable="d"
     Title="Synthesizer">
 
@@ -19,6 +20,7 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="55" />
             <ColumnDefinition Width="380" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -37,8 +39,8 @@
             Grid.Column="0"
             Margin="5"
             HorizontalAlignment="Right"
-            FontWeight="Bold"
-            Content="Volume:" />
+            Content="Volume:"
+            FontWeight="Bold" />
         <Slider
             Grid.Row="2"
             Grid.Column="1"
@@ -59,7 +61,7 @@
         <StackPanel
             Grid.Row="3"
             Grid.Column="1"
-            Grid.ColumnSpan="3"
+            Grid.ColumnSpan="2"
             Margin="5"
             Orientation="Horizontal">
             <Label
@@ -94,29 +96,85 @@
                 A4
             </RadioButton>
         </StackPanel>
+        <StackPanel
+            Grid.Row="3"
+            Grid.Column="3"
+            Orientation="Horizontal">
+            <Label
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Content="Waveform"
+                FontWeight="Bold" />
+            <RadioButton
+                x:Name="Sine"
+                Margin="5"
+                VerticalAlignment="Center"
+                Checked="SetWaveform"
+                GroupName="Waveform"
+                IsChecked="true">
+                Sine
+            </RadioButton>
+            <RadioButton
+                x:Name="SawTooth"
+                Margin="5"
+                VerticalAlignment="Center"
+                Checked="SetWaveform"
+                GroupName="Waveform">
+                SawTooth
+            </RadioButton>
+            <RadioButton
+                x:Name="Square"
+                Margin="5"
+                VerticalAlignment="Center"
+                Checked="SetWaveform"
+                GroupName="Waveform">
+                Square
+            </RadioButton>
+            <RadioButton
+                x:Name="Triange"
+                Margin="5"
+                VerticalAlignment="Center"
+                Checked="SetWaveform"
+                GroupName="Waveform">
+                Triange
+            </RadioButton>
+            <RadioButton
+                x:Name="White"
+                Margin="5"
+                VerticalAlignment="Center"
+                Checked="SetWaveform"
+                GroupName="Waveform">
+                White Noise
+            </RadioButton>
+
+        </StackPanel>
         <Label
             Grid.Row="3"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            FontWeight="Bold"
-            Content="Envelope ADSR" />
+            Content="Envelope ADSR"
+            FontWeight="Bold" />
         <StackPanel Grid.Row="4" Orientation="Horizontal">
-            <Label Content="Attack"
-                   Height="25"
-                   Width="50"
-                   Margin="15,0,5,0"/>
-            <Label Content="Decay"
-                   Height="25"
-                   Width="50"
-                   Margin="5,0,5,0"/>
-            <Label Content="Sustain"
-                   Height="25"
-                   Width="50"
-                   Margin="5,0,5,0"/>
-            <Label Content="Release"
-                   Height="25"
-                   Width="50"
-                   Margin="5,0,5,0"/>
+            <Label
+                Width="50"
+                Height="25"
+                Margin="15,0,5,0"
+                Content="Attack" />
+            <Label
+                Width="50"
+                Height="25"
+                Margin="5,0,5,0"
+                Content="Decay" />
+            <Label
+                Width="50"
+                Height="25"
+                Margin="5,0,5,0"
+                Content="Sustain" />
+            <Label
+                Width="50"
+                Height="25"
+                Margin="5,0,5,0"
+                Content="Release" />
         </StackPanel>
         <StackPanel Grid.Row="5" Orientation="Horizontal">
             <Slider
@@ -145,23 +203,79 @@
                 Orientation="Vertical" />
         </StackPanel>
         <StackPanel Grid.Row="6" Orientation="Horizontal">
-            <Label Content="{Binding AttackLabel}"
-                   Height="25"
-                   Width="40"
-                   Margin="20,0,0,0"/>
-            <Label Content="{Binding DecayLabel}"
-                   Height="25"
-                   Width="40"
-                   Margin="20,0,0,0"/>
-            <Label Content="{Binding SustainLabel}"
-                   Height="25"
-                   Width="40"
-                   Margin="20,0,0,0"/>
-            <Label Content="{Binding ReleaseLabel}"
-                   Height="25"
-                   Width="40"
-                   Margin="20,0,0,0"/>
+            <Label
+                Width="55"
+                Height="25"
+                Margin="5,0,0,0"
+                Content="{Binding AttackLabel}" />
+            <Label
+                Width="55"
+                Height="25"
+                Margin="5,0,0,0"
+                Content="{Binding DecayLabel}" />
+            <Label
+                Width="55"
+                Height="25"
+                Margin="5,0,0,0"
+                Content="{Binding SustainLabel}" />
+            <Label
+                Width="55"
+                Height="25"
+                Margin="3,0,0,0"
+                Content="{Binding ReleaseLabel}" />
         </StackPanel>
+        
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="2"
+                    Grid.Row="4">
+        	<Label Content="Low Pass Filter"
+                   FontWeight="Bold"
+                   Margin="15,0,0,0"/>
+            <Label Content="Cut Off"
+                   Margin="15,0,0,0"/>
+            <Label Content="Q"
+                   Margin="15,0,0,0"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="2"
+                    Grid.Row="5">
+            <CheckBox Name="LowPassFilter"
+                      Checked="LowPassFilter_Checked"
+                      Unchecked="LowPassFilter_Unchecked"
+                      VerticalAlignment="Top">
+                Enable
+            </CheckBox>
+            <Slider
+                Margin="78,0,10,0"
+                Value="{Binding CutOff}"
+                Maximum="8000"
+                Minimum="1000"
+                Orientation="Vertical"
+                TickPlacement="TopLeft"
+                TickFrequency="200"/>
+            <Slider
+                Margin="12,0,10,0"
+                Value="{Binding Q}"
+                Maximum="1.0"
+                Minimum="0.0"
+                Orientation="Vertical" 
+                TickPlacement="TopLeft"
+                TickFrequency="0.1"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="2"
+                    Grid.Row="6">
+        	<Label Content="{Binding CutOffLabel}"
+                   Height="30"
+                   Width="60"
+                   Margin="115,0,0,0"/>
+            <Label Content="{Binding QLabel}"
+                   Height="30"
+                   Width="40"
+                   Margin="10,0,0,0"/>
+        </StackPanel>
+        
+        
         <StackPanel
             x:Name="Buttons"
             Grid.Row="7"
@@ -185,12 +299,12 @@
         <local:AmplitudeVisualizer
             Grid.Row="0"
             Grid.Column="0"
-            Grid.ColumnSpan="4"
+            Grid.ColumnSpan="5"
             Amplitudes ="{Binding FrequencyAmplitudes}" />
         <local:WaveformVisualizer
             Grid.Row="1"
             Grid.Column="0"
-            Grid.ColumnSpan="4"
+            Grid.ColumnSpan="5"
             Waveform="{Binding Waveform}" />
     </Grid>
 

@@ -24,23 +24,28 @@ namespace synthesizer
         private IWavePlayer _player;
 
         public double BaseFrequency { get; set; } = 110.0;
+        public SignalGeneratorType WaveType { get; set; } = SignalGeneratorType.Sin;
+        public bool EnableLpf { get; set; }
 
         public void KeyDown(KeyEventArgs e)
         {
             var keyVal = keyboard.IndexOf(e.Key);
-            if (keyVal > -1 &&  _oscillators[keyVal] is null)
+            if (keyVal > -1 && _oscillators[keyVal] is null)
             {
-                _oscillators[keyVal] = new SynthWaveProvider(SignalGeneratorType.SawTooth, 44100, keyVal)
+                _oscillators[keyVal] = new SynthWaveProvider(WaveType, 44100, keyVal)
                 {
                     BaseFrequency = BaseFrequency,
                     AttackSeconds = Attack,
                     DecaySeconds = Decay,
                     SustainLevel = Sustain,
                     ReleaseSeconds = Release,
+                    LfoFrequency = 5.0,
+                    LfoGain = 0.2,
                 };
 
-                _mixer.AddMixerInput(new LowPassFilterSampleProvider(_oscillators[keyVal]));
-                //_mixer.AddMixerInput(_oscillators[keyVal]);
+                _mixer.AddMixerInput(EnableLpf 
+                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[keyVal]) 
+                    : _oscillators[keyVal]);
             }
         }
 
@@ -77,15 +82,16 @@ namespace synthesizer
                 Volume = 0.25f,
             };
 
-            _tremolo = new TremoloSampleProvider(_volControl);
+            _tremolo = new TremoloSampleProvider(_volControl, 5, 0.0f);
             _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _tremolo);
-            //_fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _volControl);
 
             Volume = 0.25;
             Attack = 0.01f;
             Decay = 0.01f;
             Sustain = 1.0f;
             Release = 0.3f;
+            CutOff = 4000;
+            Q = 0.7f;
         }
 
         // Property events
@@ -97,12 +103,12 @@ namespace synthesizer
 
         partial void Changed_Attack(float prev, float current)
         {
-            AttackLabel = $"{(int)(Attack * 100.0)} ms";
+            AttackLabel = $"{(int)(Attack * 1000.0)} ms";
         }
 
         partial void Changed_Decay(float prev, float current)
         {
-            DecayLabel = $"{(int)(Decay * 100.0)} ms";
+            DecayLabel = $"{(int)(Decay * 1000.0)} ms";
         }
 
         partial void Changed_Sustain(float prev, float current)
@@ -112,7 +118,17 @@ namespace synthesizer
 
         partial void Changed_Release(float prev, float current)
         {
-            ReleaseLabel = $"{(int)(Release * 100.0)} ms";
+            ReleaseLabel = $"{(int)(Release * 1000.0)} ms";
+        }
+
+        partial void Changed_CutOff(int prev, int current)
+        {
+            CutOffLabel = $"{CutOff} Hz";
+        }
+
+        partial void Changed_Q(float prev, float current)
+        {
+            QLabel = $"{((int)(Q * 100.0f))/ 100.0f}";
         }
 
         // Command events

@@ -10,7 +10,7 @@ namespace synthesizer
         private int _sampleRate;
         private readonly int _note;
         private readonly double _twelfthRootOfTwo = Math.Pow(2, 1.0 / 12.0);
-        private readonly SignalGenerator _source;
+        private readonly SynthSignalGenerator _source;
         private readonly EnvelopeGenerator _adsr;
         public WaveFormat WaveFormat { get; }
 
@@ -76,6 +76,32 @@ namespace synthesizer
         //` <formula f_n = f_0 \cdot (\sqrt[12]{2})^n >
         //`
         public double Frequency => BaseFrequency * Math.Pow(_twelfthRootOfTwo, _note);
+        private double lfoFrequency;
+        public double LfoFrequency
+        {
+            get
+            {
+                return lfoFrequency;
+            }
+            set
+            {
+                lfoFrequency = value;
+                _source.LfoFrequency = value;
+            }
+        }
+        private double lfoGain;
+        public double LfoGain
+        {
+            get
+            {
+                return lfoGain;
+            }
+            set
+            {
+                lfoGain = value;
+                _source.LfoGain = value;
+            }
+        }
 
         public SynthWaveProvider(SignalGeneratorType waveType = SignalGeneratorType.Sin,
             int sampleRate = 44100, int note = 0)
@@ -92,7 +118,7 @@ namespace synthesizer
             SustainLevel = 1.0f;
             ReleaseSeconds = 0.3f;
 
-            _source = new SignalGenerator(_sampleRate, channels)
+            _source = new SynthSignalGenerator(_sampleRate, channels)
             {
                 Frequency = Frequency,
                 Type = waveType,
