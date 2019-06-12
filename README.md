@@ -27,6 +27,10 @@ Added a GUI octave selector and had initial stab at making the keyboard polyphon
 
 Merged a PR that added a spectrum analyser and waveform visualizer to the GUI. Moved from wavetables to signal generators in the `SynthWaveProvider` class, and implemented ADSR envelopes to shape the sound profile of notes. Finally, created a low pass filter and a tremolo effect for the synthesizer. The GUI elements of these latter were left for another stream.
 
+#### Episode 37
+
+Tidied up the GUI, adding wave form selection and realtime controls for the low pass filter. Also developed LFO frequency modulation in order to add a vibrato effect to notes. No GUI controls for the vibrato are planned, as the feature will form part of the instrument/voice presets concept I wan to develop for the project (although this may change!).
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
