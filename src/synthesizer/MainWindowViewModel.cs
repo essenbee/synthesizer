@@ -44,7 +44,7 @@ namespace synthesizer
                 };
 
                 _mixer.AddMixerInput(EnableLpf 
-                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[keyVal]) 
+                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[keyVal], CutOff, Q) 
                     : _oscillators[keyVal]);
             }
         }
