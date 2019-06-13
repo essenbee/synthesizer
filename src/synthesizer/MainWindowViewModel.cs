@@ -85,6 +85,7 @@ namespace synthesizer
             _tremolo = new TremoloSampleProvider(_volControl, 5, 0.0f);
             _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _tremolo);
 
+            WaveType = SignalGeneratorType.Sin;
             Volume = 0.25;
             Attack = 0.01f;
             Decay = 0.01f;

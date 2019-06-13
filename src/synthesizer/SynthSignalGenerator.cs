@@ -1,8 +1,6 @@
 ﻿using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace synthesizer
 {
@@ -52,6 +50,11 @@ namespace synthesizer
             //`
             //` <formula S_n = A_l \cdot sin(\frac{2\pi \cdot f_l \cdot n}{sr})>
             //`
+            if (LfoGain == 0.0)
+            {
+                return 0.0;
+            }
+
             var multiple = TwoPi * LfoFrequency / waveFormat.SampleRate;
             return LfoGain * Math.Sin(n * multiple);
         }
@@ -86,8 +89,8 @@ namespace synthesizer
 
                         // Square Generator
 
-                        multiple = 2 * Frequency / waveFormat.SampleRate;
-                        sampleSaw = ((nSample * multiple + lfoSample(nSample)) % 2) - 1;
+                        multiple = TwoPi * Frequency / waveFormat.SampleRate;
+                        sampleSaw = Math.Sin(nSample * multiple + lfoSample(nSample));
                         sampleValue = sampleSaw > 0 ? Gain : -Gain;
 
                         nSample++;
@@ -97,14 +100,8 @@ namespace synthesizer
 
                         // Triangle Generator
 
-                        multiple = 2 * Frequency / waveFormat.SampleRate;
-                        sampleSaw = ((nSample * multiple + lfoSample(nSample)) % 2);
-                        sampleValue = 2 * sampleSaw;
-                        if (sampleValue > 1)
-                            sampleValue = 2 - sampleValue;
-                        if (sampleValue < -1)
-                            sampleValue = -2 - sampleValue;
-
+                        multiple = TwoPi * Frequency / waveFormat.SampleRate;
+                        sampleValue = Math.Asin(Math.Sin(nSample * multiple + lfoSample(nSample))) * (2.0 / Math.PI);
                         sampleValue *= Gain;
 
                         nSample++;

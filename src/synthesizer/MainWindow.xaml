@@ -131,7 +131,7 @@
                 Square
             </RadioButton>
             <RadioButton
-                x:Name="Triange"
+                x:Name="Triangle"
                 Margin="5"
                 VerticalAlignment="Center"
                 Checked="SetWaveform"
