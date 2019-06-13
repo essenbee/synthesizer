@@ -40,11 +40,11 @@ namespace synthesizer
 
         private void SetWaveform(object sender, RoutedEventArgs e)
         {
-            var octaveSel = sender as RadioButton;
+            var selector = sender as RadioButton;
 
             if (_viewModel != null)
             {
-                switch (octaveSel.Name)
+                switch (selector.Name)
                 {
                     case "Sine":
                         _viewModel.WaveType = SignalGeneratorType.Sin;
@@ -90,6 +90,53 @@ namespace synthesizer
             if (_viewModel != null)
             {
                 _viewModel.EnableLpf = false;
+            }
+        }
+
+        private void SubOscillator_Checked(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel != null)
+            {
+                _viewModel.EnableSubOsc = true;
+            }
+        }
+
+        private void SubOscillator_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel != null)
+            {
+                _viewModel.EnableSubOsc = false;
+            }
+        }
+
+        private void Vibrato_Checked(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel != null)
+            {
+                _viewModel.EnableVibrato = true;
+            }
+        }
+
+        private void Vibrato_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel != null)
+            {
+                _viewModel.EnableVibrato = false;
+            }
+        }
+         private void Tremolo_Checked(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel != null)
+            {
+                _viewModel.TremoloGain = 0.2f;
+            }
+        }
+
+        private void Tremolo_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel != null)
+            {
+                _viewModel.TremoloGain = 0.0f;
             }
         }
     }

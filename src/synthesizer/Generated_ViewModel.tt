@@ -24,6 +24,10 @@ using System.Windows.Threading;
 	  P ("string"     , "CutOffLabel"         ),
 	  P ("float"      , "Q"                   ),
 	  P ("string"     , "QLabel"              ),
+	  P ("int"        , "TremoloFreq"         ),
+	  P ("string"     , "TremoloFreqLabel"    ),
+	  P ("float"      , "TremoloGain"         ),
+	  P ("string"     , "TremoloGainLabel"    ),
     };
 
   var commands = new []

@@ -26,6 +26,8 @@ namespace synthesizer
         public double BaseFrequency { get; set; } = 110.0;
         public SignalGeneratorType WaveType { get; set; } = SignalGeneratorType.Sin;
         public bool EnableLpf { get; set; }
+        public bool EnableSubOsc { get; set; }
+        public bool EnableVibrato { get; set; }
 
         public void KeyDown(KeyEventArgs e)
         {
@@ -40,7 +42,8 @@ namespace synthesizer
                     SustainLevel = Sustain,
                     ReleaseSeconds = Release,
                     LfoFrequency = 5.0,
-                    LfoGain = 0.2,
+                    LfoGain = EnableVibrato ? 0.2 : 0.0,
+                    EnableSubOsc = EnableSubOsc,
                 };
 
                 _mixer.AddMixerInput(EnableLpf 
@@ -82,7 +85,7 @@ namespace synthesizer
                 Volume = 0.25f,
             };
 
-            _tremolo = new TremoloSampleProvider(_volControl, 5, 0.0f);
+            _tremolo = new TremoloSampleProvider(_volControl, TremoloFreq, TremoloGain);
             _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _tremolo);
 
             WaveType = SignalGeneratorType.Sin;
@@ -93,6 +96,7 @@ namespace synthesizer
             Release = 0.3f;
             CutOff = 4000;
             Q = 0.7f;
+            TremoloFreq = 5;
         }
 
         // Property events
@@ -130,6 +134,30 @@ namespace synthesizer
         partial void Changed_Q(float prev, float current)
         {
             QLabel = $"{((int)(Q * 100.0f))/ 100.0f}";
+        }
+
+        partial void Changed_TremoloFreq(int prev, int current)
+        {
+            TremoloFreqLabel = $"{TremoloFreq} Hz";
+
+            if (_tremolo != null)
+            {
+                _tremolo.LfoFrequency = TremoloFreq; ;
+                _tremolo.UpdateLowFrequencyOscillator();
+            }
+        }
+
+        partial void Changed_TremoloGain(float prev, float current)
+        {
+            TremoloGainLabel = (TremoloGain > 0.0f)
+                ? $"{TremoloGain * 100.0f}%"
+                : "0%";
+
+            if (_tremolo != null)
+            {
+                _tremolo.LfoGain = TremoloGain;
+                _tremolo.UpdateLowFrequencyOscillator();
+            }
         }
 
         // Command events

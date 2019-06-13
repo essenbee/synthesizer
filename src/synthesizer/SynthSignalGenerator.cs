@@ -24,13 +24,17 @@ namespace synthesizer
         public double SweepLengthSecs { get; set; }
         public double LfoFrequency { get; set; }
         public double LfoGain { get; set; }
+        public bool EnableSubOsc { get; set; }
+
+        public double SubOscillaorFrequency => Frequency / 2.0;
 
         public SynthSignalGenerator() : this(44100, 2)
         {
 
         }
 
-        public SynthSignalGenerator(int sampleRate, int channel, double lfoFrequency = 0.0, double lfoGain = 0.0)
+        public SynthSignalGenerator(int sampleRate, int channel,
+            double lfoFrequency = 0.0, double lfoGain = 0.0)
         {
             phi = 0;
             waveFormat = WaveFormat.CreateIeeeFloatWaveFormat(sampleRate, channel);
@@ -78,10 +82,21 @@ namespace synthesizer
                         // Sinus Generator
 
                         multiple = TwoPi * Frequency / waveFormat.SampleRate;
-                        sampleValue = Gain * Math.Sin(nSample * multiple + lfoSample(nSample));
+
+                        if (EnableSubOsc)
+                        {
+                            var subOsc = Math.Sin(nSample * (TwoPi * SubOscillaorFrequency / waveFormat.SampleRate)
+                                + lfoSample(nSample));
+                            sampleValue = Gain * Math.Sin(nSample * multiple + lfoSample(nSample)
+                                + (0.5 * Gain * subOsc));
+                        }
+                        else
+                        {
+                            sampleValue = Gain * Math.Sin(nSample * multiple + lfoSample(nSample));
+                        }
 
                         nSample++;
-
+                        
                         break;
 
 

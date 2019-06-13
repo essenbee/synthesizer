@@ -6,18 +6,28 @@ namespace synthesizer
     public class TremoloSampleProvider : ISampleProvider
     {
         private readonly ISampleProvider _source;
-        private readonly SignalGenerator _lfo;
-        
+        private SignalGenerator _lfo;
+
+        public int LfoFrequency { get; set; }
+        public float LfoGain { get; set; }
+
         public WaveFormat WaveFormat => _source.WaveFormat;
 
         public TremoloSampleProvider(ISampleProvider source, int lfoFrequency = 5, float lfoAmplitude = 0.2f)
         {
             _source = source;
-            _lfo = new SignalGenerator(source.WaveFormat.SampleRate, source.WaveFormat.Channels)
+            LfoFrequency = lfoFrequency;
+            LfoGain = LfoGain;
+            UpdateLowFrequencyOscillator();
+        }
+
+        public void UpdateLowFrequencyOscillator()
+        {
+            _lfo = new SignalGenerator(_source.WaveFormat.SampleRate, _source.WaveFormat.Channels)
             {
                 Type = SignalGeneratorType.Sin,
-                Frequency = lfoFrequency,
-                Gain = lfoAmplitude,
+                Frequency = LfoFrequency,
+                Gain = LfoGain,
             };
         }
 

@@ -13,6 +13,22 @@ namespace synthesizer
         private readonly SynthSignalGenerator _source;
         private readonly EnvelopeGenerator _adsr;
         public WaveFormat WaveFormat { get; }
+        private bool enableSubOsc;
+        public bool EnableSubOsc
+        {
+            get
+            {
+                return enableSubOsc;
+            }
+            set
+            {
+                enableSubOsc = value;
+                if (_source != null)
+                {
+                    _source.EnableSubOsc = value;
+                }
+            }
+        }
 
         private float attackSeconds;
         public float AttackSeconds

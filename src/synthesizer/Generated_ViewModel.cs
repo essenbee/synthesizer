@@ -574,6 +574,146 @@ namespace synthesizer
         // END_PROPERTY: QLabel (string)
         // --------------------------------------------------------------------
 
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: TremoloFreq (int)
+        // --------------------------------------------------------------------
+        int _TremoloFreq = default;
+
+        void Raise_TremoloFreq ()
+        {
+          OnPropertyChanged ("TremoloFreq");
+        }
+
+        public int TremoloFreq
+        {
+            get { return _TremoloFreq; }
+            set
+            {
+                if (_TremoloFreq == value)
+                {
+                    return;
+                }
+
+                var prev = _TremoloFreq;
+
+                _TremoloFreq = value;
+
+                Changed_TremoloFreq (prev, _TremoloFreq);
+
+                Raise_TremoloFreq ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_TremoloFreq (int prev, int current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: TremoloFreq (int)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: TremoloFreqLabel (string)
+        // --------------------------------------------------------------------
+        string _TremoloFreqLabel = default;
+
+        void Raise_TremoloFreqLabel ()
+        {
+          OnPropertyChanged ("TremoloFreqLabel");
+        }
+
+        public string TremoloFreqLabel
+        {
+            get { return _TremoloFreqLabel; }
+            set
+            {
+                if (_TremoloFreqLabel == value)
+                {
+                    return;
+                }
+
+                var prev = _TremoloFreqLabel;
+
+                _TremoloFreqLabel = value;
+
+                Changed_TremoloFreqLabel (prev, _TremoloFreqLabel);
+
+                Raise_TremoloFreqLabel ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_TremoloFreqLabel (string prev, string current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: TremoloFreqLabel (string)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: TremoloGain (float)
+        // --------------------------------------------------------------------
+        float _TremoloGain = default;
+
+        void Raise_TremoloGain ()
+        {
+          OnPropertyChanged ("TremoloGain");
+        }
+
+        public float TremoloGain
+        {
+            get { return _TremoloGain; }
+            set
+            {
+                if (_TremoloGain == value)
+                {
+                    return;
+                }
+
+                var prev = _TremoloGain;
+
+                _TremoloGain = value;
+
+                Changed_TremoloGain (prev, _TremoloGain);
+
+                Raise_TremoloGain ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_TremoloGain (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: TremoloGain (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: TremoloGainLabel (string)
+        // --------------------------------------------------------------------
+        string _TremoloGainLabel = default;
+
+        void Raise_TremoloGainLabel ()
+        {
+          OnPropertyChanged ("TremoloGainLabel");
+        }
+
+        public string TremoloGainLabel
+        {
+            get { return _TremoloGainLabel; }
+            set
+            {
+                if (_TremoloGainLabel == value)
+                {
+                    return;
+                }
+
+                var prev = _TremoloGainLabel;
+
+                _TremoloGainLabel = value;
+
+                Changed_TremoloGainLabel (prev, _TremoloGainLabel);
+
+                Raise_TremoloGainLabel ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_TremoloGainLabel (string prev, string current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: TremoloGainLabel (string)
+        // --------------------------------------------------------------------
+
 
         // --------------------------------------------------------------------
         // BEGIN_COMMAND: OnCommand
