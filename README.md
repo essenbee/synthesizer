@@ -29,7 +29,7 @@ Merged a PR that added a spectrum analyser and waveform visualizer to the GUI. M
 
 #### Episode 37
 
-Tidied up the GUI, adding wave form selection and realtime controls for the low pass filter. Also developed LFO frequency modulation in order to add a vibrato effect to notes. No GUI controls for the vibrato are planned, as the feature will form part of the instrument/voice presets concept I wan to develop for the project (although this may change!).
+Tidied up the GUI, adding wave form selection and realtime controls for the low pass filter. Also developed LFO frequency modulation in order to add a vibrato effect to notes. No GUI controls for the vibrato are planned, as the feature will form part of the instrument/voice presets concept I want to develop for the project (although this may change!).
 
 #### Episode 38
 
