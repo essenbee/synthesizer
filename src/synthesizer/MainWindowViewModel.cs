@@ -21,6 +21,7 @@ namespace synthesizer
         private MixingSampleProvider _mixer;
         private FFTSampleProvider _fftProvider;
         private TremoloSampleProvider _tremolo;
+        private ChorusSampleProvider _chorus;
         private IWavePlayer _player;
 
         public double BaseFrequency { get; set; } = 110.0;
@@ -86,7 +87,8 @@ namespace synthesizer
             };
 
             _tremolo = new TremoloSampleProvider(_volControl, TremoloFreq, TremoloGain);
-            _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _tremolo);
+            _chorus = new ChorusSampleProvider(_tremolo);
+            _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _chorus);
 
             WaveType = SignalGeneratorType.Sin;
             Volume = 0.25;
