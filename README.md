@@ -35,6 +35,8 @@ Tidied up the GUI, adding wave form selection and realtime controls for the low 
 
 Added Sub-oscillator for sine wave and GUI controls for Vibrato and Tremolo.
 
+![image](https://user-images.githubusercontent.com/7979108/59459025-bb55dc80-8e13-11e9-81ed-5b924b92dc20.png)
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
