@@ -714,6 +714,76 @@ namespace synthesizer
         // END_PROPERTY: TremoloGainLabel (string)
         // --------------------------------------------------------------------
 
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: TremoloFreqMult (int)
+        // --------------------------------------------------------------------
+        int _TremoloFreqMult = default;
+
+        void Raise_TremoloFreqMult ()
+        {
+          OnPropertyChanged ("TremoloFreqMult");
+        }
+
+        public int TremoloFreqMult
+        {
+            get { return _TremoloFreqMult; }
+            set
+            {
+                if (_TremoloFreqMult == value)
+                {
+                    return;
+                }
+
+                var prev = _TremoloFreqMult;
+
+                _TremoloFreqMult = value;
+
+                Changed_TremoloFreqMult (prev, _TremoloFreqMult);
+
+                Raise_TremoloFreqMult ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_TremoloFreqMult (int prev, int current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: TremoloFreqMult (int)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: TremoloFreqMultLabel (string)
+        // --------------------------------------------------------------------
+        string _TremoloFreqMultLabel = default;
+
+        void Raise_TremoloFreqMultLabel ()
+        {
+          OnPropertyChanged ("TremoloFreqMultLabel");
+        }
+
+        public string TremoloFreqMultLabel
+        {
+            get { return _TremoloFreqMultLabel; }
+            set
+            {
+                if (_TremoloFreqMultLabel == value)
+                {
+                    return;
+                }
+
+                var prev = _TremoloFreqMultLabel;
+
+                _TremoloFreqMultLabel = value;
+
+                Changed_TremoloFreqMultLabel (prev, _TremoloFreqMultLabel);
+
+                Raise_TremoloFreqMultLabel ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_TremoloFreqMultLabel (string prev, string current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: TremoloFreqMultLabel (string)
+        // --------------------------------------------------------------------
+
 
         // --------------------------------------------------------------------
         // BEGIN_COMMAND: OnCommand

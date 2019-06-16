@@ -87,8 +87,8 @@ namespace synthesizer
             };
 
             _tremolo = new TremoloSampleProvider(_volControl, TremoloFreq, TremoloGain);
-            _chorus = new ChorusSampleProvider(_tremolo);
-            _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _chorus);
+            //_chorus = new ChorusSampleProvider(_tremolo);
+            _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _tremolo);
 
             WaveType = SignalGeneratorType.Sin;
             Volume = 0.25;
@@ -99,6 +99,7 @@ namespace synthesizer
             CutOff = 4000;
             Q = 0.7f;
             TremoloFreq = 5;
+            TremoloFreqMult = 1;
         }
 
         // Property events
@@ -140,11 +141,23 @@ namespace synthesizer
 
         partial void Changed_TremoloFreq(int prev, int current)
         {
-            TremoloFreqLabel = $"{TremoloFreq} Hz";
+            TremoloFreqLabel = $"{TremoloFreqMult * TremoloFreq} Hz";
 
             if (_tremolo != null)
             {
-                _tremolo.LfoFrequency = TremoloFreq; ;
+                _tremolo.LfoFrequency = TremoloFreqMult * TremoloFreq; ;
+                _tremolo.UpdateLowFrequencyOscillator();
+            }
+        }
+
+        partial void Changed_TremoloFreqMult(int prev, int current)
+        {
+            TremoloFreqLabel = $"{TremoloFreqMult * TremoloFreq} Hz";
+            TremoloFreqMultLabel = $"x{TremoloFreqMult}";
+
+            if (_tremolo != null)
+            {
+                _tremolo.LfoFrequency = TremoloFreqMult * TremoloFreq; ;
                 _tremolo.UpdateLowFrequencyOscillator();
             }
         }

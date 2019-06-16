@@ -28,6 +28,8 @@ using System.Windows.Threading;
 	  P ("string"     , "TremoloFreqLabel"    ),
 	  P ("float"      , "TremoloGain"         ),
 	  P ("string"     , "TremoloGainLabel"    ),
+	  P ("int"        , "TremoloFreqMult"     ),
+	  P ("string"     , "TremoloFreqMultLabel"),
     };
 
   var commands = new []

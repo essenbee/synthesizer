@@ -299,28 +299,46 @@
         <StackPanel Orientation="Horizontal"
                     Grid.Column="3"
                     Grid.Row="4">
-            <Label Content="Tremolo"
+            <Label Content="Tremolo/AM"
                    FontWeight="Bold"
-                   Margin="15,0,0,0"/>
+                   Margin="0,0,0,0"/>
             <Label Content="Freq."
-                   Margin="15,0,0,0"/>
+                   Margin="10,0,0,0"/>
             <Label Content="Gain"
                    Margin="15,0,0,0"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal"
                     Grid.Column="3"
                     Grid.Row="5">
-            <CheckBox Name="Tremolo"
+            <StackPanel Orientation="Vertical">
+                <CheckBox Name="Tremolo"
                       Checked="Tremolo_Checked"
                       Unchecked="Tremolo_Unchecked"
                       VerticalAlignment="Top"
-                      Margin="20,0,0,0">
-                Enable
-            </CheckBox>
+                      Margin="5,0,0,0">
+                    Enable
+                </CheckBox>
+                <Label Content="x Freq."
+                   Margin="5,0,0,0"/>
+                <Slider
+                Margin="15,0,10,0"
+                    Value="{Binding TremoloFreqMult}"
+                Height="120"
+                Maximum="50"
+                Minimum="1"
+                Orientation="Vertical"
+                TickPlacement="TopLeft"
+                Ticks="1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50"
+                IsSnapToTickEnabled="True"/>
+                <Label Content="{Binding TremoloFreqMultLabel}"
+                   Height="30"
+                   Width="30"
+                   Margin="2,0,0,0"/>
+            </StackPanel>
             <Slider
-                Margin="12,0,10,0"
+                Margin="40,0,10,0"
                 Value="{Binding TremoloFreq}"
-                Maximum="10"
+                Maximum="20"
                 Minimum="1"
                 Orientation="Vertical"
                 TickPlacement="TopLeft"
@@ -341,8 +359,8 @@
                     Grid.Row="6">
             <Label Content="{Binding TremoloFreqLabel}"
                    Height="30"
-                   Width="40"
-                   Margin="90,0,0,0"/>
+                   Width="60"
+                   Margin="80,0,0,0"/>
             <Label Content="{Binding TremoloGainLabel}"
                    Height="30"
                    Width="40"
