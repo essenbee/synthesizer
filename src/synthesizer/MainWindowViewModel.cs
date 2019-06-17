@@ -22,6 +22,8 @@ namespace synthesizer
         private FFTSampleProvider _fftProvider;
         private TremoloSampleProvider _tremolo;
         private ChorusSampleProvider _chorus;
+        private PhaserSampleProvider _phaser;
+        private LowPassFilterSampleProvider _lpf;
         private IWavePlayer _player;
 
         public double BaseFrequency { get; set; } = 110.0;
@@ -88,7 +90,9 @@ namespace synthesizer
 
             _tremolo = new TremoloSampleProvider(_volControl, TremoloFreq, TremoloGain);
             _chorus = new ChorusSampleProvider(_tremolo);
-            _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _chorus);
+            _phaser = new PhaserSampleProvider(_chorus);
+            _lpf = new LowPassFilterSampleProvider(_phaser, 20000);
+            _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _lpf);
 
             WaveType = SignalGeneratorType.Sin;
             Volume = 0.25;
@@ -100,6 +104,15 @@ namespace synthesizer
             Q = 0.7f;
             TremoloFreq = 5;
             TremoloFreqMult = 1;
+            ChorusDelay = 0.0f;
+            ChorusSweep = 0.0f;
+            ChorusWidth = 0.0f;
+            PhaserDry = 0.0f;
+            PhaserWet = 0.0f;
+            PhaserFeedback = 0.0f;
+            PhaserFreq = 0.0f;
+            PhaserWidth = 0.0f;
+            PhaserSweep = 0.0f;
         }
 
         // Property events
@@ -160,6 +173,49 @@ namespace synthesizer
             if (_chorus != null)
             {
                 _chorus.Delay = ChorusDelay;
+            }
+        }
+
+        partial void Changed_PhaserDry(float prev, float current)
+        {
+            if (_phaser != null)
+            {
+                _phaser.DryMix = PhaserDry;
+            }
+        }
+        partial void Changed_PhaserWet(float prev, float current)
+        {
+            if (_phaser != null)
+            {
+                _phaser.WetMix = PhaserWet;
+            }
+        }
+        partial void Changed_PhaserFeedback(float prev, float current)
+        {
+            if (_phaser != null)
+            {
+                _phaser.Feedback = PhaserFeedback;
+            }
+        }
+        partial void Changed_PhaserFreq(float prev, float current)
+        {
+            if (_phaser != null)
+            {
+                _phaser.BottomFrequency = PhaserFreq;
+            }
+        }
+        partial void Changed_PhaserWidth(float prev, float current)
+        {
+            if (_phaser != null)
+            {
+                _phaser.Width = PhaserWidth;
+            }
+        }
+        partial void Changed_PhaserSweep(float prev, float current)
+        {
+            if (_phaser != null)
+            {
+                _phaser.SweepRate = PhaserSweep;
             }
         }
 

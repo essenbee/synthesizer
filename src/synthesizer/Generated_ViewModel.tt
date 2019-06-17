@@ -23,6 +23,13 @@ using System.Windows.Threading;
 	  LP("float"      , "ChorusWidth"         , @"$""{ChorusWidth}"""                         ),
       LP("float"      , "ChorusSweep"         , @"$""{ChorusSweep}"""                         ),
       LP("float"      , "ChorusDelay"         , @"$""{ChorusDelay}"""                         ),
+
+	  LP("float"      , "PhaserDry"           , @"$""{PhaserDry}"""                         ),
+      LP("float"      , "PhaserWet"           , @"$""{PhaserWet}"""                         ),
+	  LP("float"      , "PhaserFeedback"      , @"$""{PhaserFeedback}"""                         ),
+	  LP("float"      , "PhaserFreq"          , @"$""{PhaserFreq}"""                         ),
+	  LP("float"      , "PhaserWidth"         , @"$""{PhaserWidth}"""                         ),
+	  LP("float"      , "PhaserSweep"         , @"$""{PhaserSweep}"""                         ),
     };
 
   var commands = new []

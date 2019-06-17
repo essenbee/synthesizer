@@ -70,12 +70,6 @@ namespace synthesizer
         public ChorusSampleProvider(ISampleProvider source)
         {
             _source = source;
-
-            // Defaults
-            SweepRate = 0.2f; // 0.0 to 1.0
-            Width = 0.3f;     // 0.0 to 1.0; 0.0 means effect is off
-            Delay = 0.2f;     // 0.0 to 1.0
-
             SetSweep();
         }
 

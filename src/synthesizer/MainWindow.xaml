@@ -7,8 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1600"
     Height="700"
-    Background="LightGray"
     mc:Ignorable="d"
+    Background="LightGray"
     Title="Synthesizer">
 
     <Window.LayoutTransform>
@@ -17,441 +17,559 @@
 
     <TabControl>
         <TabItem Header="Main Voice">
-            
-
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="55" />
-            <ColumnDefinition Width="380" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-            <RowDefinition Height="100" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="200" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Label
-            Grid.Row="2"
-            Grid.Column="0"
-            Margin="5"
-            HorizontalAlignment="Right"
-            Content="Volume:"
-            FontWeight="Bold" />
-        <Slider
-            Grid.Row="2"
-            Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Margin="5"
-            VerticalAlignment="Center"
-            Value="{Binding Volume}"
-            Maximum="1"
-            Minimum="0"
-            Orientation="Horizontal" />
-        <Label
-            Grid.Row="2"
-            Grid.Column="3"
-            Width="40"
-            Margin="5"
-            HorizontalAlignment="Left"
-            Content="{Binding VolumeLabel}" />
-        <StackPanel
-            Grid.Row="3"
-            Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Margin="5"
-            Orientation="Horizontal">
-            <Label
-                Margin="5"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Content="Octave:"
-                FontWeight="Bold" />
-            <RadioButton
-                x:Name="A2"
-                Margin="5"
-                VerticalAlignment="Center"
-                Checked="SetOctave"
-                GroupName="Octave"
-                IsChecked="true">
-                A2
-            </RadioButton>
-            <RadioButton
-                x:Name="A3"
-                Margin="5"
-                VerticalAlignment="Center"
-                Checked="SetOctave"
-                GroupName="Octave">
-                A3
-            </RadioButton>
-            <RadioButton
-                x:Name="A4"
-                Margin="5"
-                VerticalAlignment="Center"
-                Checked="SetOctave"
-                GroupName="Octave">
-                A4
-            </RadioButton>
-        </StackPanel>
-        <StackPanel
-            Grid.Row="3"
-            Grid.Column="3"
-            Orientation="Horizontal">
-            <Label
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Content="Waveform"
-                FontWeight="Bold" />
-            <RadioButton
-                x:Name="Sine"
-                Margin="5"
-                VerticalAlignment="Center"
-                Checked="SetWaveform"
-                GroupName="Waveform"
-                IsChecked="true">
-                Sine
-            </RadioButton>
-            <RadioButton
-                x:Name="SawTooth"
-                Margin="5"
-                VerticalAlignment="Center"
-                Checked="SetWaveform"
-                GroupName="Waveform">
-                SawTooth
-            </RadioButton>
-            <RadioButton
-                x:Name="Square"
-                Margin="5"
-                VerticalAlignment="Center"
-                Checked="SetWaveform"
-                GroupName="Waveform">
-                Square
-            </RadioButton>
-            <RadioButton
-                x:Name="Triangle"
-                Margin="5"
-                VerticalAlignment="Center"
-                Checked="SetWaveform"
-                GroupName="Waveform">
-                Triange
-            </RadioButton>
-            <RadioButton
-                x:Name="White"
-                Margin="5"
-                VerticalAlignment="Center"
-                Checked="SetWaveform"
-                GroupName="Waveform">
-                White Noise
-            </RadioButton>
-
-        </StackPanel>
-        <Label
-            Grid.Row="3"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Content="Envelope ADSR"
-            FontWeight="Bold" />
-        <StackPanel Grid.Row="4" Orientation="Horizontal">
-            <Label
-                Width="50"
-                Height="25"
-                Margin="15,0,5,0"
-                Content="Attack" />
-            <Label
-                Width="50"
-                Height="25"
-                Margin="5,0,5,0"
-                Content="Decay" />
-            <Label
-                Width="50"
-                Height="25"
-                Margin="5,0,5,0"
-                Content="Sustain" />
-            <Label
-                Width="50"
-                Height="25"
-                Margin="5,0,5,0"
-                Content="Release" />
-        </StackPanel>
-        <StackPanel Grid.Row="5" Orientation="Horizontal">
-            <Slider
-                Margin="30,0,10,0"
-                Value="{Binding Attack}"
-                Maximum="2.0"
-                Minimum="0.0"
-                Orientation="Vertical" />
-            <Slider
-                Margin="30,0,10,0"
-                Value="{Binding Decay}"
-                Maximum="2.0"
-                Minimum="0.0"
-                Orientation="Vertical" />
-            <Slider
-                Margin="30,0,10,0"
-                Value="{Binding Sustain}"
-                Maximum="1.0"
-                Minimum="0.0"
-                Orientation="Vertical" />
-            <Slider
-                Margin="30,0,10,0"
-                Value="{Binding Release}"
-                Maximum="2.0"
-                Minimum="0.0"
-                Orientation="Vertical" />
-        </StackPanel>
-        <StackPanel Grid.Row="6" Orientation="Horizontal">
-            <Label
-                Width="55"
-                Height="25"
-                Margin="5,0,0,0"
-                Content="{Binding AttackLabel}" />
-            <Label
-                Width="55"
-                Height="25"
-                Margin="5,0,0,0"
-                Content="{Binding DecayLabel}" />
-            <Label
-                Width="55"
-                Height="25"
-                Margin="5,0,0,0"
-                Content="{Binding SustainLabel}" />
-            <Label
-                Width="55"
-                Height="25"
-                Margin="3,0,0,0"
-                Content="{Binding ReleaseLabel}" />
-        </StackPanel>
-        
-        <StackPanel Orientation="Horizontal"
-                    Grid.Column="2"
-                    Grid.Row="4">
-        	<Label Content="Low Pass Filter"
-                   FontWeight="Bold"
-                   Margin="15,0,0,0"/>
-            <Label Content="Cut Off"
-                   Margin="15,0,0,0"/>
-            <Label Content="Q"
-                   Margin="15,0,0,0"/>
-            <Label Content="Sub-Osc."
-                   FontWeight="Bold"
-                   Margin="15,0,0,0"/>
-            <Label Content="Vibrato"
-                   FontWeight="Bold"
-                   Margin="15,0,0,0"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    Grid.Column="2"
-                    Grid.Row="5">
-            <CheckBox Name="LowPassFilter"
-                      Checked="LowPassFilter_Checked"
-                      Unchecked="LowPassFilter_Unchecked"
-                      VerticalAlignment="Top"
-                      Margin="20,0,0,0">
-                Enable
-            </CheckBox>
-            <Slider
-                Margin="58,0,10,0"
-                Value="{Binding CutOff}"
-                Maximum="8000"
-                Minimum="1000"
-                Orientation="Vertical"
-                TickPlacement="TopLeft"
-                TickFrequency="200"/>
-            <Slider
-                Margin="12,0,10,0"
-                Value="{Binding Q}"
-                Maximum="1.0"
-                Minimum="0.0"
-                Orientation="Vertical" 
-                TickPlacement="TopLeft"
-                TickFrequency="0.1"/>
-            <CheckBox Name="SubOscillator"
-                      Checked="SubOscillator_Checked"
-                      Unchecked="SubOscillator_Unchecked"
-                      VerticalAlignment="Top"
-                      Margin="12,0,0,0">
-                Enable
-            </CheckBox>
-            <CheckBox Name="Vibrato"
-                      Checked="Vibrato_Checked"
-                      Unchecked="Vibrato_Unchecked"
-                      VerticalAlignment="Top"
-                      Margin="17,0,0,0">
-                Enable
-            </CheckBox>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    Grid.Column="2"
-                    Grid.Row="6">
-        	<Label Content="{Binding CutOffLabel}"
-                   Height="30"
-                   Width="60"
-                   Margin="115,0,0,0"/>
-            <Label Content="{Binding QLabel}"
-                   Height="30"
-                   Width="40"
-                   Margin="10,0,0,0"/>
-        </StackPanel>
-
-        <StackPanel Orientation="Horizontal"
-                    Grid.Column="3"
-                    Grid.Row="4">
-            <Label Content="Tremolo/AM"
-                   FontWeight="Bold"
-                   Margin="0,0,0,0"/>
-            <Label Content="Freq."
-                   Margin="10,0,0,0"/>
-            <Label Content="Gain"
-                   Margin="15,0,0,0"/>
-                    <Label Content="Chorus"
-                   FontWeight="Bold"
-                   Margin="0,0,0,0"/>
-                    <Label Content="Width"
-                   Margin="10,0,0,0"/>
-                    <Label Content="Sweep"
-                   Margin="10,0,0,0"/>
-                    <Label Content="Delay"
-                   Margin="10,0,0,0"/>
-                </StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    Grid.Column="3"
-                    Grid.Row="5">
-            <StackPanel Orientation="Vertical">
-                <CheckBox Name="Tremolo"
-                      Checked="Tremolo_Checked"
-                      Unchecked="Tremolo_Unchecked"
-                      VerticalAlignment="Top"
-                      Margin="5,0,0,0">
-                    Enable
-                </CheckBox>
-                <Label Content="x Freq."
-                   Margin="5,0,0,0"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="55" />
+                    <ColumnDefinition Width="380" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="5"
+                    HorizontalAlignment="Right"
+                    Content="Volume:"
+                    FontWeight="Bold" />
                 <Slider
-                Margin="15,0,10,0"
-                    Value="{Binding TremoloFreqMult}"
-                Height="120"
-                Maximum="50"
-                Minimum="1"
-                Orientation="Vertical"
-                TickPlacement="TopLeft"
-                Ticks="1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50"
-                IsSnapToTickEnabled="True"/>
-                <Label Content="{Binding TremoloFreqMultLabel}"
-                   Height="30"
-                   Width="30"
-                   Margin="2,0,0,0"/>
-            </StackPanel>
-            <Slider
-                Margin="40,0,10,0"
-                Value="{Binding TremoloFreq}"
-                Maximum="20"
-                Minimum="1"
-                Orientation="Vertical"
-                TickPlacement="TopLeft"
-                TickFrequency="1"
-                IsSnapToTickEnabled="True"/>
-            <Slider
-                Margin="17,0,10,0"
-                Value="{Binding TremoloGain}"
-                Maximum="0.5"
-                Minimum="0.0"
-                Orientation="Vertical" 
-                TickPlacement="TopLeft"
-                TickFrequency="0.1"
-                IsSnapToTickEnabled="True"/>
-                    <Slider
-                Margin="
-                        55,0,10,0"
-                Value="{Binding ChorusWidth}"
-                Maximum="1.0"
-                Minimum="0.0"
-                Orientation="Vertical" 
-                TickPlacement="TopLeft"
-                TickFrequency="0.1"
-                IsSnapToTickEnabled="True"/>
-                    <Slider
-                Margin="20,0,10,0"
-                Value="{Binding ChorusSweep}"
-                Maximum="1.0"
-                Minimum="0.0"
-                Orientation="Vertical" 
-                TickPlacement="TopLeft"
-                TickFrequency="0.1"
-                IsSnapToTickEnabled="True"/>
-                    <Slider
-                Margin="15,0,10,0"
-                Value="{Binding ChorusDelay}"
-                Maximum="1.0"
-                Minimum="0.0"
-                Orientation="Vertical" 
-                TickPlacement="TopLeft"
-                TickFrequency="0.1"
-                IsSnapToTickEnabled="True"/>
-                </StackPanel>
-        <StackPanel Orientation="Horizontal"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Margin="5"
+                    VerticalAlignment="Center"
+                    Value="{Binding Volume}"
+                    Maximum="1"
+                    Minimum="0"
+                    Orientation="Horizontal" />
+                <Label
+                    Grid.Row="2"
                     Grid.Column="3"
-                    Grid.Row="6">
-            <Label Content="{Binding TremoloFreqLabel}"
-                   Height="30"
-                   Width="60"
-                   Margin="80,0,0,0"/>
-            <Label Content="{Binding TremoloGainLabel}"
-                   Height="30"
-                   Width="40"
-                   Margin="14,0,0,0"/>
-                    <Label Content="{Binding ChorusWidthLabel}"
-                   Height="30"
-                   Width="40"
-                   Margin="40,0,0,0"/>
-                    <Label Content="{Binding ChorusSweepLabel}"
-                   Height="30"
-                   Width="40"
-                   Margin="15,0,0,0"/>
-                    <Label Content="{Binding ChorusDelayLabel}"
-                   Height="30"
-                   Width="40"
-                   Margin="10,0,0,0"/>
+                    Width="40"
+                    Margin="5"
+                    HorizontalAlignment="Left"
+                    Content="{Binding VolumeLabel}" />
+                <StackPanel
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Margin="5"
+                    Orientation="Horizontal">
+                    <Label
+                        Margin="5"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Content="Octave:"
+                        FontWeight="Bold" />
+                    <RadioButton
+                        x:Name="A2"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Checked="SetOctave"
+                        GroupName="Octave"
+                        IsChecked="true">
+                        A2
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="A3"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Checked="SetOctave"
+                        GroupName="Octave">
+                        A3
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="A4"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Checked="SetOctave"
+                        GroupName="Octave">
+                        A4
+                    </RadioButton>
                 </StackPanel>
+                <StackPanel
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Orientation="Horizontal">
+                    <Label
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Content="Waveform"
+                        FontWeight="Bold" />
+                    <RadioButton
+                        x:Name="Sine"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Checked="SetWaveform"
+                        GroupName="Waveform"
+                        IsChecked="true">
+                        Sine
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="SawTooth"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Checked="SetWaveform"
+                        GroupName="Waveform">
+                        SawTooth
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="Square"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Checked="SetWaveform"
+                        GroupName="Waveform">
+                        Square
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="Triangle"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Checked="SetWaveform"
+                        GroupName="Waveform">
+                        Triangle
+                    </RadioButton>
+                    <RadioButton
+                        x:Name="White"
+                        Margin="5"
+                        VerticalAlignment="Center"
+                        Checked="SetWaveform"
+                        GroupName="Waveform">
+                        White Noise
+                    </RadioButton>
+                </StackPanel>
+                <Label
+                    Grid.Row="3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="Envelope ADSR"
+                    FontWeight="Bold" />
+                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                    <Label
+                        Width="50"
+                        Height="25"
+                        Margin="15,0,5,0"
+                        Content="Attack" />
+                    <Label
+                        Width="50"
+                        Height="25"
+                        Margin="5,0,5,0"
+                        Content="Decay" />
+                    <Label
+                        Width="50"
+                        Height="25"
+                        Margin="5,0,5,0"
+                        Content="Sustain" />
+                    <Label
+                        Width="50"
+                        Height="25"
+                        Margin="5,0,5,0"
+                        Content="Release" />
+                </StackPanel>
+                <StackPanel Grid.Row="5" Orientation="Horizontal">
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding Attack}"
+                        Maximum="2.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding Decay}"
+                        Maximum="2.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding Sustain}"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding Release}"
+                        Maximum="2.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                </StackPanel>
+                <StackPanel Grid.Row="6" Orientation="Horizontal">
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="5,0,0,0"
+                        Content="{Binding AttackLabel}" />
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="5,0,0,0"
+                        Content="{Binding DecayLabel}" />
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="5,0,0,0"
+                        Content="{Binding SustainLabel}" />
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="3,0,0,0"
+                        Content="{Binding ReleaseLabel}" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Orientation="Horizontal">
+                    <Label
+                        Margin="15,0,0,0"
+                        Content="Low Pass Filter"
+                        FontWeight="Bold" />
+                    <Label Margin="15,0,0,0" Content="Cut Off" />
+                    <Label Margin="15,0,0,0" Content="Q" />
+                    <Label
+                        Margin="15,0,0,0"
+                        Content="Sub-Osc."
+                        FontWeight="Bold" />
+                    <Label
+                        Margin="15,0,0,0"
+                        Content="Vibrato"
+                        FontWeight="Bold" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="5"
+                    Grid.Column="2"
+                    Orientation="Horizontal">
+                    <CheckBox
+                        Margin="20,0,0,0"
+                        VerticalAlignment="Top"
+                        Checked="LowPassFilter_Checked"
+                        Name="LowPassFilter"
+                        Unchecked="LowPassFilter_Unchecked">
+                        Enable
+                    </CheckBox>
+                    <Slider
+                        Margin="58,0,10,0"
+                        Value="{Binding CutOff}"
+                        Maximum="8000"
+                        Minimum="1000"
+                        Orientation="Vertical"
+                        TickFrequency="200"
+                        TickPlacement="TopLeft" />
+                    <Slider
+                        Margin="12,0,10,0"
+                        Value="{Binding Q}"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Orientation="Vertical"
+                        TickFrequency="0.1"
+                        TickPlacement="TopLeft" />
+                    <CheckBox
+                        Margin="12,0,0,0"
+                        VerticalAlignment="Top"
+                        Checked="SubOscillator_Checked"
+                        Name="SubOscillator"
+                        Unchecked="SubOscillator_Unchecked">
+                        Enable
+                    </CheckBox>
+                    <CheckBox
+                        Margin="17,0,0,0"
+                        VerticalAlignment="Top"
+                        Checked="Vibrato_Checked"
+                        Name="Vibrato"
+                        Unchecked="Vibrato_Unchecked">
+                        Enable
+                    </CheckBox>
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="6"
+                    Grid.Column="2"
+                    Orientation="Horizontal">
+                    <Label
+                        Width="60"
+                        Height="30"
+                        Margin="115,0,0,0"
+                        Content="{Binding CutOffLabel}" />
+                    <Label
+                        Width="40"
+                        Height="30"
+                        Margin="10,0,0,0"
+                        Content="{Binding QLabel}" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="4"
+                    Grid.Column="3"
+                    Orientation="Horizontal">
+                    <Label
+                        Margin="0,0,0,0"
+                        Content="Tremolo/AM"
+                        FontWeight="Bold" />
+                    <Label Margin="10,0,0,0" Content="Freq." />
+                    <Label Margin="15,0,0,0" Content="Gain" />
+                    <Label
+                        Margin="0,0,0,0"
+                        Content="Chorus"
+                        FontWeight="Bold" />
+                    <Label Margin="10,0,0,0" Content="Width" />
+                    <Label Margin="10,0,0,0" Content="Sweep" />
+                    <Label Margin="10,0,0,0" Content="Delay" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="5"
+                    Grid.Column="3"
+                    Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <CheckBox
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Top"
+                            Checked="Tremolo_Checked"
+                            Name="Tremolo"
+                            Unchecked="Tremolo_Unchecked">
+                            Enable
+                        </CheckBox>
+                        <Label Margin="5,0,0,0" Content="x Freq." />
+                        <Slider
+                            Height="120"
+                            Margin="15,0,10,0"
+                            Value="{Binding TremoloFreqMult}"
+                            IsSnapToTickEnabled="True"
+                            Maximum="50"
+                            Minimum="1"
+                            Orientation="Vertical"
+                            TickPlacement="TopLeft"
+                            Ticks="1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50" />
+                        <Label
+                            Width="30"
+                            Height="30"
+                            Margin="2,0,0,0"
+                            Content="{Binding TremoloFreqMultLabel}" />
+                    </StackPanel>
+                    <Slider
+                        Margin="40,0,10,0"
+                        Value="{Binding TremoloFreq}"
+                        IsSnapToTickEnabled="True"
+                        Maximum="20"
+                        Minimum="1"
+                        Orientation="Vertical"
+                        TickFrequency="1"
+                        TickPlacement="TopLeft" />
+                    <Slider
+                        Margin="17,0,10,0"
+                        Value="{Binding TremoloGain}"
+                        IsSnapToTickEnabled="True"
+                        Maximum="0.5"
+                        Minimum="0.0"
+                        Orientation="Vertical"
+                        TickFrequency="0.1"
+                        TickPlacement="TopLeft" />
+                    <Slider
+                        Margin="
+                        55,0,10,0"
+                        Value="{Binding ChorusWidth}"
+                        IsSnapToTickEnabled="True"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Orientation="Vertical"
+                        TickFrequency="0.1"
+                        TickPlacement="TopLeft" />
+                    <Slider
+                        Margin="20,0,10,0"
+                        Value="{Binding ChorusSweep}"
+                        IsSnapToTickEnabled="True"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Orientation="Vertical"
+                        TickFrequency="0.1"
+                        TickPlacement="TopLeft" />
+                    <Slider
+                        Margin="15,0,10,0"
+                        Value="{Binding ChorusDelay}"
+                        IsSnapToTickEnabled="True"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Orientation="Vertical"
+                        TickFrequency="0.1"
+                        TickPlacement="TopLeft" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="6"
+                    Grid.Column="3"
+                    Orientation="Horizontal">
+                    <Label
+                        Width="60"
+                        Height="30"
+                        Margin="80,0,0,0"
+                        Content="{Binding TremoloFreqLabel}" />
+                    <Label
+                        Width="40"
+                        Height="30"
+                        Margin="14,0,0,0"
+                        Content="{Binding TremoloGainLabel}" />
+                    <Label
+                        Width="40"
+                        Height="30"
+                        Margin="40,0,0,0"
+                        Content="{Binding ChorusWidthLabel}" />
+                    <Label
+                        Width="40"
+                        Height="30"
+                        Margin="15,0,0,0"
+                        Content="{Binding ChorusSweepLabel}" />
+                    <Label
+                        Width="40"
+                        Height="30"
+                        Margin="10,0,0,0"
+                        Content="{Binding ChorusDelayLabel}" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="4"
+                    Grid.Column="4"
+                    Orientation="Horizontal">
+                    <Label
+                        Margin="0,0,0,0"
+                        Content="Phaser"
+                        FontWeight="Bold" />
+                    <Label Margin="10,0,0,0" Content="Dry" />
+                    <Label Margin="10,0,0,0" Content="Wet" />
+                    <Label Margin="10,0,0,0" Content="Feedback" />
+                    <Label Margin="10,0,0,0" Content="Freq." />
+                    <Label Margin="10,0,0,0" Content="Width" />
+                    <Label Margin="10,0,0,0" Content="Sweep" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                    Grid.Row="5"
+                    Grid.Column="4">
+                    <Slider
+                        Margin="55,0,10,0"
+                        Value="{Binding PhaserDry}"
+                        IsSnapToTickEnabled="True"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Orientation="Vertical"
+                        TickFrequency="0.1"
+                        TickPlacement="TopLeft" />
+                    <Slider
+                        Margin="5,0,10,0"
+                        Value="{Binding PhaserWet}"
+                        IsSnapToTickEnabled="True"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Orientation="Vertical"
+                        TickFrequency="0.1"
+                        TickPlacement="TopLeft" />
+                    <Slider
+                        Margin="25,0,10,0"
+                        Value="{Binding PhaserFeedback}"
+                        IsSnapToTickEnabled="True"
+                        Maximum="0.95"
+                        Minimum="0.0"
+                        Orientation="Vertical"
+                        TickFrequency="0.05"
+                        TickPlacement="TopLeft" />
+                    <Slider
+                        Margin="25,0,10,0"
+                        Value="{Binding PhaserFreq}"
+                        IsSnapToTickEnabled="True"
+                        Maximum="150.0"
+                        Minimum="0.0"
+                        Orientation="Vertical"
+                        TickFrequency="10"
+                        TickPlacement="TopLeft" />
+                    <Slider
+                        Margin="15,0,10,0"
+                        Value="{Binding PhaserWidth}"
+                        IsSnapToTickEnabled="True"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Orientation="Vertical"
+                        TickFrequency="0.1"
+                        TickPlacement="TopLeft" />
+                    <Slider
+                        Margin="15,0,10,0"
+                        Value="{Binding PhaserSweep}"
+                        IsSnapToTickEnabled="True"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Orientation="Vertical"
+                        TickFrequency="0.1"
+                        TickPlacement="TopLeft" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                    Grid.Row="6"
+                    Grid.Column="4">
 
-        <StackPanel
-            x:Name="Buttons"
-            Grid.Row="7"
-            Grid.Column="0"
-            Grid.ColumnSpan="4"
-            Margin="5"
-            Orientation="Horizontal">
-            <Button
-                x:Name="On"
-                Width="50"
-                Margin="5"
-                Command="{Binding OnCommand}"
-                Content="On" />
-            <Button
-                x:Name="Off"
-                Width="50"
-                Margin="5"
-                Command="{Binding OffCommand}"
-                Content="Off" />
-        </StackPanel>
-        <local:AmplitudeVisualizer
-            Grid.Row="0"
-            Grid.Column="0"
-            Grid.ColumnSpan="5"
-            Amplitudes ="{Binding FrequencyAmplitudes}" />
-        <local:WaveformVisualizer
-            Grid.Row="1"
-            Grid.Column="0"
-            Grid.ColumnSpan="5"
-            Waveform="{Binding Waveform}" />
-    </Grid>
-
+                    <Label
+                        Width="30"
+                        Height="30"
+                        Margin="55,0,0,0"
+                        Content="{Binding PhaserDryLabel}" />
+                    <Label
+                        Width="30"
+                        Height="30"
+                        Margin="10,0,0,0"
+                        Content="{Binding PhaserWetLabel}" />
+                    <Label
+                        Width="30"
+                        Height="30"
+                        Margin="28,0,0,0"
+                        Content="{Binding PhaserFeedbackLabel}" />
+                    <Label
+                        Width="40"
+                        Height="30"
+                        Margin="25,0,0,0"
+                        Content="{Binding PhaserFreqLabel}" />
+                    <Label
+                        Width="30"
+                        Height="30"
+                        Margin="12,0,0,0"
+                        Content="{Binding PhaserWidthLabel}" />
+                    <Label
+                        Width="30"
+                        Height="30"
+                        Margin="20,0,0,0"
+                        Content="{Binding PhaserSweepLabel}" />
+                </StackPanel>
+                
+                
+                <StackPanel
+                    x:Name="Buttons"
+                    Grid.Row="7"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="4"
+                    Margin="5"
+                    Orientation="Horizontal">
+                    <Button
+                        x:Name="On"
+                        Width="50"
+                        Margin="5"
+                        Command="{Binding OnCommand}"
+                        Content="On" />
+                    <Button
+                        x:Name="Off"
+                        Width="50"
+                        Margin="5"
+                        Command="{Binding OffCommand}"
+                        Content="Off" />
+                </StackPanel>
+                <local:AmplitudeVisualizer
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="5"
+                    Amplitudes ="{Binding FrequencyAmplitudes}" />
+                <local:WaveformVisualizer
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="5"
+                    Waveform="{Binding Waveform}" />
+            </Grid>
         </TabItem>
         <TabItem Header="Voice 2">
             <Grid>
@@ -474,15 +592,15 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <local:AmplitudeVisualizer
-            Grid.Row="0"
-            Grid.Column="0"
-            Grid.ColumnSpan="5"
-            Amplitudes ="{Binding FrequencyAmplitudes}" />
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="5"
+                    Amplitudes ="{Binding FrequencyAmplitudes}" />
                 <local:WaveformVisualizer
-            Grid.Row="1"
-            Grid.Column="0"
-            Grid.ColumnSpan="5"
-            Waveform="{Binding Waveform}" />
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="5"
+                    Waveform="{Binding Waveform}" />
             </Grid>
         </TabItem>
         <TabItem Header="Voice 3">
@@ -506,15 +624,15 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <local:AmplitudeVisualizer
-            Grid.Row="0"
-            Grid.Column="0"
-            Grid.ColumnSpan="5"
-            Amplitudes ="{Binding FrequencyAmplitudes}" />
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="5"
+                    Amplitudes ="{Binding FrequencyAmplitudes}" />
                 <local:WaveformVisualizer
-            Grid.Row="1"
-            Grid.Column="0"
-            Grid.ColumnSpan="5"
-            Waveform="{Binding Waveform}" />
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="5"
+                    Waveform="{Binding Waveform}" />
             </Grid>
         </TabItem>
     </TabControl>

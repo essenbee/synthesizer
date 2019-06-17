@@ -578,6 +578,234 @@ namespace synthesizer
         // END_PROPERTY: ChorusDelay (float)
         // --------------------------------------------------------------------
 
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: PhaserDry (float)
+        // --------------------------------------------------------------------
+        float _PhaserDry = default;
+
+        void Raise_PhaserDry ()
+        {
+          OnPropertyChanged ("PhaserDry");
+          OnPropertyChanged ("PhaserDryLabel");
+        }
+
+        public string PhaserDryLabel => $"{PhaserDry}";
+
+        public float PhaserDry
+        {
+            get { return _PhaserDry; }
+            set
+            {
+                if (_PhaserDry == value)
+                {
+                    return;
+                }
+
+                var prev = _PhaserDry;
+
+                _PhaserDry = value;
+
+                Changed_PhaserDry (prev, _PhaserDry);
+
+                Raise_PhaserDry ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_PhaserDry (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: PhaserDry (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: PhaserWet (float)
+        // --------------------------------------------------------------------
+        float _PhaserWet = default;
+
+        void Raise_PhaserWet ()
+        {
+          OnPropertyChanged ("PhaserWet");
+          OnPropertyChanged ("PhaserWetLabel");
+        }
+
+        public string PhaserWetLabel => $"{PhaserWet}";
+
+        public float PhaserWet
+        {
+            get { return _PhaserWet; }
+            set
+            {
+                if (_PhaserWet == value)
+                {
+                    return;
+                }
+
+                var prev = _PhaserWet;
+
+                _PhaserWet = value;
+
+                Changed_PhaserWet (prev, _PhaserWet);
+
+                Raise_PhaserWet ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_PhaserWet (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: PhaserWet (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: PhaserFeedback (float)
+        // --------------------------------------------------------------------
+        float _PhaserFeedback = default;
+
+        void Raise_PhaserFeedback ()
+        {
+          OnPropertyChanged ("PhaserFeedback");
+          OnPropertyChanged ("PhaserFeedbackLabel");
+        }
+
+        public string PhaserFeedbackLabel => $"{PhaserFeedback}";
+
+        public float PhaserFeedback
+        {
+            get { return _PhaserFeedback; }
+            set
+            {
+                if (_PhaserFeedback == value)
+                {
+                    return;
+                }
+
+                var prev = _PhaserFeedback;
+
+                _PhaserFeedback = value;
+
+                Changed_PhaserFeedback (prev, _PhaserFeedback);
+
+                Raise_PhaserFeedback ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_PhaserFeedback (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: PhaserFeedback (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: PhaserFreq (float)
+        // --------------------------------------------------------------------
+        float _PhaserFreq = default;
+
+        void Raise_PhaserFreq ()
+        {
+          OnPropertyChanged ("PhaserFreq");
+          OnPropertyChanged ("PhaserFreqLabel");
+        }
+
+        public string PhaserFreqLabel => $"{PhaserFreq}";
+
+        public float PhaserFreq
+        {
+            get { return _PhaserFreq; }
+            set
+            {
+                if (_PhaserFreq == value)
+                {
+                    return;
+                }
+
+                var prev = _PhaserFreq;
+
+                _PhaserFreq = value;
+
+                Changed_PhaserFreq (prev, _PhaserFreq);
+
+                Raise_PhaserFreq ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_PhaserFreq (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: PhaserFreq (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: PhaserWidth (float)
+        // --------------------------------------------------------------------
+        float _PhaserWidth = default;
+
+        void Raise_PhaserWidth ()
+        {
+          OnPropertyChanged ("PhaserWidth");
+          OnPropertyChanged ("PhaserWidthLabel");
+        }
+
+        public string PhaserWidthLabel => $"{PhaserWidth}";
+
+        public float PhaserWidth
+        {
+            get { return _PhaserWidth; }
+            set
+            {
+                if (_PhaserWidth == value)
+                {
+                    return;
+                }
+
+                var prev = _PhaserWidth;
+
+                _PhaserWidth = value;
+
+                Changed_PhaserWidth (prev, _PhaserWidth);
+
+                Raise_PhaserWidth ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_PhaserWidth (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: PhaserWidth (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: PhaserSweep (float)
+        // --------------------------------------------------------------------
+        float _PhaserSweep = default;
+
+        void Raise_PhaserSweep ()
+        {
+          OnPropertyChanged ("PhaserSweep");
+          OnPropertyChanged ("PhaserSweepLabel");
+        }
+
+        public string PhaserSweepLabel => $"{PhaserSweep}";
+
+        public float PhaserSweep
+        {
+            get { return _PhaserSweep; }
+            set
+            {
+                if (_PhaserSweep == value)
+                {
+                    return;
+                }
+
+                var prev = _PhaserSweep;
+
+                _PhaserSweep = value;
+
+                Changed_PhaserSweep (prev, _PhaserSweep);
+
+                Raise_PhaserSweep ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_PhaserSweep (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: PhaserSweep (float)
+        // --------------------------------------------------------------------
+
 
         // --------------------------------------------------------------------
         // BEGIN_COMMAND: OnCommand
