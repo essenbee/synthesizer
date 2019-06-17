@@ -601,6 +601,24 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="5"
                     Waveform="{Binding Waveform}" />
+
+                <StackPanel
+                    Grid.Row="7"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="4"
+                    Margin="5"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="50"
+                        Margin="5"
+                        Command="{Binding OnCommand}"
+                        Content="On" />
+                    <Button
+                        Width="50"
+                        Margin="5"
+                        Command="{Binding OffCommand}"
+                        Content="Off" />
+                </StackPanel>
             </Grid>
         </TabItem>
         <TabItem Header="Voice 3">
@@ -633,6 +651,24 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="5"
                     Waveform="{Binding Waveform}" />
+
+                <StackPanel
+                    Grid.Row="7"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="4"
+                    Margin="5"
+                    Orientation="Horizontal">
+                    <Button
+                        Width="50"
+                        Margin="5"
+                        Command="{Binding OnCommand}"
+                        Content="On" />
+                    <Button
+                        Width="50"
+                        Margin="5"
+                        Command="{Binding OffCommand}"
+                        Content="Off" />
+                </StackPanel>
             </Grid>
         </TabItem>
     </TabControl>
