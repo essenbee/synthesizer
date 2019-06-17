@@ -87,8 +87,8 @@ namespace synthesizer
             };
 
             _tremolo = new TremoloSampleProvider(_volControl, TremoloFreq, TremoloGain);
-            //_chorus = new ChorusSampleProvider(_tremolo);
-            _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _tremolo);
+            _chorus = new ChorusSampleProvider(_tremolo);
+            _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _chorus);
 
             WaveType = SignalGeneratorType.Sin;
             Volume = 0.25;
@@ -136,6 +136,30 @@ namespace synthesizer
             {
                 _tremolo.LfoGain = TremoloGain;
                 _tremolo.UpdateLowFrequencyOscillator();
+            }
+        }
+
+        partial void Changed_ChorusWidth(float prev, float current)
+        {
+            if (_chorus != null)
+            {
+                _chorus.Width = ChorusWidth;
+            }
+        }
+
+        partial void Changed_ChorusSweep(float prev, float current)
+        {
+            if (_chorus != null)
+            {
+                _chorus.SweepRate = ChorusSweep;
+            }
+        }
+
+        partial void Changed_ChorusDelay(float prev, float current)
+        {
+            if (_chorus != null)
+            {
+                _chorus.Delay = ChorusDelay;
             }
         }
 

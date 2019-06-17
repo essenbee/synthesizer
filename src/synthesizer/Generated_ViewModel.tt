@@ -20,6 +20,9 @@ using System.Windows.Threading;
       LP("int"        , "TremoloFreq"         , @"$""{TremoloFreqMult * TremoloFreq} Hz"""    ),
       LP("float"      , "TremoloGain"         , @"$""{Math.Max(0, TremoloGain) * 100.0f}%"""  ),
       LP("int"        , "TremoloFreqMult"     , @"$""x{TremoloFreqMult}"""                    ),
+	  LP("float"      , "ChorusWidth"         , @"$""{ChorusWidth}"""                         ),
+      LP("float"      , "ChorusSweep"         , @"$""{ChorusSweep}"""                         ),
+      LP("float"      , "ChorusDelay"         , @"$""{ChorusDelay}"""                         ),
     };
 
   var commands = new []

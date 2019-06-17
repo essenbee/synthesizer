@@ -464,6 +464,120 @@ namespace synthesizer
         // END_PROPERTY: TremoloFreqMult (int)
         // --------------------------------------------------------------------
 
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: ChorusWidth (float)
+        // --------------------------------------------------------------------
+        float _ChorusWidth = default;
+
+        void Raise_ChorusWidth ()
+        {
+          OnPropertyChanged ("ChorusWidth");
+          OnPropertyChanged ("ChorusWidthLabel");
+        }
+
+        public string ChorusWidthLabel => $"{ChorusWidth}";
+
+        public float ChorusWidth
+        {
+            get { return _ChorusWidth; }
+            set
+            {
+                if (_ChorusWidth == value)
+                {
+                    return;
+                }
+
+                var prev = _ChorusWidth;
+
+                _ChorusWidth = value;
+
+                Changed_ChorusWidth (prev, _ChorusWidth);
+
+                Raise_ChorusWidth ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_ChorusWidth (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: ChorusWidth (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: ChorusSweep (float)
+        // --------------------------------------------------------------------
+        float _ChorusSweep = default;
+
+        void Raise_ChorusSweep ()
+        {
+          OnPropertyChanged ("ChorusSweep");
+          OnPropertyChanged ("ChorusSweepLabel");
+        }
+
+        public string ChorusSweepLabel => $"{ChorusSweep}";
+
+        public float ChorusSweep
+        {
+            get { return _ChorusSweep; }
+            set
+            {
+                if (_ChorusSweep == value)
+                {
+                    return;
+                }
+
+                var prev = _ChorusSweep;
+
+                _ChorusSweep = value;
+
+                Changed_ChorusSweep (prev, _ChorusSweep);
+
+                Raise_ChorusSweep ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_ChorusSweep (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: ChorusSweep (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: ChorusDelay (float)
+        // --------------------------------------------------------------------
+        float _ChorusDelay = default;
+
+        void Raise_ChorusDelay ()
+        {
+          OnPropertyChanged ("ChorusDelay");
+          OnPropertyChanged ("ChorusDelayLabel");
+        }
+
+        public string ChorusDelayLabel => $"{ChorusDelay}";
+
+        public float ChorusDelay
+        {
+            get { return _ChorusDelay; }
+            set
+            {
+                if (_ChorusDelay == value)
+                {
+                    return;
+                }
+
+                var prev = _ChorusDelay;
+
+                _ChorusDelay = value;
+
+                Changed_ChorusDelay (prev, _ChorusDelay);
+
+                Raise_ChorusDelay ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_ChorusDelay (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: ChorusDelay (float)
+        // --------------------------------------------------------------------
+
 
         // --------------------------------------------------------------------
         // BEGIN_COMMAND: OnCommand

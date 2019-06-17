@@ -15,6 +15,10 @@
         <ScaleTransform ScaleX="1.0" ScaleY="1.0" />
     </Window.LayoutTransform>
 
+    <TabControl>
+        <TabItem Header="Main Voice">
+            
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -306,7 +310,16 @@
                    Margin="10,0,0,0"/>
             <Label Content="Gain"
                    Margin="15,0,0,0"/>
-        </StackPanel>
+                    <Label Content="Chorus"
+                   FontWeight="Bold"
+                   Margin="0,0,0,0"/>
+                    <Label Content="Width"
+                   Margin="10,0,0,0"/>
+                    <Label Content="Sweep"
+                   Margin="10,0,0,0"/>
+                    <Label Content="Delay"
+                   Margin="10,0,0,0"/>
+                </StackPanel>
         <StackPanel Orientation="Horizontal"
                     Grid.Column="3"
                     Grid.Row="5">
@@ -353,7 +366,35 @@
                 TickPlacement="TopLeft"
                 TickFrequency="0.1"
                 IsSnapToTickEnabled="True"/>
-        </StackPanel>
+                    <Slider
+                Margin="
+                        55,0,10,0"
+                Value="{Binding ChorusWidth}"
+                Maximum="1.0"
+                Minimum="0.0"
+                Orientation="Vertical" 
+                TickPlacement="TopLeft"
+                TickFrequency="0.1"
+                IsSnapToTickEnabled="True"/>
+                    <Slider
+                Margin="20,0,10,0"
+                Value="{Binding ChorusSweep}"
+                Maximum="1.0"
+                Minimum="0.0"
+                Orientation="Vertical" 
+                TickPlacement="TopLeft"
+                TickFrequency="0.1"
+                IsSnapToTickEnabled="True"/>
+                    <Slider
+                Margin="15,0,10,0"
+                Value="{Binding ChorusDelay}"
+                Maximum="1.0"
+                Minimum="0.0"
+                Orientation="Vertical" 
+                TickPlacement="TopLeft"
+                TickFrequency="0.1"
+                IsSnapToTickEnabled="True"/>
+                </StackPanel>
         <StackPanel Orientation="Horizontal"
                     Grid.Column="3"
                     Grid.Row="6">
@@ -365,7 +406,19 @@
                    Height="30"
                    Width="40"
                    Margin="14,0,0,0"/>
-        </StackPanel>
+                    <Label Content="{Binding ChorusWidthLabel}"
+                   Height="30"
+                   Width="40"
+                   Margin="40,0,0,0"/>
+                    <Label Content="{Binding ChorusSweepLabel}"
+                   Height="30"
+                   Width="40"
+                   Margin="15,0,0,0"/>
+                    <Label Content="{Binding ChorusDelayLabel}"
+                   Height="30"
+                   Width="40"
+                   Margin="10,0,0,0"/>
+                </StackPanel>
 
         <StackPanel
             x:Name="Buttons"
@@ -398,5 +451,72 @@
             Grid.ColumnSpan="5"
             Waveform="{Binding Waveform}" />
     </Grid>
+
+        </TabItem>
+        <TabItem Header="Voice 2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="55" />
+                    <ColumnDefinition Width="380" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <local:AmplitudeVisualizer
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="5"
+            Amplitudes ="{Binding FrequencyAmplitudes}" />
+                <local:WaveformVisualizer
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="5"
+            Waveform="{Binding Waveform}" />
+            </Grid>
+        </TabItem>
+        <TabItem Header="Voice 3">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="55" />
+                    <ColumnDefinition Width="380" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <local:AmplitudeVisualizer
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="5"
+            Amplitudes ="{Binding FrequencyAmplitudes}" />
+                <local:WaveformVisualizer
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="5"
+            Waveform="{Binding Waveform}" />
+            </Grid>
+        </TabItem>
+    </TabControl>
 
 </Window>
