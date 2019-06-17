@@ -22,7 +22,10 @@ namespace synthesizer
         void Raise_Volume ()
         {
           OnPropertyChanged ("Volume");
+          OnPropertyChanged ("VolumeLabel");
         }
+
+        public string VolumeLabel => $"{(int)(Volume * 100.0)}%";
 
         public double Volume
         {
@@ -47,41 +50,6 @@ namespace synthesizer
         partial void Changed_Volume (double prev, double current);
         // --------------------------------------------------------------------
         // END_PROPERTY: Volume (double)
-        // --------------------------------------------------------------------
-
-        // --------------------------------------------------------------------
-        // BEGIN_PROPERTY: VolumeLabel (string)
-        // --------------------------------------------------------------------
-        string _VolumeLabel = default;
-
-        void Raise_VolumeLabel ()
-        {
-          OnPropertyChanged ("VolumeLabel");
-        }
-
-        public string VolumeLabel
-        {
-            get { return _VolumeLabel; }
-            set
-            {
-                if (_VolumeLabel == value)
-                {
-                    return;
-                }
-
-                var prev = _VolumeLabel;
-
-                _VolumeLabel = value;
-
-                Changed_VolumeLabel (prev, _VolumeLabel);
-
-                Raise_VolumeLabel ();
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Changed_VolumeLabel (string prev, string current);
-        // --------------------------------------------------------------------
-        // END_PROPERTY: VolumeLabel (string)
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
@@ -162,7 +130,10 @@ namespace synthesizer
         void Raise_Attack ()
         {
           OnPropertyChanged ("Attack");
+          OnPropertyChanged ("AttackLabel");
         }
+
+        public string AttackLabel => $"{(int)(Attack * 1000.0)} ms";
 
         public float Attack
         {
@@ -190,41 +161,6 @@ namespace synthesizer
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
-        // BEGIN_PROPERTY: AttackLabel (string)
-        // --------------------------------------------------------------------
-        string _AttackLabel = default;
-
-        void Raise_AttackLabel ()
-        {
-          OnPropertyChanged ("AttackLabel");
-        }
-
-        public string AttackLabel
-        {
-            get { return _AttackLabel; }
-            set
-            {
-                if (_AttackLabel == value)
-                {
-                    return;
-                }
-
-                var prev = _AttackLabel;
-
-                _AttackLabel = value;
-
-                Changed_AttackLabel (prev, _AttackLabel);
-
-                Raise_AttackLabel ();
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Changed_AttackLabel (string prev, string current);
-        // --------------------------------------------------------------------
-        // END_PROPERTY: AttackLabel (string)
-        // --------------------------------------------------------------------
-
-        // --------------------------------------------------------------------
         // BEGIN_PROPERTY: Decay (float)
         // --------------------------------------------------------------------
         float _Decay = default;
@@ -232,7 +168,10 @@ namespace synthesizer
         void Raise_Decay ()
         {
           OnPropertyChanged ("Decay");
+          OnPropertyChanged ("DecayLabel");
         }
+
+        public string DecayLabel => $"{(int)(Decay * 1000.0)} ms";
 
         public float Decay
         {
@@ -260,41 +199,6 @@ namespace synthesizer
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
-        // BEGIN_PROPERTY: DecayLabel (string)
-        // --------------------------------------------------------------------
-        string _DecayLabel = default;
-
-        void Raise_DecayLabel ()
-        {
-          OnPropertyChanged ("DecayLabel");
-        }
-
-        public string DecayLabel
-        {
-            get { return _DecayLabel; }
-            set
-            {
-                if (_DecayLabel == value)
-                {
-                    return;
-                }
-
-                var prev = _DecayLabel;
-
-                _DecayLabel = value;
-
-                Changed_DecayLabel (prev, _DecayLabel);
-
-                Raise_DecayLabel ();
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Changed_DecayLabel (string prev, string current);
-        // --------------------------------------------------------------------
-        // END_PROPERTY: DecayLabel (string)
-        // --------------------------------------------------------------------
-
-        // --------------------------------------------------------------------
         // BEGIN_PROPERTY: Sustain (float)
         // --------------------------------------------------------------------
         float _Sustain = default;
@@ -302,7 +206,10 @@ namespace synthesizer
         void Raise_Sustain ()
         {
           OnPropertyChanged ("Sustain");
+          OnPropertyChanged ("SustainLabel");
         }
+
+        public string SustainLabel => $"{(int)(Sustain * 100.0)}%";
 
         public float Sustain
         {
@@ -330,41 +237,6 @@ namespace synthesizer
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
-        // BEGIN_PROPERTY: SustainLabel (string)
-        // --------------------------------------------------------------------
-        string _SustainLabel = default;
-
-        void Raise_SustainLabel ()
-        {
-          OnPropertyChanged ("SustainLabel");
-        }
-
-        public string SustainLabel
-        {
-            get { return _SustainLabel; }
-            set
-            {
-                if (_SustainLabel == value)
-                {
-                    return;
-                }
-
-                var prev = _SustainLabel;
-
-                _SustainLabel = value;
-
-                Changed_SustainLabel (prev, _SustainLabel);
-
-                Raise_SustainLabel ();
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Changed_SustainLabel (string prev, string current);
-        // --------------------------------------------------------------------
-        // END_PROPERTY: SustainLabel (string)
-        // --------------------------------------------------------------------
-
-        // --------------------------------------------------------------------
         // BEGIN_PROPERTY: Release (float)
         // --------------------------------------------------------------------
         float _Release = default;
@@ -372,7 +244,10 @@ namespace synthesizer
         void Raise_Release ()
         {
           OnPropertyChanged ("Release");
+          OnPropertyChanged ("ReleaseLabel");
         }
+
+        public string ReleaseLabel => $"{(int)(Release * 1000.0)} ms";
 
         public float Release
         {
@@ -400,41 +275,6 @@ namespace synthesizer
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
-        // BEGIN_PROPERTY: ReleaseLabel (string)
-        // --------------------------------------------------------------------
-        string _ReleaseLabel = default;
-
-        void Raise_ReleaseLabel ()
-        {
-          OnPropertyChanged ("ReleaseLabel");
-        }
-
-        public string ReleaseLabel
-        {
-            get { return _ReleaseLabel; }
-            set
-            {
-                if (_ReleaseLabel == value)
-                {
-                    return;
-                }
-
-                var prev = _ReleaseLabel;
-
-                _ReleaseLabel = value;
-
-                Changed_ReleaseLabel (prev, _ReleaseLabel);
-
-                Raise_ReleaseLabel ();
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Changed_ReleaseLabel (string prev, string current);
-        // --------------------------------------------------------------------
-        // END_PROPERTY: ReleaseLabel (string)
-        // --------------------------------------------------------------------
-
-        // --------------------------------------------------------------------
         // BEGIN_PROPERTY: CutOff (int)
         // --------------------------------------------------------------------
         int _CutOff = default;
@@ -442,7 +282,10 @@ namespace synthesizer
         void Raise_CutOff ()
         {
           OnPropertyChanged ("CutOff");
+          OnPropertyChanged ("CutOffLabel");
         }
+
+        public string CutOffLabel => $"{CutOff} Hz";
 
         public int CutOff
         {
@@ -470,41 +313,6 @@ namespace synthesizer
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
-        // BEGIN_PROPERTY: CutOffLabel (string)
-        // --------------------------------------------------------------------
-        string _CutOffLabel = default;
-
-        void Raise_CutOffLabel ()
-        {
-          OnPropertyChanged ("CutOffLabel");
-        }
-
-        public string CutOffLabel
-        {
-            get { return _CutOffLabel; }
-            set
-            {
-                if (_CutOffLabel == value)
-                {
-                    return;
-                }
-
-                var prev = _CutOffLabel;
-
-                _CutOffLabel = value;
-
-                Changed_CutOffLabel (prev, _CutOffLabel);
-
-                Raise_CutOffLabel ();
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Changed_CutOffLabel (string prev, string current);
-        // --------------------------------------------------------------------
-        // END_PROPERTY: CutOffLabel (string)
-        // --------------------------------------------------------------------
-
-        // --------------------------------------------------------------------
         // BEGIN_PROPERTY: Q (float)
         // --------------------------------------------------------------------
         float _Q = default;
@@ -512,7 +320,10 @@ namespace synthesizer
         void Raise_Q ()
         {
           OnPropertyChanged ("Q");
+          OnPropertyChanged ("QLabel");
         }
+
+        public string QLabel => $"{((int)(Q * 100.0f))/ 100.0f}";
 
         public float Q
         {
@@ -540,41 +351,6 @@ namespace synthesizer
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
-        // BEGIN_PROPERTY: QLabel (string)
-        // --------------------------------------------------------------------
-        string _QLabel = default;
-
-        void Raise_QLabel ()
-        {
-          OnPropertyChanged ("QLabel");
-        }
-
-        public string QLabel
-        {
-            get { return _QLabel; }
-            set
-            {
-                if (_QLabel == value)
-                {
-                    return;
-                }
-
-                var prev = _QLabel;
-
-                _QLabel = value;
-
-                Changed_QLabel (prev, _QLabel);
-
-                Raise_QLabel ();
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Changed_QLabel (string prev, string current);
-        // --------------------------------------------------------------------
-        // END_PROPERTY: QLabel (string)
-        // --------------------------------------------------------------------
-
-        // --------------------------------------------------------------------
         // BEGIN_PROPERTY: TremoloFreq (int)
         // --------------------------------------------------------------------
         int _TremoloFreq = default;
@@ -582,7 +358,10 @@ namespace synthesizer
         void Raise_TremoloFreq ()
         {
           OnPropertyChanged ("TremoloFreq");
+          OnPropertyChanged ("TremoloFreqLabel");
         }
+
+        public string TremoloFreqLabel => $"{TremoloFreqMult * TremoloFreq} Hz";
 
         public int TremoloFreq
         {
@@ -610,41 +389,6 @@ namespace synthesizer
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
-        // BEGIN_PROPERTY: TremoloFreqLabel (string)
-        // --------------------------------------------------------------------
-        string _TremoloFreqLabel = default;
-
-        void Raise_TremoloFreqLabel ()
-        {
-          OnPropertyChanged ("TremoloFreqLabel");
-        }
-
-        public string TremoloFreqLabel
-        {
-            get { return _TremoloFreqLabel; }
-            set
-            {
-                if (_TremoloFreqLabel == value)
-                {
-                    return;
-                }
-
-                var prev = _TremoloFreqLabel;
-
-                _TremoloFreqLabel = value;
-
-                Changed_TremoloFreqLabel (prev, _TremoloFreqLabel);
-
-                Raise_TremoloFreqLabel ();
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Changed_TremoloFreqLabel (string prev, string current);
-        // --------------------------------------------------------------------
-        // END_PROPERTY: TremoloFreqLabel (string)
-        // --------------------------------------------------------------------
-
-        // --------------------------------------------------------------------
         // BEGIN_PROPERTY: TremoloGain (float)
         // --------------------------------------------------------------------
         float _TremoloGain = default;
@@ -652,7 +396,10 @@ namespace synthesizer
         void Raise_TremoloGain ()
         {
           OnPropertyChanged ("TremoloGain");
+          OnPropertyChanged ("TremoloGainLabel");
         }
+
+        public string TremoloGainLabel => $"{Math.Max(0, TremoloGain) * 100.0f}%";
 
         public float TremoloGain
         {
@@ -680,41 +427,6 @@ namespace synthesizer
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
-        // BEGIN_PROPERTY: TremoloGainLabel (string)
-        // --------------------------------------------------------------------
-        string _TremoloGainLabel = default;
-
-        void Raise_TremoloGainLabel ()
-        {
-          OnPropertyChanged ("TremoloGainLabel");
-        }
-
-        public string TremoloGainLabel
-        {
-            get { return _TremoloGainLabel; }
-            set
-            {
-                if (_TremoloGainLabel == value)
-                {
-                    return;
-                }
-
-                var prev = _TremoloGainLabel;
-
-                _TremoloGainLabel = value;
-
-                Changed_TremoloGainLabel (prev, _TremoloGainLabel);
-
-                Raise_TremoloGainLabel ();
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Changed_TremoloGainLabel (string prev, string current);
-        // --------------------------------------------------------------------
-        // END_PROPERTY: TremoloGainLabel (string)
-        // --------------------------------------------------------------------
-
-        // --------------------------------------------------------------------
         // BEGIN_PROPERTY: TremoloFreqMult (int)
         // --------------------------------------------------------------------
         int _TremoloFreqMult = default;
@@ -722,7 +434,10 @@ namespace synthesizer
         void Raise_TremoloFreqMult ()
         {
           OnPropertyChanged ("TremoloFreqMult");
+          OnPropertyChanged ("TremoloFreqMultLabel");
         }
+
+        public string TremoloFreqMultLabel => $"x{TremoloFreqMult}";
 
         public int TremoloFreqMult
         {
@@ -747,41 +462,6 @@ namespace synthesizer
         partial void Changed_TremoloFreqMult (int prev, int current);
         // --------------------------------------------------------------------
         // END_PROPERTY: TremoloFreqMult (int)
-        // --------------------------------------------------------------------
-
-        // --------------------------------------------------------------------
-        // BEGIN_PROPERTY: TremoloFreqMultLabel (string)
-        // --------------------------------------------------------------------
-        string _TremoloFreqMultLabel = default;
-
-        void Raise_TremoloFreqMultLabel ()
-        {
-          OnPropertyChanged ("TremoloFreqMultLabel");
-        }
-
-        public string TremoloFreqMultLabel
-        {
-            get { return _TremoloFreqMultLabel; }
-            set
-            {
-                if (_TremoloFreqMultLabel == value)
-                {
-                    return;
-                }
-
-                var prev = _TremoloFreqMultLabel;
-
-                _TremoloFreqMultLabel = value;
-
-                Changed_TremoloFreqMultLabel (prev, _TremoloFreqMultLabel);
-
-                Raise_TremoloFreqMultLabel ();
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Changed_TremoloFreqMultLabel (string prev, string current);
-        // --------------------------------------------------------------------
-        // END_PROPERTY: TremoloFreqMultLabel (string)
         // --------------------------------------------------------------------
 
 

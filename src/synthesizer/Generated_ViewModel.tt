@@ -8,28 +8,18 @@ using System.Windows.Threading;
 
   var properties = new []
     {
-      P ("double"     , "Volume"              ),
-      P ("string"     , "VolumeLabel"         ),
-      P ("float[]"    , "FrequencyAmplitudes" ),
-      P ("float[]"    , "Waveform"            ),
-	  P ("float"      , "Attack"              ),
-	  P ("string"     , "AttackLabel"         ),
-	  P ("float"      , "Decay"               ),
-	  P ("string"     , "DecayLabel"          ),
-	  P ("float"      , "Sustain"             ),
-	  P ("string"     , "SustainLabel"        ),
-	  P ("float"      , "Release"             ),
-	  P ("string"     , "ReleaseLabel"        ),
-	  P ("int"        , "CutOff"              ),
-	  P ("string"     , "CutOffLabel"         ),
-	  P ("float"      , "Q"                   ),
-	  P ("string"     , "QLabel"              ),
-	  P ("int"        , "TremoloFreq"         ),
-	  P ("string"     , "TremoloFreqLabel"    ),
-	  P ("float"      , "TremoloGain"         ),
-	  P ("string"     , "TremoloGainLabel"    ),
-	  P ("int"        , "TremoloFreqMult"     ),
-	  P ("string"     , "TremoloFreqMultLabel"),
+      LP("double"     , "Volume"              , @"$""{(int)(Volume * 100.0)}%"""              ),
+      P ("float[]"    , "FrequencyAmplitudes"                                                 ),
+      P ("float[]"    , "Waveform"                                                            ),
+      LP("float"      , "Attack"              , @"$""{(int)(Attack * 1000.0)} ms"""           ),
+      LP("float"      , "Decay"               , @"$""{(int)(Decay * 1000.0)} ms"""            ),
+      LP("float"      , "Sustain"             , @"$""{(int)(Sustain * 100.0)}%"""             ),
+      LP("float"      , "Release"             , @"$""{(int)(Release * 1000.0)} ms"""          ),
+      LP("int"        , "CutOff"              , @"$""{CutOff} Hz"""                           ),
+      LP("float"      , "Q"                   , @"$""{((int)(Q * 100.0f))/ 100.0f}"""         ),
+      LP("int"        , "TremoloFreq"         , @"$""{TremoloFreqMult * TremoloFreq} Hz"""    ),
+      LP("float"      , "TremoloGain"         , @"$""{Math.Max(0, TremoloGain) * 100.0f}%"""  ),
+      LP("int"        , "TremoloFreqMult"     , @"$""x{TremoloFreqMult}"""                    ),
     };
 
   var commands = new []
@@ -65,8 +55,25 @@ namespace synthesizer
         void Raise_<#=prop.Name#> ()
         {
           OnPropertyChanged ("<#=prop.Name#>");
+<#
+  if (prop.LabelValue.Length > 0)
+  {
+#>
+          OnPropertyChanged ("<#=prop.Name#>Label");
+<#
+  }
+#>
         }
 
+<#
+  if (prop.LabelValue.Length > 0)
+  {
+#>
+        public string <#=prop.Name#>Label => <#=prop.LabelValue#>;
+
+<#
+  }
+#>
         public <#=prop.Type#> <#=prop.Name#>
         {
             get { return _<#=prop.Name#>; }
@@ -177,17 +184,22 @@ namespace synthesizer
     public readonly string Type         ;
     public readonly string Name         ;
     public readonly string DefaultValue ;
+    public readonly string LabelValue   ;
 
-    public PropertyInfo (string type, string name, string defaultValue)
+    public PropertyInfo (string type, string name, string defaultValue, string labelValue)
     {
       Type          = type          ?? "<NoType>";
       Name          = name          ?? "<NoName>";
       DefaultValue  = defaultValue  ?? $"default";
+      LabelValue    = labelValue    ?? ""        ;
     }
   }
 
   static PropertyInfo P (string type, string name, string defaultValue = null) =>
-    new PropertyInfo (type, name, defaultValue);
+    new PropertyInfo (type, name, defaultValue, null);
+
+  static PropertyInfo LP (string type, string name, string labelValue, string defaultValue = null) =>
+    new PropertyInfo (type, name, defaultValue, labelValue);
 
   class CommandInfo
   {

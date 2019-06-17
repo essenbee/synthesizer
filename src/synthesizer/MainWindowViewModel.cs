@@ -106,68 +106,32 @@ namespace synthesizer
         partial void Changed_Volume(double prev, double current)
         {
           _volControl.Volume = (float)current;
-          VolumeLabel = $"{(int)(Volume * 100.0)}%";
-        }
-
-        partial void Changed_Attack(float prev, float current)
-        {
-            AttackLabel = $"{(int)(Attack * 1000.0)} ms";
-        }
-
-        partial void Changed_Decay(float prev, float current)
-        {
-            DecayLabel = $"{(int)(Decay * 1000.0)} ms";
-        }
-
-        partial void Changed_Sustain(float prev, float current)
-        {
-            SustainLabel = $"{(int)(Sustain * 100.0)}%";
-        }
-
-        partial void Changed_Release(float prev, float current)
-        {
-            ReleaseLabel = $"{(int)(Release * 1000.0)} ms";
-        }
-
-        partial void Changed_CutOff(int prev, int current)
-        {
-            CutOffLabel = $"{CutOff} Hz";
-        }
-
-        partial void Changed_Q(float prev, float current)
-        {
-            QLabel = $"{((int)(Q * 100.0f))/ 100.0f}";
         }
 
         partial void Changed_TremoloFreq(int prev, int current)
         {
-            TremoloFreqLabel = $"{TremoloFreqMult * TremoloFreq} Hz";
-
             if (_tremolo != null)
             {
                 _tremolo.LfoFrequency = TremoloFreqMult * TremoloFreq; ;
                 _tremolo.UpdateLowFrequencyOscillator();
             }
+
+            Raise_TremoloFreqMult();
         }
 
         partial void Changed_TremoloFreqMult(int prev, int current)
         {
-            TremoloFreqLabel = $"{TremoloFreqMult * TremoloFreq} Hz";
-            TremoloFreqMultLabel = $"x{TremoloFreqMult}";
-
             if (_tremolo != null)
             {
                 _tremolo.LfoFrequency = TremoloFreqMult * TremoloFreq; ;
                 _tremolo.UpdateLowFrequencyOscillator();
             }
+
+            Raise_TremoloFreq();
         }
 
         partial void Changed_TremoloGain(float prev, float current)
         {
-            TremoloGainLabel = (TremoloGain > 0.0f)
-                ? $"{TremoloGain * 100.0f}%"
-                : "0%";
-
             if (_tremolo != null)
             {
                 _tremolo.LfoGain = TremoloGain;
