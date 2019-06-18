@@ -93,8 +93,7 @@ namespace synthesizer
                 var delayedSample = _circularBuffer[emptyingPointer];
 
                 // Mix wet and dry signals, ensuring amplitude does not exceed +/-1.0...
-                var mixedSignal = 0.5f * inputSample + 0.5f * delayedSample;
-                buffer[offset + i] = Constrain(mixedSignal, -0.99f, 0.99f);
+                buffer[offset + i] = (float) Math.Tanh(0.5f * inputSample + 0.5f * delayedSample);
 
                 // Step the sweep...
                 _sweep += _step;
@@ -118,22 +117,6 @@ namespace synthesizer
 
             // Set starting _sweep value to mid-range...
             _sweep = (_minSweepSamples + _maxSweepSamples) / 2.0f;
-        }
-
-        private float Constrain(float input, float minimum, float maximum)
-        {
-            if (input > maximum)
-            {
-                return maximum;
-            }
-            else if (input < minimum)
-            {
-                return minimum;
-            }
-            else
-            {
-                return input;
-            }
         }
     }
 }
