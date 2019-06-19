@@ -24,12 +24,16 @@ using System.Windows.Threading;
       LP("float"      , "ChorusSweep"         , @"$""{ChorusSweep}"""                         ),
       LP("float"      , "ChorusDelay"         , @"$""{ChorusDelay}"""                         ),
 
-	  LP("float"      , "PhaserDry"           , @"$""{PhaserDry}"""                         ),
-      LP("float"      , "PhaserWet"           , @"$""{PhaserWet}"""                         ),
-	  LP("float"      , "PhaserFeedback"      , @"$""{PhaserFeedback}"""                         ),
-	  LP("float"      , "PhaserFreq"          , @"$""{PhaserFreq}"""                         ),
+	  LP("float"      , "PhaserDry"           , @"$""{PhaserDry}"""                           ),
+      LP("float"      , "PhaserWet"           , @"$""{PhaserWet}"""                           ),
+	  LP("float"      , "PhaserFeedback"      , @"$""{PhaserFeedback}"""                      ),
+	  LP("float"      , "PhaserFreq"          , @"$""{PhaserFreq}"""                          ),
 	  LP("float"      , "PhaserWidth"         , @"$""{PhaserWidth}"""                         ),
 	  LP("float"      , "PhaserSweep"         , @"$""{PhaserSweep}"""                         ),
+
+	  LP("float"      , "Level1"              , @"$""{(int)(Level1 * 100.0)}%"""              ),
+	  LP("float"      , "Level2"              , @"$""{(int)(Level2 * 100.0)}%"""              ),
+	  LP("float"      , "Level3"              , @"$""{(int)(Level3 * 100.0)}%"""              ),
     };
 
   var commands = new []

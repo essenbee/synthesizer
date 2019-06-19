@@ -806,6 +806,120 @@ namespace synthesizer
         // END_PROPERTY: PhaserSweep (float)
         // --------------------------------------------------------------------
 
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Level1 (float)
+        // --------------------------------------------------------------------
+        float _Level1 = default;
+
+        void Raise_Level1 ()
+        {
+          OnPropertyChanged ("Level1");
+          OnPropertyChanged ("Level1Label");
+        }
+
+        public string Level1Label => $"{(int)(Level1 * 100.0)}%";
+
+        public float Level1
+        {
+            get { return _Level1; }
+            set
+            {
+                if (_Level1 == value)
+                {
+                    return;
+                }
+
+                var prev = _Level1;
+
+                _Level1 = value;
+
+                Changed_Level1 (prev, _Level1);
+
+                Raise_Level1 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Level1 (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Level1 (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Level2 (float)
+        // --------------------------------------------------------------------
+        float _Level2 = default;
+
+        void Raise_Level2 ()
+        {
+          OnPropertyChanged ("Level2");
+          OnPropertyChanged ("Level2Label");
+        }
+
+        public string Level2Label => $"{(int)(Level2 * 100.0)}%";
+
+        public float Level2
+        {
+            get { return _Level2; }
+            set
+            {
+                if (_Level2 == value)
+                {
+                    return;
+                }
+
+                var prev = _Level2;
+
+                _Level2 = value;
+
+                Changed_Level2 (prev, _Level2);
+
+                Raise_Level2 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Level2 (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Level2 (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Level3 (float)
+        // --------------------------------------------------------------------
+        float _Level3 = default;
+
+        void Raise_Level3 ()
+        {
+          OnPropertyChanged ("Level3");
+          OnPropertyChanged ("Level3Label");
+        }
+
+        public string Level3Label => $"{(int)(Level3 * 100.0)}%";
+
+        public float Level3
+        {
+            get { return _Level3; }
+            set
+            {
+                if (_Level3 == value)
+                {
+                    return;
+                }
+
+                var prev = _Level3;
+
+                _Level3 = value;
+
+                Changed_Level3 (prev, _Level3);
+
+                Raise_Level3 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Level3 (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Level3 (float)
+        // --------------------------------------------------------------------
+
 
         // --------------------------------------------------------------------
         // BEGIN_COMMAND: OnCommand

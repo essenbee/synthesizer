@@ -120,7 +120,7 @@ namespace synthesizer
         }
 
         public SynthWaveProvider(SignalGeneratorType waveType = SignalGeneratorType.Sin,
-            int sampleRate = 44100, int note = 0)
+            int sampleRate = 44100, int note = 0, float level = 1.0f)
         {
             _note = note;
             _sampleRate = sampleRate;
@@ -138,7 +138,7 @@ namespace synthesizer
             {
                 Frequency = Frequency,
                 Type = waveType,
-                Gain = 1.0f,
+                Gain = level,
             };
 
             _adsr.Gate(true);

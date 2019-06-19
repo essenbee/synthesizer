@@ -16,7 +16,7 @@ namespace synthesizer
             Key.OemPeriod, Key.OemQuestion,
         };
 
-        private SynthWaveProvider[] _oscillators = new SynthWaveProvider[16];
+        private SynthWaveProvider[,] _oscillators = new SynthWaveProvider[3,16];
         private VolumeSampleProvider _volControl;
         private MixingSampleProvider _mixer;
         private FFTSampleProvider _fftProvider;
@@ -28,6 +28,8 @@ namespace synthesizer
 
         public double BaseFrequency { get; set; } = 110.0;
         public SignalGeneratorType WaveType { get; set; } = SignalGeneratorType.Sin;
+        public SignalGeneratorType WaveType2 { get; set; } = SignalGeneratorType.Sin;
+        public SignalGeneratorType WaveType3 { get; set; } = SignalGeneratorType.Sin;
         public bool EnableLpf { get; set; }
         public bool EnableSubOsc { get; set; }
         public bool EnableVibrato { get; set; }
@@ -35,9 +37,33 @@ namespace synthesizer
         public void KeyDown(KeyEventArgs e)
         {
             var keyVal = keyboard.IndexOf(e.Key);
-            if (keyVal > -1 && _oscillators[keyVal] is null)
+            if (keyVal > -1 && _oscillators[0,keyVal] is null)
             {
-                _oscillators[keyVal] = new SynthWaveProvider(WaveType, 44100, keyVal)
+                _oscillators[0,keyVal] = new SynthWaveProvider(WaveType, 44100, keyVal, Level1)
+                {
+                    BaseFrequency = BaseFrequency,
+                    AttackSeconds = Attack,
+                    DecaySeconds = Decay,
+                    SustainLevel = Sustain,
+                    ReleaseSeconds = Release,
+                    LfoFrequency = 5.0,
+                    LfoGain = EnableVibrato ? 0.2 : 0.0,
+                    EnableSubOsc = EnableSubOsc,
+                };
+
+                _oscillators[1, keyVal] = new SynthWaveProvider(WaveType2, 44100, keyVal + 12, Level2)
+                {
+                    BaseFrequency = BaseFrequency,
+                    AttackSeconds = Attack,
+                    DecaySeconds = Decay,
+                    SustainLevel = Sustain,
+                    ReleaseSeconds = Release,
+                    LfoFrequency = 5.0,
+                    LfoGain = EnableVibrato ? 0.2 : 0.0,
+                    EnableSubOsc = EnableSubOsc,
+                };
+
+                _oscillators[2, keyVal] = new SynthWaveProvider(WaveType3, 44100, keyVal + 24, Level3)
                 {
                     BaseFrequency = BaseFrequency,
                     AttackSeconds = Attack,
@@ -50,8 +76,14 @@ namespace synthesizer
                 };
 
                 _mixer.AddMixerInput(EnableLpf 
-                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[keyVal], CutOff, Q) 
-                    : _oscillators[keyVal]);
+                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[0,keyVal], CutOff, Q) 
+                    : _oscillators[0,keyVal]);
+                _mixer.AddMixerInput(EnableLpf
+                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[1, keyVal], CutOff, Q)
+                    : _oscillators[1, keyVal]);
+                _mixer.AddMixerInput(EnableLpf
+                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[2, keyVal], CutOff, Q)
+                    : _oscillators[2, keyVal]);
             }
         }
 
@@ -60,8 +92,12 @@ namespace synthesizer
             var keyVal = keyboard.IndexOf(e.Key);
             if (keyVal > -1)
             {
-                _oscillators[keyVal].Stop();
-                _oscillators[keyVal] = null;
+                _oscillators[0,keyVal].Stop();
+                _oscillators[1, keyVal].Stop();
+                _oscillators[2, keyVal].Stop();
+                _oscillators[0,keyVal] = null;
+                _oscillators[1, keyVal] = null;
+                _oscillators[2, keyVal] = null;
             }
         }
 
@@ -113,6 +149,9 @@ namespace synthesizer
             PhaserFreq = 0.0f;
             PhaserWidth = 0.0f;
             PhaserSweep = 0.0f;
+
+            // Voice Levels
+            Level1 = 1.0f;
         }
 
         // Property events

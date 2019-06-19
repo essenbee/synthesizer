@@ -61,6 +61,36 @@ namespace synthesizer
                     case "White":
                         _viewModel.WaveType = SignalGeneratorType.White;
                         break;
+                    case "Sine2":
+                        _viewModel.WaveType2 = SignalGeneratorType.Sin;
+                        break;
+                    case "SawTooth2":
+                        _viewModel.WaveType2 = SignalGeneratorType.SawTooth;
+                        break;
+                    case "Square2":
+                        _viewModel.WaveType2 = SignalGeneratorType.Square;
+                        break;
+                    case "Triangle2":
+                        _viewModel.WaveType2 = SignalGeneratorType.Triangle;
+                        break;
+                    case "White2":
+                        _viewModel.WaveType2 = SignalGeneratorType.White;
+                        break;
+                    case "Sine3":
+                        _viewModel.WaveType3 = SignalGeneratorType.Sin;
+                        break;
+                    case "SawTooth3":
+                        _viewModel.WaveType3 = SignalGeneratorType.SawTooth;
+                        break;
+                    case "Square3":
+                        _viewModel.WaveType3 = SignalGeneratorType.Square;
+                        break;
+                    case "Triangle3":
+                        _viewModel.WaveType3 = SignalGeneratorType.Triangle;
+                        break;
+                    case "White3":
+                        _viewModel.WaveType3 = SignalGeneratorType.White;
+                        break;
                 }
             }
         }
