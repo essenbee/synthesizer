@@ -39,6 +39,16 @@ Added Sub-oscillator for sine wave and GUI controls for Vibrato and Tremolo.
 
 In order to practice creating audio effects, I implemented a Chorus effect off-stream. It still requires wiring up to the GUI.
 
+#### Episode 39
+
+Merged a PR to make the T4 Template that builds our view model even more useful! Wired up the Chorus effect to the GUI and implemented a Phaser effect for the synth, including adding GUI control over the effect's parameters.
+
+Off-stream, implemented a Delay effect but it's not wired into the GUI at this time.
+
+#### Episode 40
+
+TBC
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
