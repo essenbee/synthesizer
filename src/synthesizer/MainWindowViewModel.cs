@@ -3,10 +3,41 @@ using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 
 namespace synthesizer
 {
+    public enum BaseFrequency
+    {
+      A2  = 0 ,
+      A3  = 1 ,
+      A4  = 2 ,
+    }
+
+    public enum Octave
+    {
+      _0  = 0 ,
+      _1  = 1 ,
+      _2  = 2 ,
+    }
+
+    public enum Semitone
+    {
+      _0  = 0 ,
+      _1  = 1 ,
+      _2  = 2 ,
+      _3  = 3 ,
+      _4  = 4 ,
+      _5  = 5 ,
+      _6  = 6 ,
+      _7  = 7 ,
+      _8  = 8 ,
+      _9  = 9 ,
+      _10 = 10,
+      _11 = 11,
+    }
+
     public partial class MainWindowViewModel
     {
         private readonly List<Key> keyboard = new List<Key>
@@ -26,28 +57,52 @@ namespace synthesizer
         private LowPassFilterSampleProvider _lpf;
         private IWavePlayer _player;
 
-        public double BaseFrequency { get; set; } = 110.0;
-        public SignalGeneratorType WaveType { get; set; } = SignalGeneratorType.Sin;
-        public SignalGeneratorType WaveType2 { get; set; } = SignalGeneratorType.Sin;
-        public SignalGeneratorType WaveType3 { get; set; } = SignalGeneratorType.Sin;
-        public int Voice2Freq => Voice2Octave + Voice2Semi;
-        public int Voice3Freq => Voice3Octave + Voice3Semi;
-        public int Voice2Octave { get; set; }
-        public int Voice3Octave { get; set; }
-        public int Voice2Semi { get; set; }
-        public int Voice3Semi { get; set; }
-        public bool EnableLpf { get; set; }
-        public bool EnableSubOsc { get; set; }
-        public bool EnableVibrato { get; set; }
+        public int Voice2Freq => 12*(int)Octave2 + (int)Semitone2;
+        public int Voice3Freq => 12*(int)Octave3 + (int)Semitone3;
+
+        static T[] EnumValues<T>()
+        {
+          return Enum.GetValues(typeof(T)).Cast<T>().ToArray();
+        }
+
+        public SignalGeneratorType[] SelectableWaveforms => 
+          new [] 
+          {
+            SignalGeneratorType.SawTooth  ,
+            SignalGeneratorType.Sin       ,
+            SignalGeneratorType.Square    ,
+            SignalGeneratorType.Triangle  ,
+            SignalGeneratorType.White     ,
+          };
+
+        public BaseFrequency[] SelectableBaseFrequencies => EnumValues<BaseFrequency> ();
+
+        public Octave[] SelectableOctaves => EnumValues<Octave>();
+
+        public Semitone[] SelectableSemiTones => EnumValues<Semitone>();
+
+        double BaseFrequencyInHz
+        {
+          get
+          {
+            switch(BaseFrequency)
+            {
+            case BaseFrequency.A2: return 110.0;
+            case BaseFrequency.A3: return 220.0;
+            case BaseFrequency.A4: return 440.0;
+            default: return 110.0;
+            }
+          }
+        }
 
         public void KeyDown(KeyEventArgs e)
         {
             var keyVal = keyboard.IndexOf(e.Key);
             if (keyVal > -1 && _oscillators[0,keyVal] is null)
             {
-                _oscillators[0,keyVal] = new SynthWaveProvider(WaveType, 44100, keyVal, Level1)
+                _oscillators[0,keyVal] = new SynthWaveProvider(WaveType1, 44100, keyVal, Level1)
                 {
-                    BaseFrequency = BaseFrequency,
+                    BaseFrequency = BaseFrequencyInHz,
                     AttackSeconds = Attack,
                     DecaySeconds = Decay,
                     SustainLevel = Sustain,
@@ -59,7 +114,7 @@ namespace synthesizer
 
                 _oscillators[1, keyVal] = new SynthWaveProvider(WaveType2, 44100, keyVal + Voice2Freq, Level2)
                 {
-                    BaseFrequency = BaseFrequency,
+                    BaseFrequency = BaseFrequencyInHz,
                     AttackSeconds = Attack2,
                     DecaySeconds = Decay2,
                     SustainLevel = Sustain2,
@@ -71,7 +126,7 @@ namespace synthesizer
 
                 _oscillators[2, keyVal] = new SynthWaveProvider(WaveType3, 44100, keyVal + Voice3Freq, Level3)
                 {
-                    BaseFrequency = BaseFrequency,
+                    BaseFrequency = BaseFrequencyInHz,
                     AttackSeconds = Attack3,
                     DecaySeconds = Decay3,
                     SustainLevel = Sustain3,
@@ -136,7 +191,7 @@ namespace synthesizer
             _lpf = new LowPassFilterSampleProvider(_phaser, 20000);
             _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _lpf);
 
-            WaveType = SignalGeneratorType.Sin;
+            WaveType1 = SignalGeneratorType.Sin;
             Volume = 0.25;
             Attack = Attack2 = Attack3 = 0.01f;
             Decay = Decay2 = Decay3 = 0.01f;
@@ -266,6 +321,11 @@ namespace synthesizer
             }
         }
 
+        partial void Changed_EnableTremolo(bool prev, bool current)
+        {
+          TremoloGain = current ? 0.2F : 0.0F;
+        }
+
         // Command events
         partial void CanExecute_OnCommand(ref bool result)
         {
@@ -306,5 +366,5 @@ namespace synthesizer
                 ResetCanExecute();
             }
         }
-    }
+  }
 }

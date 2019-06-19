@@ -3,26 +3,46 @@ using System.ComponentModel;
 using System.Windows.Input;
 using System.Windows.Threading;
 
+using NAudio.Wave.SampleProviders;
+
 <#
   // Model defines what properties and commands are generated
 
   var properties = new []
     {
-      LP("double"     , "Volume"              , @"$""{(int)(Volume * 100.0)}%"""              ),
       P ("float[]"    , "FrequencyAmplitudes"                                                 ),
       P ("float[]"    , "Waveform"                                                            ),
 
-	  LP("float"      , "Attack"              , @"$""{(int)(Attack * 1000.0)} ms"""         ),
+      P ("bool"       , "EnableLpf"                                                           ),
+      P ("bool"       , "EnableSubOsc"                                                        ),
+      P ("bool"       , "EnableVibrato"                                                       ),
+      P ("bool"       , "EnableTremolo"                                                       ),
+
+      P ("BaseFrequency"  , "BaseFrequency"   , "BaseFrequency.A2"                            ),
+
+      P ("SignalGeneratorType"  , "WaveType1" , "SignalGeneratorType.Sin"                     ),
+
+      P ("SignalGeneratorType"  , "WaveType2" , "SignalGeneratorType.Sin"                     ),
+      P ("Octave"               , "Octave2"   , "Octave._0"                                   ),
+      P ("Semitone"             , "Semitone2" , "Semitone._0"                                 ),
+
+      P ("SignalGeneratorType"  , "WaveType3" , "SignalGeneratorType.Sin"                     ),
+      P ("Octave"               , "Octave3"   , "Octave._0"                                   ),
+      P ("Semitone"             , "Semitone3" , "Semitone._0"                                 ),
+
+      LP("double"     , "Volume"              , @"$""{(int)(Volume * 100.0)}%"""              ),
+
+      LP("float"      , "Attack"              , @"$""{(int)(Attack * 1000.0)} ms"""           ),
       LP("float"      , "Decay"               , @"$""{(int)(Decay * 1000.0)} ms"""            ),
       LP("float"      , "Sustain"             , @"$""{(int)(Sustain * 100.0)}%"""             ),
       LP("float"      , "Release"             , @"$""{(int)(Release * 1000.0)} ms"""          ),
 
-	  LP("float"      , "Attack2"              , @"$""{(int)(Attack2 * 1000.0)} ms"""         ),
+      LP("float"      , "Attack2"              , @"$""{(int)(Attack2 * 1000.0)} ms"""         ),
       LP("float"      , "Decay2"               , @"$""{(int)(Decay2 * 1000.0)} ms"""          ),
       LP("float"      , "Sustain2"             , @"$""{(int)(Sustain2 * 100.0)}%"""           ),
       LP("float"      , "Release2"             , @"$""{(int)(Release2 * 1000.0)} ms"""        ),
 
-	  LP("float"      , "Attack3"              , @"$""{(int)(Attack3 * 1000.0)} ms"""         ),
+      LP("float"      , "Attack3"              , @"$""{(int)(Attack3 * 1000.0)} ms"""         ),
       LP("float"      , "Decay3"               , @"$""{(int)(Decay3 * 1000.0)} ms"""          ),
       LP("float"      , "Sustain3"             , @"$""{(int)(Sustain3 * 100.0)}%"""           ),
       LP("float"      , "Release3"             , @"$""{(int)(Release3 * 1000.0)} ms"""        ),
@@ -32,20 +52,21 @@ using System.Windows.Threading;
       LP("int"        , "TremoloFreq"         , @"$""{TremoloFreqMult * TremoloFreq} Hz"""    ),
       LP("float"      , "TremoloGain"         , @"$""{Math.Max(0, TremoloGain) * 100.0f}%"""  ),
       LP("int"        , "TremoloFreqMult"     , @"$""x{TremoloFreqMult}"""                    ),
-	  LP("float"      , "ChorusWidth"         , @"$""{ChorusWidth}"""                         ),
+      LP("float"      , "ChorusWidth"         , @"$""{ChorusWidth}"""                         ),
       LP("float"      , "ChorusSweep"         , @"$""{ChorusSweep}"""                         ),
       LP("float"      , "ChorusDelay"         , @"$""{ChorusDelay}"""                         ),
 
-	  LP("float"      , "PhaserDry"           , @"$""{PhaserDry}"""                           ),
+      LP("float"      , "PhaserDry"           , @"$""{PhaserDry}"""                           ),
       LP("float"      , "PhaserWet"           , @"$""{PhaserWet}"""                           ),
-	  LP("float"      , "PhaserFeedback"      , @"$""{PhaserFeedback}"""                      ),
-	  LP("float"      , "PhaserFreq"          , @"$""{PhaserFreq}"""                          ),
-	  LP("float"      , "PhaserWidth"         , @"$""{PhaserWidth}"""                         ),
-	  LP("float"      , "PhaserSweep"         , @"$""{PhaserSweep}"""                         ),
+      LP("float"      , "PhaserFeedback"      , @"$""{PhaserFeedback}"""                      ),
+      LP("float"      , "PhaserFreq"          , @"$""{PhaserFreq}"""                          ),
+      LP("float"      , "PhaserWidth"         , @"$""{PhaserWidth}"""                         ),
+      LP("float"      , "PhaserSweep"         , @"$""{PhaserSweep}"""                         ),
 
-	  LP("float"      , "Level1"              , @"$""{(int)(Level1 * 100.0)}%"""              ),
-	  LP("float"      , "Level2"              , @"$""{(int)(Level2 * 100.0)}%"""              ),
-	  LP("float"      , "Level3"              , @"$""{(int)(Level3 * 100.0)}%"""              ),
+      LP("float"      , "Level1"              , @"$""{(int)(Level1 * 100.0)}%"""              ),
+      LP("float"      , "Level2"              , @"$""{(int)(Level2 * 100.0)}%"""              ),
+      LP("float"      , "Level3"              , @"$""{(int)(Level3 * 100.0)}%"""              ),
+
     };
 
   var commands = new []
