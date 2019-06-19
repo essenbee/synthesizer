@@ -27,13 +27,13 @@ namespace synthesizer
                 switch (octaveSel.Name)
                 {
                     case "A2":
-                        _viewModel.BaseFrequency = 110.0;
+                        _viewModel.KeyValueBase = 33;
                         break;
                     case "A3":
-                        _viewModel.BaseFrequency = 220.0;
+                        _viewModel.KeyValueBase = 45;
                         break;
                     case "A4":
-                        _viewModel.BaseFrequency = 440.0;
+                        _viewModel.KeyValueBase = 57;
                         break;
                 }
             }

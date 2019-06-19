@@ -8,7 +8,6 @@ namespace synthesizer
     public class SynthWaveProvider : ISampleProvider
     {
         private int _sampleRate;
-        private readonly int _note;
         private readonly double _twelfthRootOfTwo = Math.Pow(2, 1.0 / 12.0);
         private readonly SynthSignalGenerator _source;
         private readonly EnvelopeGenerator _adsr;
@@ -75,23 +74,23 @@ namespace synthesizer
             }
         }
 
-        private double baseFrequency;
-        public double BaseFrequency
+        private double note;
+        public double Note
         {
-            get => baseFrequency;
+            get => note;
             set
             {
-                baseFrequency = value;
+                note = value;
                 if (_source != null)
                 {
-                    _source.Frequency = Frequency;
+                    //`
+                    //` <formula f_n = f_0 \cdot (\sqrt[12]{2})^n >
+                    //`
+                    _source.Frequency = 110.0 * Math.Pow(_twelfthRootOfTwo, value - 33);
                 }
             }
         }
-        //`
-        //` <formula f_n = f_0 \cdot (\sqrt[12]{2})^n >
-        //`
-        public double Frequency => BaseFrequency * Math.Pow(_twelfthRootOfTwo, _note);
+        
         private double lfoFrequency;
         public double LfoFrequency
         {
@@ -120,9 +119,8 @@ namespace synthesizer
         }
 
         public SynthWaveProvider(SignalGeneratorType waveType = SignalGeneratorType.Sin,
-            int sampleRate = 44100, int note = 0, float level = 1.0f)
+            int sampleRate = 44100, float level = 1.0f)
         {
-            _note = note;
             _sampleRate = sampleRate;
             var channels = 1; // Mono
             WaveFormat = WaveFormat.CreateIeeeFloatWaveFormat(_sampleRate, channels);
@@ -136,7 +134,7 @@ namespace synthesizer
 
             _source = new SynthSignalGenerator(_sampleRate, channels)
             {
-                Frequency = Frequency,
+                Frequency = 110.0 * Math.Pow(_twelfthRootOfTwo, 0),
                 Type = waveType,
                 Gain = level,
             };

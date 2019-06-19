@@ -27,6 +27,7 @@ namespace synthesizer
         private IWavePlayer _player;
 
         public double BaseFrequency { get; set; } = 110.0;
+        public int KeyValueBase { get; set; } = 33;
         public SignalGeneratorType WaveType { get; set; } = SignalGeneratorType.Sin;
         public SignalGeneratorType WaveType2 { get; set; } = SignalGeneratorType.Sin;
         public SignalGeneratorType WaveType3 { get; set; } = SignalGeneratorType.Sin;
@@ -43,11 +44,12 @@ namespace synthesizer
         public void KeyDown(KeyEventArgs e)
         {
             var keyVal = keyboard.IndexOf(e.Key);
+            var midiKeyVal = keyVal + KeyValueBase;
             if (keyVal > -1 && _oscillators[0,keyVal] is null)
             {
-                _oscillators[0,keyVal] = new SynthWaveProvider(WaveType, 44100, keyVal, Level1)
+                _oscillators[0,keyVal] = new SynthWaveProvider(WaveType, 44100, Level1)
                 {
-                    BaseFrequency = BaseFrequency,
+                    Note = midiKeyVal,
                     AttackSeconds = Attack,
                     DecaySeconds = Decay,
                     SustainLevel = Sustain,
@@ -57,32 +59,32 @@ namespace synthesizer
                     EnableSubOsc = EnableSubOsc,
                 };
 
-                _oscillators[1, keyVal] = new SynthWaveProvider(WaveType2, 44100, keyVal + Voice2Freq, Level2)
+                _oscillators[1, keyVal] = new SynthWaveProvider(WaveType2, 44100, Level2)
                 {
-                    BaseFrequency = BaseFrequency,
+                    Note = midiKeyVal + Voice2Freq,
                     AttackSeconds = Attack2,
                     DecaySeconds = Decay2,
                     SustainLevel = Sustain2,
                     ReleaseSeconds = Release2,
                     LfoFrequency = 5.0,
                     LfoGain = EnableVibrato ? 0.2 : 0.0,
-                    EnableSubOsc = EnableSubOsc,
+                    EnableSubOsc = false,
                 };
 
-                _oscillators[2, keyVal] = new SynthWaveProvider(WaveType3, 44100, keyVal + Voice3Freq, Level3)
+                _oscillators[2, keyVal] = new SynthWaveProvider(WaveType3, 44100, Level3)
                 {
-                    BaseFrequency = BaseFrequency,
+                    Note = midiKeyVal + Voice3Freq,
                     AttackSeconds = Attack3,
                     DecaySeconds = Decay3,
                     SustainLevel = Sustain3,
                     ReleaseSeconds = Release3,
                     LfoFrequency = 5.0,
                     LfoGain = EnableVibrato ? 0.2 : 0.0,
-                    EnableSubOsc = EnableSubOsc,
+                    EnableSubOsc = false,
                 };
 
                 _mixer.AddMixerInput(EnableLpf 
-                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[0,keyVal], CutOff, Q) 
+                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[0, keyVal], CutOff, Q) 
                     : _oscillators[0,keyVal]);
                 _mixer.AddMixerInput(EnableLpf
                     ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[1, keyVal], CutOff, Q)
