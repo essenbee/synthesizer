@@ -275,6 +275,310 @@ namespace synthesizer
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Attack2 (float)
+        // --------------------------------------------------------------------
+        float _Attack2 = default;
+
+        void Raise_Attack2 ()
+        {
+          OnPropertyChanged ("Attack2");
+          OnPropertyChanged ("Attack2Label");
+        }
+
+        public string Attack2Label => $"{(int)(Attack2 * 1000.0)} ms";
+
+        public float Attack2
+        {
+            get { return _Attack2; }
+            set
+            {
+                if (_Attack2 == value)
+                {
+                    return;
+                }
+
+                var prev = _Attack2;
+
+                _Attack2 = value;
+
+                Changed_Attack2 (prev, _Attack2);
+
+                Raise_Attack2 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Attack2 (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Attack2 (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Decay2 (float)
+        // --------------------------------------------------------------------
+        float _Decay2 = default;
+
+        void Raise_Decay2 ()
+        {
+          OnPropertyChanged ("Decay2");
+          OnPropertyChanged ("Decay2Label");
+        }
+
+        public string Decay2Label => $"{(int)(Decay2 * 1000.0)} ms";
+
+        public float Decay2
+        {
+            get { return _Decay2; }
+            set
+            {
+                if (_Decay2 == value)
+                {
+                    return;
+                }
+
+                var prev = _Decay2;
+
+                _Decay2 = value;
+
+                Changed_Decay2 (prev, _Decay2);
+
+                Raise_Decay2 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Decay2 (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Decay2 (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Sustain2 (float)
+        // --------------------------------------------------------------------
+        float _Sustain2 = default;
+
+        void Raise_Sustain2 ()
+        {
+          OnPropertyChanged ("Sustain2");
+          OnPropertyChanged ("Sustain2Label");
+        }
+
+        public string Sustain2Label => $"{(int)(Sustain2 * 100.0)}%";
+
+        public float Sustain2
+        {
+            get { return _Sustain2; }
+            set
+            {
+                if (_Sustain2 == value)
+                {
+                    return;
+                }
+
+                var prev = _Sustain2;
+
+                _Sustain2 = value;
+
+                Changed_Sustain2 (prev, _Sustain2);
+
+                Raise_Sustain2 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Sustain2 (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Sustain2 (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Release2 (float)
+        // --------------------------------------------------------------------
+        float _Release2 = default;
+
+        void Raise_Release2 ()
+        {
+          OnPropertyChanged ("Release2");
+          OnPropertyChanged ("Release2Label");
+        }
+
+        public string Release2Label => $"{(int)(Release2 * 1000.0)} ms";
+
+        public float Release2
+        {
+            get { return _Release2; }
+            set
+            {
+                if (_Release2 == value)
+                {
+                    return;
+                }
+
+                var prev = _Release2;
+
+                _Release2 = value;
+
+                Changed_Release2 (prev, _Release2);
+
+                Raise_Release2 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Release2 (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Release2 (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Attack3 (float)
+        // --------------------------------------------------------------------
+        float _Attack3 = default;
+
+        void Raise_Attack3 ()
+        {
+          OnPropertyChanged ("Attack3");
+          OnPropertyChanged ("Attack3Label");
+        }
+
+        public string Attack3Label => $"{(int)(Attack3 * 1000.0)} ms";
+
+        public float Attack3
+        {
+            get { return _Attack3; }
+            set
+            {
+                if (_Attack3 == value)
+                {
+                    return;
+                }
+
+                var prev = _Attack3;
+
+                _Attack3 = value;
+
+                Changed_Attack3 (prev, _Attack3);
+
+                Raise_Attack3 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Attack3 (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Attack3 (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Decay3 (float)
+        // --------------------------------------------------------------------
+        float _Decay3 = default;
+
+        void Raise_Decay3 ()
+        {
+          OnPropertyChanged ("Decay3");
+          OnPropertyChanged ("Decay3Label");
+        }
+
+        public string Decay3Label => $"{(int)(Decay3 * 1000.0)} ms";
+
+        public float Decay3
+        {
+            get { return _Decay3; }
+            set
+            {
+                if (_Decay3 == value)
+                {
+                    return;
+                }
+
+                var prev = _Decay3;
+
+                _Decay3 = value;
+
+                Changed_Decay3 (prev, _Decay3);
+
+                Raise_Decay3 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Decay3 (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Decay3 (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Sustain3 (float)
+        // --------------------------------------------------------------------
+        float _Sustain3 = default;
+
+        void Raise_Sustain3 ()
+        {
+          OnPropertyChanged ("Sustain3");
+          OnPropertyChanged ("Sustain3Label");
+        }
+
+        public string Sustain3Label => $"{(int)(Sustain3 * 100.0)}%";
+
+        public float Sustain3
+        {
+            get { return _Sustain3; }
+            set
+            {
+                if (_Sustain3 == value)
+                {
+                    return;
+                }
+
+                var prev = _Sustain3;
+
+                _Sustain3 = value;
+
+                Changed_Sustain3 (prev, _Sustain3);
+
+                Raise_Sustain3 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Sustain3 (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Sustain3 (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Release3 (float)
+        // --------------------------------------------------------------------
+        float _Release3 = default;
+
+        void Raise_Release3 ()
+        {
+          OnPropertyChanged ("Release3");
+          OnPropertyChanged ("Release3Label");
+        }
+
+        public string Release3Label => $"{(int)(Release3 * 1000.0)} ms";
+
+        public float Release3
+        {
+            get { return _Release3; }
+            set
+            {
+                if (_Release3 == value)
+                {
+                    return;
+                }
+
+                var prev = _Release3;
+
+                _Release3 = value;
+
+                Changed_Release3 (prev, _Release3);
+
+                Raise_Release3 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Release3 (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Release3 (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
         // BEGIN_PROPERTY: CutOff (int)
         // --------------------------------------------------------------------
         int _CutOff = default;

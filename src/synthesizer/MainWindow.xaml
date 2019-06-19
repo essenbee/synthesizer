@@ -28,7 +28,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
                     <RowDefinition Height="100" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="60" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="200" />
@@ -158,7 +158,7 @@
                     <Slider
                         Margin="5"
                         VerticalAlignment="Center"
-                        Value="{Binding Level2}"
+                        Value="{Binding Level1}"
                         Maximum="1.0"
                         Minimum="0.0"
                         Orientation="Horizontal" 
@@ -171,7 +171,7 @@
                         Width="40"
                         Margin="5"
                         HorizontalAlignment="Left"
-                        Content="{Binding Level2Label}" />
+                        Content="{Binding Level1Label}" />
                 </StackPanel>
 
                 <Label
@@ -608,7 +608,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
                     <RowDefinition Height="100" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="60" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="200" />
@@ -626,6 +626,83 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="5"
                     Waveform="{Binding Waveform}" />
+
+                <Label
+                    Grid.Row="3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="Envelope ADSR"
+                    FontWeight="Bold" />
+                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                    <Label
+                        Width="50"
+                        Height="25"
+                        Margin="15,0,5,0"
+                        Content="Attack" />
+                    <Label
+                        Width="50"
+                        Height="25"
+                        Margin="5,0,5,0"
+                        Content="Decay" />
+                    <Label
+                        Width="50"
+                        Height="25"
+                        Margin="5,0,5,0"
+                        Content="Sustain" />
+                    <Label
+                        Width="50"
+                        Height="25"
+                        Margin="5,0,5,0"
+                        Content="Release" />
+                </StackPanel>
+                <StackPanel Grid.Row="5" Orientation="Horizontal">
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding Attack2}"
+                        Maximum="2.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding Decay2}"
+                        Maximum="2.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding Sustain2}"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding Release2}"
+                        Maximum="2.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                </StackPanel>
+                <StackPanel Grid.Row="6" Orientation="Horizontal">
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="5,0,0,0"
+                        Content="{Binding Attack2Label}" />
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="5,0,0,0"
+                        Content="{Binding Decay2Label}" />
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="5,0,0,0"
+                        Content="{Binding Sustain2Label}" />
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="3,0,0,0"
+                        Content="{Binding Release2Label}" />
+                </StackPanel>
 
                 <StackPanel
                     Grid.Row="3"
@@ -701,6 +778,40 @@
                         HorizontalAlignment="Left"
                         Content="{Binding Level2Label}" />
                 </StackPanel>
+                
+                <StackPanel
+                    Grid.Row="5"
+                    Grid.Column="4"
+                    Orientation="Vertical">
+                    
+                    <Label FontWeight="Bold" Content="Octaves"/>
+
+                    <ComboBox Width="50" HorizontalAlignment="Left"
+                              SelectionChanged="Octave2_SelectionChanged">
+                        <ComboBoxItem HorizontalAlignment="Center" IsSelected="True">+0</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+1</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+2</ComboBoxItem>
+                    </ComboBox>
+
+                    <Label FontWeight="Bold" Content="Semitones"/>
+
+                    <ComboBox Width="50" HorizontalAlignment="Left"
+                              SelectionChanged="Semitone2_SelectionChanged">
+                        <ComboBoxItem HorizontalAlignment="Center" IsSelected="True">+0</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+1</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+2</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+3</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+4</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+5</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+6</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+7</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+8</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+9</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+10</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+11</ComboBoxItem>
+                    </ComboBox>
+
+                </StackPanel>
 
                 <StackPanel
                     Grid.Row="7"
@@ -733,7 +844,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
                     <RowDefinition Height="100" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="60" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="200" />
@@ -751,6 +862,83 @@
                     Grid.Column="0"
                     Grid.ColumnSpan="5"
                     Waveform="{Binding Waveform}" />
+
+                <Label
+                    Grid.Row="3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="Envelope ADSR"
+                    FontWeight="Bold" />
+                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                    <Label
+                        Width="50"
+                        Height="25"
+                        Margin="15,0,5,0"
+                        Content="Attack" />
+                    <Label
+                        Width="50"
+                        Height="25"
+                        Margin="5,0,5,0"
+                        Content="Decay" />
+                    <Label
+                        Width="50"
+                        Height="25"
+                        Margin="5,0,5,0"
+                        Content="Sustain" />
+                    <Label
+                        Width="50"
+                        Height="25"
+                        Margin="5,0,5,0"
+                        Content="Release" />
+                </StackPanel>
+                <StackPanel Grid.Row="5" Orientation="Horizontal">
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding Attack3}"
+                        Maximum="2.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding Decay3}"
+                        Maximum="2.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding Sustain3}"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding Release3}"
+                        Maximum="2.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                </StackPanel>
+                <StackPanel Grid.Row="6" Orientation="Horizontal">
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="5,0,0,0"
+                        Content="{Binding Attack3Label}" />
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="5,0,0,0"
+                        Content="{Binding Decay3Label}" />
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="5,0,0,0"
+                        Content="{Binding Sustain3Label}" />
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="3,0,0,0"
+                        Content="{Binding Release3Label}" />
+                </StackPanel>
 
                 <StackPanel
                     Grid.Row="3"
@@ -827,6 +1015,39 @@
                         Content="{Binding Level3Label}" />
                 </StackPanel>
 
+                <StackPanel
+                    Grid.Row="5"
+                    Grid.Column="4"
+                    Orientation="Vertical">
+
+                    <Label FontWeight="Bold" Content="Octaves"/>
+
+                    <ComboBox Width="50" HorizontalAlignment="Left"
+                              SelectionChanged="Octave3_SelectionChanged">
+                        <ComboBoxItem HorizontalAlignment="Center" IsSelected="True">+0</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+1</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+2</ComboBoxItem>
+                    </ComboBox>
+
+                    <Label FontWeight="Bold" Content="Semitones"/>
+
+                    <ComboBox Width="50" HorizontalAlignment="Left"
+                              SelectionChanged="Semitone3_SelectionChanged">
+                        <ComboBoxItem HorizontalAlignment="Center" IsSelected="True">+0</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+1</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+2</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+3</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+4</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+5</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+6</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+7</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+8</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+9</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+10</ComboBoxItem>
+                        <ComboBoxItem HorizontalAlignment="Center">+11</ComboBoxItem>
+                    </ComboBox>
+
+                </StackPanel>
 
                 <StackPanel
                     Grid.Row="7"

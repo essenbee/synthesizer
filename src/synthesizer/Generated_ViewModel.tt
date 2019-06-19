@@ -11,10 +11,22 @@ using System.Windows.Threading;
       LP("double"     , "Volume"              , @"$""{(int)(Volume * 100.0)}%"""              ),
       P ("float[]"    , "FrequencyAmplitudes"                                                 ),
       P ("float[]"    , "Waveform"                                                            ),
-      LP("float"      , "Attack"              , @"$""{(int)(Attack * 1000.0)} ms"""           ),
+
+	  LP("float"      , "Attack"              , @"$""{(int)(Attack * 1000.0)} ms"""         ),
       LP("float"      , "Decay"               , @"$""{(int)(Decay * 1000.0)} ms"""            ),
       LP("float"      , "Sustain"             , @"$""{(int)(Sustain * 100.0)}%"""             ),
       LP("float"      , "Release"             , @"$""{(int)(Release * 1000.0)} ms"""          ),
+
+	  LP("float"      , "Attack2"              , @"$""{(int)(Attack2 * 1000.0)} ms"""         ),
+      LP("float"      , "Decay2"               , @"$""{(int)(Decay2 * 1000.0)} ms"""          ),
+      LP("float"      , "Sustain2"             , @"$""{(int)(Sustain2 * 100.0)}%"""           ),
+      LP("float"      , "Release2"             , @"$""{(int)(Release2 * 1000.0)} ms"""        ),
+
+	  LP("float"      , "Attack3"              , @"$""{(int)(Attack3 * 1000.0)} ms"""         ),
+      LP("float"      , "Decay3"               , @"$""{(int)(Decay3 * 1000.0)} ms"""          ),
+      LP("float"      , "Sustain3"             , @"$""{(int)(Sustain3 * 100.0)}%"""           ),
+      LP("float"      , "Release3"             , @"$""{(int)(Release3 * 1000.0)} ms"""        ),
+
       LP("int"        , "CutOff"              , @"$""{CutOff} Hz"""                           ),
       LP("float"      , "Q"                   , @"$""{((int)(Q * 100.0f))/ 100.0f}"""         ),
       LP("int"        , "TremoloFreq"         , @"$""{TremoloFreqMult * TremoloFreq} Hz"""    ),

@@ -30,6 +30,12 @@ namespace synthesizer
         public SignalGeneratorType WaveType { get; set; } = SignalGeneratorType.Sin;
         public SignalGeneratorType WaveType2 { get; set; } = SignalGeneratorType.Sin;
         public SignalGeneratorType WaveType3 { get; set; } = SignalGeneratorType.Sin;
+        public int Voice2Freq => Voice2Octave + Voice2Semi;
+        public int Voice3Freq => Voice3Octave + Voice3Semi;
+        public int Voice2Octave { get; set; }
+        public int Voice3Octave { get; set; }
+        public int Voice2Semi { get; set; }
+        public int Voice3Semi { get; set; }
         public bool EnableLpf { get; set; }
         public bool EnableSubOsc { get; set; }
         public bool EnableVibrato { get; set; }
@@ -51,25 +57,25 @@ namespace synthesizer
                     EnableSubOsc = EnableSubOsc,
                 };
 
-                _oscillators[1, keyVal] = new SynthWaveProvider(WaveType2, 44100, keyVal + 12, Level2)
+                _oscillators[1, keyVal] = new SynthWaveProvider(WaveType2, 44100, keyVal + Voice2Freq, Level2)
                 {
                     BaseFrequency = BaseFrequency,
-                    AttackSeconds = Attack,
-                    DecaySeconds = Decay,
-                    SustainLevel = Sustain,
-                    ReleaseSeconds = Release,
+                    AttackSeconds = Attack2,
+                    DecaySeconds = Decay2,
+                    SustainLevel = Sustain2,
+                    ReleaseSeconds = Release2,
                     LfoFrequency = 5.0,
                     LfoGain = EnableVibrato ? 0.2 : 0.0,
                     EnableSubOsc = EnableSubOsc,
                 };
 
-                _oscillators[2, keyVal] = new SynthWaveProvider(WaveType3, 44100, keyVal + 24, Level3)
+                _oscillators[2, keyVal] = new SynthWaveProvider(WaveType3, 44100, keyVal + Voice3Freq, Level3)
                 {
                     BaseFrequency = BaseFrequency,
-                    AttackSeconds = Attack,
-                    DecaySeconds = Decay,
-                    SustainLevel = Sustain,
-                    ReleaseSeconds = Release,
+                    AttackSeconds = Attack3,
+                    DecaySeconds = Decay3,
+                    SustainLevel = Sustain3,
+                    ReleaseSeconds = Release3,
                     LfoFrequency = 5.0,
                     LfoGain = EnableVibrato ? 0.2 : 0.0,
                     EnableSubOsc = EnableSubOsc,
@@ -132,10 +138,10 @@ namespace synthesizer
 
             WaveType = SignalGeneratorType.Sin;
             Volume = 0.25;
-            Attack = 0.01f;
-            Decay = 0.01f;
-            Sustain = 1.0f;
-            Release = 0.3f;
+            Attack = Attack2 = Attack3 = 0.01f;
+            Decay = Decay2 = Decay3 = 0.01f;
+            Sustain = Sustain2 = Sustain3 = 1.0f;
+            Release = Release2 = Release3 = 0.3f;
             CutOff = 4000;
             Q = 0.7f;
             TremoloFreq = 5;
@@ -152,6 +158,8 @@ namespace synthesizer
 
             // Voice Levels
             Level1 = 1.0f;
+            Level2 = 0.0f;
+            Level3 = 0.0f;
         }
 
         // Property events
