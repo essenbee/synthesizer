@@ -47,6 +47,10 @@ Off-stream, implemented a Delay effect but it's not wired into the GUI at this t
 
 #### Episode 40
 
+Added 2 additional voices per note, complete with GUI controls for level, waveform, ADSR and relative tuning. Determined some settings that produced a nice bell sound; will use these for our first preset patch in a later stream.
+
+#### Episode 41
+
 TBC
 
 ## Contributors
