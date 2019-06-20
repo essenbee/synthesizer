@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Windows.Input;
 using System.Windows.Threading;
 
+using NAudio.Wave.SampleProviders;
+
 
 
 
@@ -13,44 +15,6 @@ namespace synthesizer
         readonly Dispatcher _dispatcher;
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        // --------------------------------------------------------------------
-        // BEGIN_PROPERTY: Volume (double)
-        // --------------------------------------------------------------------
-        double _Volume = default;
-
-        void Raise_Volume ()
-        {
-          OnPropertyChanged ("Volume");
-          OnPropertyChanged ("VolumeLabel");
-        }
-
-        public string VolumeLabel => $"{(int)(Volume * 100.0)}%";
-
-        public double Volume
-        {
-            get { return _Volume; }
-            set
-            {
-                if (_Volume == value)
-                {
-                    return;
-                }
-
-                var prev = _Volume;
-
-                _Volume = value;
-
-                Changed_Volume (prev, _Volume);
-
-                Raise_Volume ();
-            }
-        }
-        // --------------------------------------------------------------------
-        partial void Changed_Volume (double prev, double current);
-        // --------------------------------------------------------------------
-        // END_PROPERTY: Volume (double)
-        // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
         // BEGIN_PROPERTY: FrequencyAmplitudes (float[])
@@ -120,6 +84,464 @@ namespace synthesizer
         partial void Changed_Waveform (float[] prev, float[] current);
         // --------------------------------------------------------------------
         // END_PROPERTY: Waveform (float[])
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: EnableLpf (bool)
+        // --------------------------------------------------------------------
+        bool _EnableLpf = default;
+
+        void Raise_EnableLpf ()
+        {
+          OnPropertyChanged ("EnableLpf");
+        }
+
+        public bool EnableLpf
+        {
+            get { return _EnableLpf; }
+            set
+            {
+                if (_EnableLpf == value)
+                {
+                    return;
+                }
+
+                var prev = _EnableLpf;
+
+                _EnableLpf = value;
+
+                Changed_EnableLpf (prev, _EnableLpf);
+
+                Raise_EnableLpf ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_EnableLpf (bool prev, bool current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: EnableLpf (bool)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: EnableSubOsc (bool)
+        // --------------------------------------------------------------------
+        bool _EnableSubOsc = default;
+
+        void Raise_EnableSubOsc ()
+        {
+          OnPropertyChanged ("EnableSubOsc");
+        }
+
+        public bool EnableSubOsc
+        {
+            get { return _EnableSubOsc; }
+            set
+            {
+                if (_EnableSubOsc == value)
+                {
+                    return;
+                }
+
+                var prev = _EnableSubOsc;
+
+                _EnableSubOsc = value;
+
+                Changed_EnableSubOsc (prev, _EnableSubOsc);
+
+                Raise_EnableSubOsc ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_EnableSubOsc (bool prev, bool current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: EnableSubOsc (bool)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: EnableVibrato (bool)
+        // --------------------------------------------------------------------
+        bool _EnableVibrato = default;
+
+        void Raise_EnableVibrato ()
+        {
+          OnPropertyChanged ("EnableVibrato");
+        }
+
+        public bool EnableVibrato
+        {
+            get { return _EnableVibrato; }
+            set
+            {
+                if (_EnableVibrato == value)
+                {
+                    return;
+                }
+
+                var prev = _EnableVibrato;
+
+                _EnableVibrato = value;
+
+                Changed_EnableVibrato (prev, _EnableVibrato);
+
+                Raise_EnableVibrato ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_EnableVibrato (bool prev, bool current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: EnableVibrato (bool)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: EnableTremolo (bool)
+        // --------------------------------------------------------------------
+        bool _EnableTremolo = default;
+
+        void Raise_EnableTremolo ()
+        {
+          OnPropertyChanged ("EnableTremolo");
+        }
+
+        public bool EnableTremolo
+        {
+            get { return _EnableTremolo; }
+            set
+            {
+                if (_EnableTremolo == value)
+                {
+                    return;
+                }
+
+                var prev = _EnableTremolo;
+
+                _EnableTremolo = value;
+
+                Changed_EnableTremolo (prev, _EnableTremolo);
+
+                Raise_EnableTremolo ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_EnableTremolo (bool prev, bool current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: EnableTremolo (bool)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: BaseFrequency (BaseFrequency)
+        // --------------------------------------------------------------------
+        BaseFrequency _BaseFrequency = BaseFrequency.A2;
+
+        void Raise_BaseFrequency ()
+        {
+          OnPropertyChanged ("BaseFrequency");
+        }
+
+        public BaseFrequency BaseFrequency
+        {
+            get { return _BaseFrequency; }
+            set
+            {
+                if (_BaseFrequency == value)
+                {
+                    return;
+                }
+
+                var prev = _BaseFrequency;
+
+                _BaseFrequency = value;
+
+                Changed_BaseFrequency (prev, _BaseFrequency);
+
+                Raise_BaseFrequency ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_BaseFrequency (BaseFrequency prev, BaseFrequency current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: BaseFrequency (BaseFrequency)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: WaveType1 (SignalGeneratorType)
+        // --------------------------------------------------------------------
+        SignalGeneratorType _WaveType1 = SignalGeneratorType.Sin;
+
+        void Raise_WaveType1 ()
+        {
+          OnPropertyChanged ("WaveType1");
+        }
+
+        public SignalGeneratorType WaveType1
+        {
+            get { return _WaveType1; }
+            set
+            {
+                if (_WaveType1 == value)
+                {
+                    return;
+                }
+
+                var prev = _WaveType1;
+
+                _WaveType1 = value;
+
+                Changed_WaveType1 (prev, _WaveType1);
+
+                Raise_WaveType1 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_WaveType1 (SignalGeneratorType prev, SignalGeneratorType current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: WaveType1 (SignalGeneratorType)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: WaveType2 (SignalGeneratorType)
+        // --------------------------------------------------------------------
+        SignalGeneratorType _WaveType2 = SignalGeneratorType.Sin;
+
+        void Raise_WaveType2 ()
+        {
+          OnPropertyChanged ("WaveType2");
+        }
+
+        public SignalGeneratorType WaveType2
+        {
+            get { return _WaveType2; }
+            set
+            {
+                if (_WaveType2 == value)
+                {
+                    return;
+                }
+
+                var prev = _WaveType2;
+
+                _WaveType2 = value;
+
+                Changed_WaveType2 (prev, _WaveType2);
+
+                Raise_WaveType2 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_WaveType2 (SignalGeneratorType prev, SignalGeneratorType current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: WaveType2 (SignalGeneratorType)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Octave2 (Octave)
+        // --------------------------------------------------------------------
+        Octave _Octave2 = Octave._0;
+
+        void Raise_Octave2 ()
+        {
+          OnPropertyChanged ("Octave2");
+        }
+
+        public Octave Octave2
+        {
+            get { return _Octave2; }
+            set
+            {
+                if (_Octave2 == value)
+                {
+                    return;
+                }
+
+                var prev = _Octave2;
+
+                _Octave2 = value;
+
+                Changed_Octave2 (prev, _Octave2);
+
+                Raise_Octave2 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Octave2 (Octave prev, Octave current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Octave2 (Octave)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Semitone2 (Semitone)
+        // --------------------------------------------------------------------
+        Semitone _Semitone2 = Semitone._0;
+
+        void Raise_Semitone2 ()
+        {
+          OnPropertyChanged ("Semitone2");
+        }
+
+        public Semitone Semitone2
+        {
+            get { return _Semitone2; }
+            set
+            {
+                if (_Semitone2 == value)
+                {
+                    return;
+                }
+
+                var prev = _Semitone2;
+
+                _Semitone2 = value;
+
+                Changed_Semitone2 (prev, _Semitone2);
+
+                Raise_Semitone2 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Semitone2 (Semitone prev, Semitone current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Semitone2 (Semitone)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: WaveType3 (SignalGeneratorType)
+        // --------------------------------------------------------------------
+        SignalGeneratorType _WaveType3 = SignalGeneratorType.Sin;
+
+        void Raise_WaveType3 ()
+        {
+          OnPropertyChanged ("WaveType3");
+        }
+
+        public SignalGeneratorType WaveType3
+        {
+            get { return _WaveType3; }
+            set
+            {
+                if (_WaveType3 == value)
+                {
+                    return;
+                }
+
+                var prev = _WaveType3;
+
+                _WaveType3 = value;
+
+                Changed_WaveType3 (prev, _WaveType3);
+
+                Raise_WaveType3 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_WaveType3 (SignalGeneratorType prev, SignalGeneratorType current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: WaveType3 (SignalGeneratorType)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Octave3 (Octave)
+        // --------------------------------------------------------------------
+        Octave _Octave3 = Octave._0;
+
+        void Raise_Octave3 ()
+        {
+          OnPropertyChanged ("Octave3");
+        }
+
+        public Octave Octave3
+        {
+            get { return _Octave3; }
+            set
+            {
+                if (_Octave3 == value)
+                {
+                    return;
+                }
+
+                var prev = _Octave3;
+
+                _Octave3 = value;
+
+                Changed_Octave3 (prev, _Octave3);
+
+                Raise_Octave3 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Octave3 (Octave prev, Octave current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Octave3 (Octave)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Semitone3 (Semitone)
+        // --------------------------------------------------------------------
+        Semitone _Semitone3 = Semitone._0;
+
+        void Raise_Semitone3 ()
+        {
+          OnPropertyChanged ("Semitone3");
+        }
+
+        public Semitone Semitone3
+        {
+            get { return _Semitone3; }
+            set
+            {
+                if (_Semitone3 == value)
+                {
+                    return;
+                }
+
+                var prev = _Semitone3;
+
+                _Semitone3 = value;
+
+                Changed_Semitone3 (prev, _Semitone3);
+
+                Raise_Semitone3 ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Semitone3 (Semitone prev, Semitone current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Semitone3 (Semitone)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: Volume (double)
+        // --------------------------------------------------------------------
+        double _Volume = default;
+
+        void Raise_Volume ()
+        {
+          OnPropertyChanged ("Volume");
+          OnPropertyChanged ("VolumeLabel");
+        }
+
+        public string VolumeLabel => $"{(int)(Volume * 100.0)}%";
+
+        public double Volume
+        {
+            get { return _Volume; }
+            set
+            {
+                if (_Volume == value)
+                {
+                    return;
+                }
+
+                var prev = _Volume;
+
+                _Volume = value;
+
+                Changed_Volume (prev, _Volume);
+
+                Raise_Volume ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_Volume (double prev, double current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: Volume (double)
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------

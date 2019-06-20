@@ -25,9 +25,9 @@ namespace synthesizer
             _execute();
         }
 
-        public void RefreshCanExecute ()
+        public void RefreshCanExecute()
         {
-          CanExecuteChanged (this, new EventArgs ());
+          CanExecuteChanged (this, new EventArgs());
         }
 
     }
