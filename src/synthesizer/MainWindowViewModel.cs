@@ -81,21 +81,21 @@ namespace synthesizer
 
         public Semitone[] SelectableSemiTones => EnumValues<Semitone>();
 
-        double BaseFrequencyInHz
+        int KeyValueBase
         {
           get
           {
             switch(BaseFrequency)
             {
-            case BaseFrequency.A2: return 110.0;
-            case BaseFrequency.A3: return 220.0;
-            case BaseFrequency.A4: return 440.0;
-            default: return 110.0;
+            case BaseFrequency.A2: return 33;
+            case BaseFrequency.A3: return 45;
+            case BaseFrequency.A4: return 57;
+            default: return 33;
             }
           }
         }
       
-        public int KeyValueBase { get; set; } = 33;
+        // public int KeyValueBase { get; set; } = 33;
 
         public void KeyDown(KeyEventArgs e)
         {
@@ -103,7 +103,7 @@ namespace synthesizer
             var midiKeyVal = keyVal + KeyValueBase;
             if (keyVal > -1 && _oscillators[0,keyVal] is null)
             {
-                _oscillators[0,keyVal] = new SynthWaveProvider(WaveType, 44100, Level1)
+                _oscillators[0,keyVal] = new SynthWaveProvider(WaveType1, 44100, Level1)
                 {
                     Note = midiKeyVal,
                     AttackSeconds = Attack,
