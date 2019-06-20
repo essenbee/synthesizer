@@ -697,7 +697,7 @@
           <Label FontWeight="Bold" Content="Octaves"/>
 
           <ComboBox 
-            Width="50" 
+            Width="100" 
             HorizontalAlignment="Left"
             ItemsSource="{Binding SelectableOctaves}"
             SelectedItem="{Binding Octave2}"/>
@@ -705,7 +705,7 @@
           <Label FontWeight="Bold" Content="Semitones"/>
 
           <ComboBox 
-            Width="50" 
+            Width="100" 
             HorizontalAlignment="Left"
             ItemsSource="{Binding SelectableSemiTones}"
             SelectedItem="{Binding Semitone2}"/>
@@ -888,15 +888,15 @@
           <Label FontWeight="Bold" Content="Octaves"/>
 
           <ComboBox 
-            Width="50" 
+            Width="100" 
             HorizontalAlignment="Left"
             ItemsSource="{Binding SelectableOctaves}"
-            SelectedItem="{Binding Octave3}"/>
+            SelectedItem="{Binding Octave3}" />
 
           <Label FontWeight="Bold" Content="Semitones"/>
 
           <ComboBox 
-            Width="50" 
+            Width="100" 
             HorizontalAlignment="Left"
             ItemsSource="{Binding SelectableSemiTones}"
             SelectedItem="{Binding Semitone3}"/>

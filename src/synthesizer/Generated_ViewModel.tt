@@ -23,12 +23,12 @@ using NAudio.Wave.SampleProviders;
       P ("SignalGeneratorType"  , "WaveType1" , "SignalGeneratorType.Sin"                     ),
 
       P ("SignalGeneratorType"  , "WaveType2" , "SignalGeneratorType.Sin"                     ),
-      P ("Octave"               , "Octave2"   , "Octave._0"                                   ),
-      P ("Semitone"             , "Semitone2" , "Semitone._0"                                 ),
+      P ("Octave"               , "Octave2"   , "Octave.Same"                                 ),
+      P ("Semitone"             , "Semitone2" , "Semitone.Same"                                 ),
 
       P ("SignalGeneratorType"  , "WaveType3" , "SignalGeneratorType.Sin"                     ),
-      P ("Octave"               , "Octave3"   , "Octave._0"                                   ),
-      P ("Semitone"             , "Semitone3" , "Semitone._0"                                 ),
+      P ("Octave"               , "Octave3"   , "Octave.Same"                                 ),
+      P ("Semitone"             , "Semitone3" , "Semitone.Same"                                 ),
 
       LP("double"     , "Volume"              , @"$""{(int)(Volume * 100.0)}%"""              ),
 

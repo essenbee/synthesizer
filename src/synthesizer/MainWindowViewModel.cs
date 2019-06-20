@@ -1,8 +1,10 @@
 ﻿using NAudio.Dsp;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
+using synthesizer.TypeConverters;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -15,27 +17,70 @@ namespace synthesizer
       A4  = 2 ,
     }
 
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum Octave
     {
-      _0  = 0 ,
-      _1  = 1 ,
-      _2  = 2 ,
+        [Description("-2")]
+        Down_Two = 0,
+        [Description("-1")]
+        Down_One = 1,
+        [Description("0")]
+        Same = 2 ,
+        [Description("+1")]
+        Up_One = 3,
+        [Description("+2")]
+        Up_Two = 4,
     }
 
+    [TypeConverter(typeof(EnumDescriptionTypeConverter))]
     public enum Semitone
     {
-      _0  = 0 ,
-      _1  = 1 ,
-      _2  = 2 ,
-      _3  = 3 ,
-      _4  = 4 ,
-      _5  = 5 ,
-      _6  = 6 ,
-      _7  = 7 ,
-      _8  = 8 ,
-      _9  = 9 ,
-      _10 = 10,
-      _11 = 11,
+        [Description("-11")]
+        _1 = -0,
+        [Description("-10")]
+        _2 = 1,
+        [Description("-9")]
+        _3 = 2,
+        [Description("-8")]
+        _4 = 3,
+        [Description("7")]
+        _5 = 4,
+        [Description("-6")]
+        _6 = 5,
+        [Description("-5")]
+        _7 = 6,
+        [Description("-4")]
+        _8 = 7,
+        [Description("-3")]
+        _9 = 8,
+        [Description("-2")]
+        _10 = 9,
+        [Description("-1")]
+        _11 = 10,
+        [Description("0")]
+        Same  = 11 ,
+        [Description("+1")]
+        _12  = 12 ,
+        [Description("+2")]
+        _13  = 13 ,
+        [Description("+3")]
+        _14  = 14 ,
+        [Description("+4")]
+        _15 = 15 ,
+        [Description("+5")]
+        _16  = 16 ,
+        [Description("+6")]
+        _17  = 17 ,
+        [Description("+7")]
+        _18  = 18 ,
+        [Description("+8")]
+        _19  = 19 ,
+        [Description("+9")]
+        _20  = 20 ,
+        [Description("+10")]
+        _21 = 21,
+        [Description("+11")]
+        _22 = 22,
     }
 
     public partial class MainWindowViewModel
@@ -57,8 +102,8 @@ namespace synthesizer
         private LowPassFilterSampleProvider _lpf;
         private IWavePlayer _player;
 
-        public int Voice2Freq => 12*(int)Octave2 + (int)Semitone2;
-        public int Voice3Freq => 12*(int)Octave3 + (int)Semitone3;
+        public int Voice2Freq => 12*((int)Octave2 - 2) + ((int)Semitone2 - 11);
+        public int Voice3Freq => 12*((int)Octave3 - 2) + ((int)Semitone3 - 11);
 
         static T[] EnumValues<T>()
         {
@@ -73,6 +118,8 @@ namespace synthesizer
             SignalGeneratorType.Square    ,
             SignalGeneratorType.Triangle  ,
             SignalGeneratorType.White     ,
+            SignalGeneratorType.Pink      ,
+            SignalGeneratorType.Sweep     ,
           };
 
         public BaseFrequency[] SelectableBaseFrequencies => EnumValues<BaseFrequency> ();
@@ -94,8 +141,6 @@ namespace synthesizer
             }
           }
         }
-      
-        // public int KeyValueBase { get; set; } = 33;
 
         public void KeyDown(KeyEventArgs e)
         {

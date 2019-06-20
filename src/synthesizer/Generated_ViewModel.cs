@@ -334,7 +334,7 @@ namespace synthesizer
         // --------------------------------------------------------------------
         // BEGIN_PROPERTY: Octave2 (Octave)
         // --------------------------------------------------------------------
-        Octave _Octave2 = Octave._0;
+        Octave _Octave2 = Octave.Same;
 
         void Raise_Octave2 ()
         {
@@ -369,7 +369,7 @@ namespace synthesizer
         // --------------------------------------------------------------------
         // BEGIN_PROPERTY: Semitone2 (Semitone)
         // --------------------------------------------------------------------
-        Semitone _Semitone2 = Semitone._0;
+        Semitone _Semitone2 = Semitone.Same;
 
         void Raise_Semitone2 ()
         {
@@ -439,7 +439,7 @@ namespace synthesizer
         // --------------------------------------------------------------------
         // BEGIN_PROPERTY: Octave3 (Octave)
         // --------------------------------------------------------------------
-        Octave _Octave3 = Octave._0;
+        Octave _Octave3 = Octave.Same;
 
         void Raise_Octave3 ()
         {
@@ -474,7 +474,7 @@ namespace synthesizer
         // --------------------------------------------------------------------
         // BEGIN_PROPERTY: Semitone3 (Semitone)
         // --------------------------------------------------------------------
-        Semitone _Semitone3 = Semitone._0;
+        Semitone _Semitone3 = Semitone.Same;
 
         void Raise_Semitone3 ()
         {
