@@ -24,11 +24,13 @@ using NAudio.Wave.SampleProviders;
 
       P ("SignalGeneratorType"  , "WaveType2" , "SignalGeneratorType.Sin"                     ),
       P ("Octave"               , "Octave2"   , "Octave.Same"                                 ),
-      P ("Semitone"             , "Semitone2" , "Semitone.Same"                                 ),
+      P ("Semitone"             , "Semitone2" , "Semitone.Same"                               ),
 
       P ("SignalGeneratorType"  , "WaveType3" , "SignalGeneratorType.Sin"                     ),
       P ("Octave"               , "Octave3"   , "Octave.Same"                                 ),
-      P ("Semitone"             , "Semitone3" , "Semitone.Same"                                 ),
+      P ("Semitone"             , "Semitone3" , "Semitone.Same"                               ),
+
+	  P("int"                   , "MidiIn"                                                    ),
 
       LP("double"     , "Volume"              , @"$""{(int)(Volume * 100.0)}%"""              ),
 
@@ -73,6 +75,8 @@ using NAudio.Wave.SampleProviders;
     {
       C ("OnCommand"  ),
       C ("OffCommand" ),
+	  C ("MidiOnCommand"  ),
+      C ("MidiOffCommand" ),
     };
 
 #>

@@ -507,6 +507,41 @@ namespace synthesizer
         // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: MidiIn (int)
+        // --------------------------------------------------------------------
+        int _MidiIn = default;
+
+        void Raise_MidiIn ()
+        {
+          OnPropertyChanged ("MidiIn");
+        }
+
+        public int MidiIn
+        {
+            get { return _MidiIn; }
+            set
+            {
+                if (_MidiIn == value)
+                {
+                    return;
+                }
+
+                var prev = _MidiIn;
+
+                _MidiIn = value;
+
+                Changed_MidiIn (prev, _MidiIn);
+
+                Raise_MidiIn ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_MidiIn (int prev, int current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: MidiIn (int)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
         // BEGIN_PROPERTY: Volume (double)
         // --------------------------------------------------------------------
         double _Volume = default;
@@ -1699,6 +1734,58 @@ namespace synthesizer
         // END_COMMAND: OffCommand
         // --------------------------------------------------------------------
 
+        // --------------------------------------------------------------------
+        // BEGIN_COMMAND: MidiOnCommand
+        // --------------------------------------------------------------------
+        readonly UserCommand _MidiOnCommand;
+
+        bool CanExecuteMidiOnCommand ()
+        {
+          bool result = false;
+          CanExecute_MidiOnCommand (ref result);
+
+          return result;
+        }
+
+        void ExecuteMidiOnCommand ()
+        {
+          Execute_MidiOnCommand ();
+        }
+
+        public ICommand MidiOnCommand { get { return _MidiOnCommand;} }
+        // --------------------------------------------------------------------
+        partial void CanExecute_MidiOnCommand (ref bool result);
+        partial void Execute_MidiOnCommand ();
+        // --------------------------------------------------------------------
+        // END_COMMAND: MidiOnCommand
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_COMMAND: MidiOffCommand
+        // --------------------------------------------------------------------
+        readonly UserCommand _MidiOffCommand;
+
+        bool CanExecuteMidiOffCommand ()
+        {
+          bool result = false;
+          CanExecute_MidiOffCommand (ref result);
+
+          return result;
+        }
+
+        void ExecuteMidiOffCommand ()
+        {
+          Execute_MidiOffCommand ();
+        }
+
+        public ICommand MidiOffCommand { get { return _MidiOffCommand;} }
+        // --------------------------------------------------------------------
+        partial void CanExecute_MidiOffCommand (ref bool result);
+        partial void Execute_MidiOffCommand ();
+        // --------------------------------------------------------------------
+        // END_COMMAND: MidiOffCommand
+        // --------------------------------------------------------------------
+
 
         partial void Constructed ();
 
@@ -1707,6 +1794,8 @@ namespace synthesizer
           _dispatcher = dispatcher;
           _OnCommand = new UserCommand (CanExecuteOnCommand, ExecuteOnCommand);
           _OffCommand = new UserCommand (CanExecuteOffCommand, ExecuteOffCommand);
+          _MidiOnCommand = new UserCommand (CanExecuteMidiOnCommand, ExecuteMidiOnCommand);
+          _MidiOffCommand = new UserCommand (CanExecuteMidiOffCommand, ExecuteMidiOffCommand);
 
           Constructed ();
         }
@@ -1715,6 +1804,8 @@ namespace synthesizer
         {
           _OnCommand.RefreshCanExecute ();
           _OffCommand.RefreshCanExecute ();
+          _MidiOnCommand.RefreshCanExecute ();
+          _MidiOffCommand.RefreshCanExecute ();
         }
 
         void Dispatch(Action action)

@@ -526,7 +526,23 @@
                         Margin="5"
                         Command="{Binding OffCommand}"
                         Content="Off" />
-        </StackPanel>
+          
+          <Label x:Name="midiInLabel" Content="MIDI Controllers" FontWeight="Bold"/>
+          <ComboBox Name="midiInDevices" Width="300" SelectedIndex="{Binding MidiIn}" />
+         <Button
+             x:Name="midiOn"
+             Width="50"
+             Margin="5"
+             Command="{Binding MidiOnCommand}"
+             Content="MIDI On" />
+         <Button
+             x:Name="midiOff"
+             Width="50"
+             Margin="5"
+             Command="{Binding MidiOffCommand}"
+             Content="MIDI Off" />
+
+                </StackPanel>
         <local:AmplitudeVisualizer
                     Grid.Row="0"
                     Grid.Column="0"

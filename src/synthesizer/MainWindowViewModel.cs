@@ -105,7 +105,7 @@ namespace synthesizer
         public int Voice2Freq => 12*((int)Octave2 - 2) + ((int)Semitone2 - 11);
         public int Voice3Freq => 12*((int)Octave3 - 2) + ((int)Semitone3 - 11);
 
-        static T[] EnumValues<T>()
+        public static T[] EnumValues<T>()
         {
           return Enum.GetValues(typeof(T)).Cast<T>().ToArray();
         }
@@ -128,7 +128,7 @@ namespace synthesizer
 
         public Semitone[] SelectableSemiTones => EnumValues<Semitone>();
 
-        int KeyValueBase
+        public int KeyValueBase
         {
           get
           {
@@ -142,8 +142,12 @@ namespace synthesizer
           }
         }
 
+        public bool MidiEnabled { get; set; }
+
         public void KeyDown(KeyEventArgs e)
         {
+            if (MidiEnabled) return;
+            
             var keyVal = keyboard.IndexOf(e.Key);
             var midiKeyVal = keyVal + KeyValueBase;
             if (keyVal > -1 && _oscillators[0,keyVal] is null)
@@ -198,6 +202,8 @@ namespace synthesizer
 
         public void KeyUp(KeyEventArgs e)
         {
+            if (MidiEnabled) return;
+            
             var keyVal = keyboard.IndexOf(e.Key);
             if (keyVal > -1)
             {
@@ -414,5 +420,27 @@ namespace synthesizer
                 ResetCanExecute();
             }
         }
-  }
+
+        partial void Execute_MidiOnCommand()
+        {
+            MidiEnabled = true;
+            ResetCanExecute();
+        }
+        
+        partial void Execute_MidiOffCommand()
+        {
+            MidiEnabled = false;
+            ResetCanExecute();
+        }
+
+        partial void CanExecute_MidiOnCommand(ref bool result)
+        {
+            result = !MidiEnabled;
+        }
+
+        partial void CanExecute_MidiOffCommand(ref bool result)
+        {
+            result = MidiEnabled;
+        }
+    }
 }
