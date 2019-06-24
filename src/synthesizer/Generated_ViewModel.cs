@@ -552,7 +552,7 @@ namespace synthesizer
           OnPropertyChanged ("VolumeLabel");
         }
 
-        public string VolumeLabel => $"{(int)(Volume * 100.0)}%";
+        public string VolumeLabel => $"{(int)(Volume)}dB";
 
         public double Volume
         {
@@ -1578,7 +1578,7 @@ namespace synthesizer
           OnPropertyChanged ("Level1Label");
         }
 
-        public string Level1Label => $"{(int)(Level1 * 100.0)}%";
+        public string Level1Label => $"{(int)(Level1)}dB";
 
         public float Level1
         {
@@ -1616,7 +1616,7 @@ namespace synthesizer
           OnPropertyChanged ("Level2Label");
         }
 
-        public string Level2Label => $"{(int)(Level2 * 100.0)}%";
+        public string Level2Label => $"{(int)(Level2)}dB";
 
         public float Level2
         {
@@ -1654,7 +1654,7 @@ namespace synthesizer
           OnPropertyChanged ("Level3Label");
         }
 
-        public string Level3Label => $"{(int)(Level3 * 100.0)}%";
+        public string Level3Label => $"{(int)(Level3)}dB";
 
         public float Level3
         {
@@ -1679,6 +1679,196 @@ namespace synthesizer
         partial void Changed_Level3 (float prev, float current);
         // --------------------------------------------------------------------
         // END_PROPERTY: Level3 (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: DelayMs (int)
+        // --------------------------------------------------------------------
+        int _DelayMs = default;
+
+        void Raise_DelayMs ()
+        {
+          OnPropertyChanged ("DelayMs");
+          OnPropertyChanged ("DelayMsLabel");
+        }
+
+        public string DelayMsLabel => $"{(DelayMs)}ms";
+
+        public int DelayMs
+        {
+            get { return _DelayMs; }
+            set
+            {
+                if (_DelayMs == value)
+                {
+                    return;
+                }
+
+                var prev = _DelayMs;
+
+                _DelayMs = value;
+
+                Changed_DelayMs (prev, _DelayMs);
+
+                Raise_DelayMs ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_DelayMs (int prev, int current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: DelayMs (int)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: DelayFeedback (float)
+        // --------------------------------------------------------------------
+        float _DelayFeedback = default;
+
+        void Raise_DelayFeedback ()
+        {
+          OnPropertyChanged ("DelayFeedback");
+          OnPropertyChanged ("DelayFeedbackLabel");
+        }
+
+        public string DelayFeedbackLabel => $"{(int)(DelayFeedback * 100.0)}%";
+
+        public float DelayFeedback
+        {
+            get { return _DelayFeedback; }
+            set
+            {
+                if (_DelayFeedback == value)
+                {
+                    return;
+                }
+
+                var prev = _DelayFeedback;
+
+                _DelayFeedback = value;
+
+                Changed_DelayFeedback (prev, _DelayFeedback);
+
+                Raise_DelayFeedback ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_DelayFeedback (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: DelayFeedback (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: DelayMix (float)
+        // --------------------------------------------------------------------
+        float _DelayMix = default;
+
+        void Raise_DelayMix ()
+        {
+          OnPropertyChanged ("DelayMix");
+          OnPropertyChanged ("DelayMixLabel");
+        }
+
+        public string DelayMixLabel => $"{(int)(DelayMix * 100.0)}%";
+
+        public float DelayMix
+        {
+            get { return _DelayMix; }
+            set
+            {
+                if (_DelayMix == value)
+                {
+                    return;
+                }
+
+                var prev = _DelayMix;
+
+                _DelayMix = value;
+
+                Changed_DelayMix (prev, _DelayMix);
+
+                Raise_DelayMix ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_DelayMix (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: DelayMix (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: DelayDry (float)
+        // --------------------------------------------------------------------
+        float _DelayDry = default;
+
+        void Raise_DelayDry ()
+        {
+          OnPropertyChanged ("DelayDry");
+          OnPropertyChanged ("DelayDryLabel");
+        }
+
+        public string DelayDryLabel => $"{(int)(DelayDry * 100.0)}%";
+
+        public float DelayDry
+        {
+            get { return _DelayDry; }
+            set
+            {
+                if (_DelayDry == value)
+                {
+                    return;
+                }
+
+                var prev = _DelayDry;
+
+                _DelayDry = value;
+
+                Changed_DelayDry (prev, _DelayDry);
+
+                Raise_DelayDry ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_DelayDry (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: DelayDry (float)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: DelayWet (float)
+        // --------------------------------------------------------------------
+        float _DelayWet = default;
+
+        void Raise_DelayWet ()
+        {
+          OnPropertyChanged ("DelayWet");
+          OnPropertyChanged ("DelayWetLabel");
+        }
+
+        public string DelayWetLabel => $"{(int)(DelayWet * 100.0)}%";
+
+        public float DelayWet
+        {
+            get { return _DelayWet; }
+            set
+            {
+                if (_DelayWet == value)
+                {
+                    return;
+                }
+
+                var prev = _DelayWet;
+
+                _DelayWet = value;
+
+                Changed_DelayWet (prev, _DelayWet);
+
+                Raise_DelayWet ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_DelayWet (float prev, float current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: DelayWet (float)
         // --------------------------------------------------------------------
 
 

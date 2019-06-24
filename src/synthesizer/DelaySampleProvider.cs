@@ -6,7 +6,7 @@ namespace synthesizer
     public class DelaySampleProvider : ISampleProvider
     {
         private readonly ISampleProvider _source;
-        private float _delayPosition;
+        private float _delayPosition = 0.0f;
         private float _delayLength;
         private float _delay;
         private float _resamplePosition;
@@ -93,13 +93,7 @@ namespace synthesizer
         {
             _source = source;
             _delayPosition = 0;
-
-            DelayMs = 300;
-            Feedback = 0.6f;
-            Mix = 1.0f;
-            OutputWet = 0.5f;
-            OutputDry = 1.0f;
-            Resample = true;
+            Resample = false;
 
             SetSlide();
         }
@@ -151,7 +145,9 @@ namespace synthesizer
                         _resamplePosition += _delayResamplePosition;
                     }
 
-                    _delayPosition = _delayPosition / _delayResamplePosition;
+                    _delayPosition = _delayResamplePosition != 0.0f
+                        ? _delayPosition / _delayResamplePosition
+                        : _delayPosition;
                     _delayPosition = (_delayPosition < 0) ? 0 : (int)_delayPosition;
                 }
                 else
@@ -172,7 +168,9 @@ namespace synthesizer
                             _delayBuffer[_resamplePositionIntPart + 1] = _delayBuffer[_pos + 1];
                         }
 
-                        _delayPosition = _delayPosition / _delayResamplePosition;
+                        _delayPosition = _delayResamplePosition != 0.0f 
+                            ? _delayPosition / _delayResamplePosition
+                            : _delayPosition;
                         _delayPosition = (_delayPosition < 0) ? 0 : (int)_delayPosition;
                     }
                     else

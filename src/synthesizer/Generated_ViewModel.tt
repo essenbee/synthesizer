@@ -32,7 +32,7 @@ using NAudio.Wave.SampleProviders;
 
 	  P("int"                   , "MidiIn"                                                    ),
 
-      LP("double"     , "Volume"              , @"$""{(int)(Volume * 100.0)}%"""              ),
+      LP("double"     , "Volume"              , @"$""{(int)(Volume)}dB"""                     ),
 
       LP("float"      , "Attack"              , @"$""{(int)(Attack * 1000.0)} ms"""           ),
       LP("float"      , "Decay"               , @"$""{(int)(Decay * 1000.0)} ms"""            ),
@@ -65,9 +65,15 @@ using NAudio.Wave.SampleProviders;
       LP("float"      , "PhaserWidth"         , @"$""{PhaserWidth}"""                         ),
       LP("float"      , "PhaserSweep"         , @"$""{PhaserSweep}"""                         ),
 
-      LP("float"      , "Level1"              , @"$""{(int)(Level1 * 100.0)}%"""              ),
-      LP("float"      , "Level2"              , @"$""{(int)(Level2 * 100.0)}%"""              ),
-      LP("float"      , "Level3"              , @"$""{(int)(Level3 * 100.0)}%"""              ),
+      LP("float"      , "Level1"              , @"$""{(int)(Level1)}dB"""                     ),
+      LP("float"      , "Level2"              , @"$""{(int)(Level2)}dB"""                     ),
+      LP("float"      , "Level3"              , @"$""{(int)(Level3)}dB"""                     ),
+
+      LP("int"        , "DelayMs"             , @"$""{(DelayMs)}ms"""                         ),
+      LP("float"      , "DelayFeedback"       , @"$""{(int)(DelayFeedback * 100.0)}%"""       ),
+	  LP("float"      , "DelayMix"            , @"$""{(int)(DelayMix * 100.0)}%"""            ),
+      LP("float"      , "DelayDry"            , @"$""{(int)(DelayDry * 100.0)}%"""            ),
+      LP("float"      , "DelayWet"            , @"$""{(int)(DelayWet * 100.0)}%"""            ),
 
     };
 

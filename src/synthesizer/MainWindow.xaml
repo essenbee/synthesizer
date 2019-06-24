@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:synthesizer"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1600"
-    Height="700"
+    Height="950"
     mc:Ignorable="d"
     Background="LightGray"
     Title="Synthesizer">
@@ -34,6 +34,9 @@
           <RowDefinition Height="200" />
           <RowDefinition Height="Auto" />
           <RowDefinition Height="Auto" />
+          <RowDefinition Height="200" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
           <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label
@@ -41,7 +44,7 @@
                     Grid.Column="0"
                     Margin="5"
                     HorizontalAlignment="Right"
-                    Content="Volume:"
+                    Content="Master Volume:"
                     FontWeight="Bold" />
         <Slider
                     Grid.Row="2"
@@ -50,13 +53,13 @@
                     Margin="5"
                     VerticalAlignment="Center"
                     Value="{Binding Volume}"
-                    Maximum="1"
-                    Minimum="0"
+                    Maximum="0.0"
+                    Minimum="-48.0"
                     Orientation="Horizontal" />
         <Label
                     Grid.Row="2"
                     Grid.Column="3"
-                    Width="40"
+                    Width="50"
                     Margin="5"
                     HorizontalAlignment="Left"
                     Content="{Binding VolumeLabel}" />
@@ -106,16 +109,16 @@
                         Margin="5"
                         VerticalAlignment="Center"
                         Value="{Binding Level1}"
-                        Maximum="1.0"
-                        Minimum="0.0"
+                        Maximum="0.0"
+                        Minimum="-48.0"
                         Orientation="Horizontal" 
                         Width="300"
                         TickPlacement="BottomRight"
-                        TickFrequency="0.05"
+                        TickFrequency="1.0"
                         IsSnapToTickEnabled="True"
                         />
           <Label
-                        Width="40"
+                        Width="50"
                         Margin="5"
                         HorizontalAlignment="Left"
                         Content="{Binding Level1Label}" />
@@ -506,10 +509,114 @@
                         Content="{Binding PhaserSweepLabel}" />
         </StackPanel>
 
+        <StackPanel 
+            Grid.Row="7"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Orientation="Horizontal">
 
-        <StackPanel
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="20,0,0,0"
+                        Content="Delay" />
+                    <Label
+                        Width="60"
+                        Height="25"
+                        Margin="0,0,0,0"
+                        Content="Feedback" />
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="5,0,0,0"
+                        Content="Mix" />
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="3,0,0,0"
+                        Content="Dry" />
+                    <Label
+                        Width="55"
+                        Height="25"
+                        Margin="3,0,0,0"
+                        Content="Wet" />
+
+                </StackPanel>
+        <StackPanel 
+            Grid.Row="8"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Orientation="Horizontal">
+
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding DelayMs}"
+                        Maximum="1000"
+                        Minimum="0"
+                        Orientation="Vertical" />
+                    <Slider
+                        Margin="40,0,10,0"
+                        Value="{Binding DelayFeedback}"
+                        Maximum="0.96"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                    <Slider
+                        Margin="20,0,10,0"
+                        Value="{Binding DelayMix}"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding DelayDry}"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+                    <Slider
+                        Margin="30,0,10,0"
+                        Value="{Binding DelayWet}"
+                        Maximum="1.0"
+                        Minimum="0.0"
+                        Orientation="Vertical" />
+
+                </StackPanel>
+        <StackPanel 
+            Grid.Row="9"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Orientation="Horizontal">
+
+            <Label
+                        Width="55"
+                        Height="25"
+                        Margin="5,0,0,0"
+                        Content="{Binding DelayMsLabel}" />
+            <Label
+                        Width="40"
+                        Height="25"
+                        Margin="25,0,0,0"
+                        Content="{Binding DelayFeedbackLabel}" />
+            <Label
+                        Width="55"
+                        Height="25"
+                        Margin="5,0,0,0"
+                        Content="{Binding DelayMixLabel}" />
+            <Label
+                        Width="55"
+                        Height="25"
+                        Margin="3,0,0,0"
+                        Content="{Binding DelayDryLabel}" />
+             <Label
+                        Width="55"
+                        Height="25"
+                        Margin="3,0,0,0"
+                        Content="{Binding DelayWetLabel}" />
+
+                </StackPanel>
+
+                <StackPanel
                     x:Name="Buttons"
-                    Grid.Row="7"
+                    Grid.Row="10"
                     Grid.Column="0"
                     Grid.ColumnSpan="4"
                     Margin="5"
@@ -565,16 +672,19 @@
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-          <RowDefinition Height="100" />
-          <RowDefinition Height="100" />
-          <RowDefinition Height="60" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="200" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
         <local:AmplitudeVisualizer
                     Grid.Row="0"
                     Grid.Column="0"
@@ -690,16 +800,16 @@
                         Margin="5"
                         VerticalAlignment="Center"
                         Value="{Binding Level2}"
-                        Maximum="1.0"
-                        Minimum="0.0"
+                        Maximum="0.0"
+                        Minimum="-48.0"
                         Orientation="Horizontal" 
                         Width="300"
                         TickPlacement="BottomRight"
-                        TickFrequency="0.05"
+                        TickFrequency="1.0"
                         IsSnapToTickEnabled="True"
                         />
           <Label
-                        Width="40"
+                        Width="50"
                         Margin="5"
                         HorizontalAlignment="Left"
                         Content="{Binding Level2Label}" />
@@ -729,7 +839,7 @@
         </StackPanel>
 
         <StackPanel
-                    Grid.Row="7"
+                    Grid.Row="10"
                     Grid.Column="0"
                     Grid.ColumnSpan="4"
                     Margin="5"
@@ -757,16 +867,19 @@
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-          <RowDefinition Height="100" />
-          <RowDefinition Height="100" />
-          <RowDefinition Height="60" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="200" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-          <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="200" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
         <local:AmplitudeVisualizer
                     Grid.Row="0"
                     Grid.Column="0"
@@ -881,16 +994,16 @@
                         Margin="5"
                         VerticalAlignment="Center"
                         Value="{Binding Level3}"
-                        Maximum="1.0"
-                        Minimum="0.0"
+                        Maximum="0.0"
+                        Minimum="-48.0"
                         Orientation="Horizontal" 
                         Width="300"
                         TickPlacement="BottomRight"
-                        TickFrequency="0.05"
+                        TickFrequency="1.0"
                         IsSnapToTickEnabled="True"
                         />
           <Label
-                        Width="40"
+                        Width="50"
                         Margin="5"
                         HorizontalAlignment="Left"
                         Content="{Binding Level3Label}" />
@@ -920,7 +1033,7 @@
         </StackPanel>
 
         <StackPanel
-                    Grid.Row="7"
+                    Grid.Row="10"
                     Grid.Column="0"
                     Grid.ColumnSpan="4"
                     Margin="5"

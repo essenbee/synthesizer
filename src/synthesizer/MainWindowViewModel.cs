@@ -1,4 +1,5 @@
 ﻿using NAudio.Dsp;
+using NAudio.Midi;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using synthesizer.TypeConverters;
@@ -92,13 +93,15 @@ namespace synthesizer
             Key.OemPeriod, Key.OemQuestion,
         };
 
-        private SynthWaveProvider[,] _oscillators = new SynthWaveProvider[3,16];
+        private MidiIn midiIn;
+        private SynthWaveProvider[,] _oscillators = new SynthWaveProvider[3,88];
         private VolumeSampleProvider _volControl;
         private MixingSampleProvider _mixer;
         private FFTSampleProvider _fftProvider;
         private TremoloSampleProvider _tremolo;
         private ChorusSampleProvider _chorus;
         private PhaserSampleProvider _phaser;
+        private DelaySampleProvider _delay;
         private LowPassFilterSampleProvider _lpf;
         private IWavePlayer _player;
 
@@ -122,6 +125,7 @@ namespace synthesizer
             SignalGeneratorType.Sweep     ,
           };
 
+        public int SelectedMidiDevice { get; set; } = -1;
         public BaseFrequency[] SelectableBaseFrequencies => EnumValues<BaseFrequency> ();
 
         public Octave[] SelectableOctaves => EnumValues<Octave>();
@@ -147,72 +151,85 @@ namespace synthesizer
         public void KeyDown(KeyEventArgs e)
         {
             if (MidiEnabled) return;
-            
+
             var keyVal = keyboard.IndexOf(e.Key);
             var midiKeyVal = keyVal + KeyValueBase;
-            if (keyVal > -1 && _oscillators[0,keyVal] is null)
-            {
-                _oscillators[0,keyVal] = new SynthWaveProvider(WaveType1, 44100, Level1)
-                {
-                    Note = midiKeyVal,
-                    AttackSeconds = Attack,
-                    DecaySeconds = Decay,
-                    SustainLevel = Sustain,
-                    ReleaseSeconds = Release,
-                    LfoFrequency = 5.0,
-                    LfoGain = EnableVibrato ? 0.2 : 0.0,
-                    EnableSubOsc = EnableSubOsc,
-                };
-
-                _oscillators[1, keyVal] = new SynthWaveProvider(WaveType2, 44100, Level2)
-                {
-                    Note = midiKeyVal + Voice2Freq,
-                    AttackSeconds = Attack2,
-                    DecaySeconds = Decay2,
-                    SustainLevel = Sustain2,
-                    ReleaseSeconds = Release2,
-                    LfoFrequency = 5.0,
-                    LfoGain = EnableVibrato ? 0.2 : 0.0,
-                    EnableSubOsc = false,
-                };
-
-                _oscillators[2, keyVal] = new SynthWaveProvider(WaveType3, 44100, Level3)
-                {
-                    Note = midiKeyVal + Voice3Freq,
-                    AttackSeconds = Attack3,
-                    DecaySeconds = Decay3,
-                    SustainLevel = Sustain3,
-                    ReleaseSeconds = Release3,
-                    LfoFrequency = 5.0,
-                    LfoGain = EnableVibrato ? 0.2 : 0.0,
-                    EnableSubOsc = false,
-                };
-
-                _mixer.AddMixerInput(EnableLpf 
-                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[0, keyVal], CutOff, Q) 
-                    : _oscillators[0,keyVal]);
-                _mixer.AddMixerInput(EnableLpf
-                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[1, keyVal], CutOff, Q)
-                    : _oscillators[1, keyVal]);
-                _mixer.AddMixerInput(EnableLpf
-                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[2, keyVal], CutOff, Q)
-                    : _oscillators[2, keyVal]);
-            }
+            NoteOn(keyVal, midiKeyVal);
         }
 
         public void KeyUp(KeyEventArgs e)
         {
             if (MidiEnabled) return;
-            
+
             var keyVal = keyboard.IndexOf(e.Key);
-            if (keyVal > -1)
+            NoteOff(keyVal);
+        }
+
+        private void NoteOff(int keyVal)
+        {
+            if (keyVal > -1 && keyVal <= 88)
             {
-                _oscillators[0,keyVal].Stop();
+                _oscillators[0, keyVal].Stop();
                 _oscillators[1, keyVal].Stop();
                 _oscillators[2, keyVal].Stop();
-                _oscillators[0,keyVal] = null;
+                _oscillators[0, keyVal] = null;
                 _oscillators[1, keyVal] = null;
                 _oscillators[2, keyVal] = null;
+            }
+        }
+
+        void MidiMessageReceived(object sender, MidiInMessageEventArgs e)
+        {
+            switch (e.MidiEvent.CommandCode)
+            {
+                case MidiCommandCode.NoteOff:
+                    var noteOffEvent = (NoteEvent)e.MidiEvent;
+                    NoteOff(noteOffEvent.NoteNumber);
+                    break;
+                case MidiCommandCode.NoteOn:
+                    var noteOnEvent = (NoteOnEvent)e.MidiEvent;
+                    var velocity = noteOnEvent.Velocity / 127.0f;
+                    NoteOn(noteOnEvent.NoteNumber, noteOnEvent.NoteNumber, velocity);
+                    break;
+                case MidiCommandCode.KeyAfterTouch:
+
+                    break;
+                case MidiCommandCode.ControlChange:
+
+                    break;
+                case MidiCommandCode.PatchChange:
+
+                    break;
+                case MidiCommandCode.ChannelAfterTouch:
+
+                    break;
+                case MidiCommandCode.PitchWheelChange:
+
+                    break;
+                case MidiCommandCode.Sysex:
+
+                    break;
+                case MidiCommandCode.Eox:
+
+                    break;
+                case MidiCommandCode.TimingClock:
+
+                    break;
+                case MidiCommandCode.StartSequence:
+
+                    break;
+                case MidiCommandCode.ContinueSequence:
+
+                    break;
+                case MidiCommandCode.StopSequence:
+
+                    break;
+                case MidiCommandCode.AutoSensing:
+
+                    break;
+                case MidiCommandCode.MetaEvent:
+                    
+                    break;
             }
         }
 
@@ -242,11 +259,12 @@ namespace synthesizer
             _tremolo = new TremoloSampleProvider(_volControl, TremoloFreq, TremoloGain);
             _chorus = new ChorusSampleProvider(_tremolo);
             _phaser = new PhaserSampleProvider(_chorus);
-            _lpf = new LowPassFilterSampleProvider(_phaser, 20000);
+            _delay = new DelaySampleProvider(_phaser);
+            _lpf = new LowPassFilterSampleProvider(_delay, 20000);
             _fftProvider = new FFTSampleProvider(8, (ss, cs) => Dispatch(() => UpdateRealTimeData(ss, cs)), _lpf);
 
             WaveType1 = SignalGeneratorType.Sin;
-            Volume = 0.25;
+            Volume = -15.0; // dB
             Attack = Attack2 = Attack3 = 0.01f;
             Decay = Decay2 = Decay3 = 0.01f;
             Sustain = Sustain2 = Sustain3 = 1.0f;
@@ -265,16 +283,62 @@ namespace synthesizer
             PhaserWidth = 0.0f;
             PhaserSweep = 0.0f;
 
+            DelayMs = 0;
+            DelayFeedback = 0.6f;
+            DelayMix = 1.0f;
+            DelayWet = 0.5f;
+            DelayDry = 1.0f;
+
             // Voice Levels
-            Level1 = 1.0f;
-            Level2 = 0.0f;
-            Level3 = 0.0f;
+            Level1 = 0.0f;
+            Level2 = -48.0f;
+            Level3 = -48.0f;
         }
 
         // Property events
+        partial void Changed_DelayMs(int prev, int current)
+        {
+            if (_delay != null)
+            {
+                _delay.DelayMs = current;
+            }
+        }
+
+        partial void Changed_DelayFeedback(float prev, float current)
+        {
+            if (_delay != null)
+            {
+                _delay.Feedback = current;
+            }
+        }
+
+        partial void Changed_DelayMix(float prev, float current)
+        {
+            if (_delay != null)
+            {
+                _delay.Mix = current;
+            }
+        }
+
+        partial void Changed_DelayDry(float prev, float current)
+        {
+            if (_delay != null)
+            {
+                _delay.OutputDry = current;
+            }
+        }
+
+        partial void Changed_DelayWet(float prev, float current)
+        {
+            if (_delay != null)
+            {
+                _delay.OutputWet = current;
+            }
+        }
+
         partial void Changed_Volume(double prev, double current)
         {
-          _volControl.Volume = (float)current;
+          _volControl.Volume = (float)Math.Pow(10.0, current/20);
         }
 
         partial void Changed_TremoloFreq(int prev, int current)
@@ -424,12 +488,18 @@ namespace synthesizer
         partial void Execute_MidiOnCommand()
         {
             MidiEnabled = true;
+            midiIn = new MidiIn(SelectedMidiDevice);
+            midiIn.MessageReceived += MidiMessageReceived;
+            // midiIn.ErrorReceived += MidiErrorReceived;
+            midiIn.Start();
             ResetCanExecute();
         }
         
         partial void Execute_MidiOffCommand()
         {
             MidiEnabled = false;
+            midiIn.Stop();
+            midiIn.Dispose();
             ResetCanExecute();
         }
 
@@ -441,6 +511,62 @@ namespace synthesizer
         partial void CanExecute_MidiOffCommand(ref bool result)
         {
             result = MidiEnabled;
+        }
+
+        private void NoteOn(int keyVal, int midiKeyVal, float velocity = 1.0f)
+        {
+            if (keyVal > -1 && keyVal <= 88 && _oscillators[0, keyVal] is null)
+            {
+                var gain1 = velocity *  (float)Math.Pow(10.0, Level1 / 20);
+                var gain2 = velocity *  (float)Math.Pow(10.0, Level2 / 20);
+                var gain3 = velocity *  (float)Math.Pow(10.0, Level3 / 20);
+
+                _oscillators[0, keyVal] = new SynthWaveProvider(WaveType1, 44100, gain1)
+                {
+                    Note = midiKeyVal,
+                    AttackSeconds = Attack,
+                    DecaySeconds = Decay,
+                    SustainLevel = Sustain,
+                    ReleaseSeconds = Release,
+                    LfoFrequency = 5.0,
+                    LfoGain = EnableVibrato ? 0.2 : 0.0,
+                    EnableSubOsc = EnableSubOsc,
+                };
+
+                _oscillators[1, keyVal] = new SynthWaveProvider(WaveType2, 44100, gain2)
+                {
+                    Note = midiKeyVal + Voice2Freq,
+                    AttackSeconds = Attack2,
+                    DecaySeconds = Decay2,
+                    SustainLevel = Sustain2,
+                    ReleaseSeconds = Release2,
+                    LfoFrequency = 5.0,
+                    LfoGain = EnableVibrato ? 0.2 : 0.0,
+                    EnableSubOsc = false,
+                };
+
+                _oscillators[2, keyVal] = new SynthWaveProvider(WaveType3, 44100, gain3)
+                {
+                    Note = midiKeyVal + Voice3Freq,
+                    AttackSeconds = Attack3,
+                    DecaySeconds = Decay3,
+                    SustainLevel = Sustain3,
+                    ReleaseSeconds = Release3,
+                    LfoFrequency = 5.0,
+                    LfoGain = EnableVibrato ? 0.2 : 0.0,
+                    EnableSubOsc = false,
+                };
+
+                _mixer.AddMixerInput(EnableLpf
+                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[0, keyVal], CutOff, Q)
+                    : _oscillators[0, keyVal]);
+                _mixer.AddMixerInput(EnableLpf
+                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[1, keyVal], CutOff, Q)
+                    : _oscillators[1, keyVal]);
+                _mixer.AddMixerInput(EnableLpf
+                    ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[2, keyVal], CutOff, Q)
+                    : _oscillators[2, keyVal]);
+            }
         }
     }
 }

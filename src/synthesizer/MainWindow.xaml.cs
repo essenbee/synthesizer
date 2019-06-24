@@ -23,6 +23,7 @@ namespace synthesizer
             if (midiInDevices.Items.Count > 0)
             {
                 midiInDevices.SelectedIndex = 0;
+                _viewModel.SelectedMidiDevice = midiInDevices.SelectedIndex;
             }
             else
             {
