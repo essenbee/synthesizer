@@ -37,6 +37,7 @@ namespace synthesizer
             set
             {
                 delayMs = value;
+                _delayPosition = 0;
                 SetSlide();
             }
         }
@@ -93,7 +94,7 @@ namespace synthesizer
         {
             _source = source;
             _delayPosition = 0;
-            Resample = false;
+            Resample = true;
 
             SetSlide();
         }
@@ -163,7 +164,7 @@ namespace synthesizer
                             _resamplePosition -= _delayResamplePosition;
                             _resamplePositionIntPart -= 2;
 
-                            _pos = ((int)_resamplePosition) * 2;
+                            _pos = Math.Abs(((int)_resamplePosition) * 2);
                             _delayBuffer[_resamplePositionIntPart] = _delayBuffer[_pos];
                             _delayBuffer[_resamplePositionIntPart + 1] = _delayBuffer[_pos + 1];
                         }
