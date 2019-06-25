@@ -147,7 +147,7 @@ namespace synthesizer
         }
 
         public bool MidiEnabled { get; set; }
-
+        
         public void KeyDown(KeyEventArgs e)
         {
             if (MidiEnabled) return;
@@ -491,7 +491,7 @@ namespace synthesizer
             midiIn = new MidiIn(SelectedMidiDevice);
             midiIn.MessageReceived += MidiMessageReceived;
             // midiIn.ErrorReceived += MidiErrorReceived;
-            midiIn.Start();
+            midiIn.Start();     
             ResetCanExecute();
         }
         

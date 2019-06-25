@@ -1,5 +1,6 @@
 ﻿using NAudio.Midi;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace synthesizer
@@ -45,6 +46,15 @@ namespace synthesizer
         {
             base.OnKeyUp(e);
             _viewModel.KeyUp(e);
+        }
+
+        private void MidiInDevices_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selection = sender as ComboBox;
+            if (_viewModel != null && _viewModel.MidiEnabled)
+            {
+                _viewModel.SelectedMidiDevice = selection.SelectedIndex;
+            }
         }
     }
 }
