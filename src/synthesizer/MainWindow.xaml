@@ -124,83 +124,99 @@
                         Content="{Binding Level1Label}" />
         </StackPanel>
 
-        <Label
-                    Grid.Row="3"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="Envelope ADSR"
-                    FontWeight="Bold" />
-                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                <GroupBox Header="Envelope ADSR"
+                          FontWeight="Bold"
+                          Grid.Row="4" 
+                          Grid.RowSpan="3">
+            <StackPanel Orientation="Vertical">
+
+                    <StackPanel Orientation="Horizontal">
           <Label
-                        Width="50"
-                        Height="25"
-                        Margin="15,0,5,0"
-                        Content="Attack" />
+              Width="50"
+              Height="25"
+              Margin="15,0,5,0"
+              Content="Attack" 
+              FontWeight="Normal"/>
           <Label
-                        Width="50"
-                        Height="25"
-                        Margin="5,0,5,0"
-                        Content="Decay" />
+              Width="50"
+              Height="25"
+              Margin="5,0,5,0"
+              Content="Decay"
+              FontWeight="Normal"/>
           <Label
-                        Width="50"
-                        Height="25"
-                        Margin="5,0,5,0"
-                        Content="Sustain" />
+              Width="50"
+              Height="25"
+              Margin="5,0,5,0"
+              Content="Sustain"
+              FontWeight="Normal"/>
           <Label
-                        Width="50"
-                        Height="25"
-                        Margin="5,0,5,0"
-                        Content="Release" />
+              Width="50"
+              Height="25"
+              Margin="5,0,5,0"
+              Content="Release"
+              FontWeight="Normal"/>
         </StackPanel>
-        <StackPanel Grid.Row="5" Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal" Height="200">
           <Slider
-                        Margin="30,0,10,0"
-                        Value="{Binding Attack}"
-                        Maximum="2.0"
-                        Minimum="0.0"
-                        Orientation="Vertical" />
+              Margin="30,0,10,0"
+              Value="{Binding Attack}"
+              Maximum="2.0"
+              Minimum="0.0"
+              FontWeight="Normal"
+              Orientation="Vertical" />
           <Slider
-                        Margin="30,0,10,0"
-                        Value="{Binding Decay}"
-                        Maximum="2.0"
-                        Minimum="0.0"
-                        Orientation="Vertical" />
+              Margin="30,0,10,0"
+              Value="{Binding Decay}"
+              Maximum="2.0"
+              Minimum="0.0"
+              FontWeight="Normal"
+              Orientation="Vertical" />
           <Slider
-                        Margin="30,0,10,0"
-                        Value="{Binding Sustain}"
-                        Maximum="1.0"
-                        Minimum="0.0"
-                        Orientation="Vertical" />
+              Margin="30,0,10,0"
+              Value="{Binding Sustain}"
+              Maximum="1.0"
+              Minimum="0.0"
+              FontWeight="Normal"
+              Orientation="Vertical" />
           <Slider
-                        Margin="30,0,10,0"
-                        Value="{Binding Release}"
-                        Maximum="2.0"
-                        Minimum="0.0"
-                        Orientation="Vertical" />
+              Margin="30,0,10,0"
+              Value="{Binding Release}"
+              Maximum="2.0"
+              Minimum="0.0"
+              FontWeight="Normal"
+              Orientation="Vertical" />
         </StackPanel>
-        <StackPanel Grid.Row="6" Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal">
           <Label
-                        Width="55"
-                        Height="25"
-                        Margin="5,0,0,0"
-                        Content="{Binding AttackLabel}" />
+              Width="55"
+              Height="25"
+              Margin="5,0,0,0"
+              FontWeight="Normal"
+              Content="{Binding AttackLabel}" />
           <Label
-                        Width="55"
-                        Height="25"
-                        Margin="5,0,0,0"
-                        Content="{Binding DecayLabel}" />
+              Width="55"
+              Height="25"
+              Margin="5,0,0,0"
+              FontWeight="Normal"
+              Content="{Binding DecayLabel}" />
           <Label
-                        Width="55"
-                        Height="25"
-                        Margin="5,0,0,0"
-                        Content="{Binding SustainLabel}" />
+              Width="55"
+              Height="25"
+              Margin="5,0,0,0"
+              FontWeight="Normal"
+              Content="{Binding SustainLabel}" />
           <Label
-                        Width="55"
-                        Height="25"
-                        Margin="3,0,0,0"
-                        Content="{Binding ReleaseLabel}" />
+              Width="55"
+              Height="25"
+              Margin="3,0,0,0"
+              FontWeight="Normal"
+              Content="{Binding ReleaseLabel}" />
         </StackPanel>
-        <StackPanel
+
+                    </StackPanel>
+                </GroupBox>
+
+                <StackPanel
                     Grid.Row="4"
                     Grid.Column="2"
                     Orientation="Horizontal">
