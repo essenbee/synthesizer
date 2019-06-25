@@ -51,6 +51,10 @@ Added 2 additional voices per note, complete with GUI controls for level, wavefo
 
 #### Episode 41
 
+Added support for using a MIDI controller to play the synthesizer - including velocity sensitivity. Also wired up the Delay effect to GUI controls. Hit a bug with the Delay effect - logged as Issue #29 (subsequently fixed off-stream).
+
+#### Episodew 42
+
 TBC
 
 ## Contributors
