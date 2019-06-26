@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:synthesizer"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1600"
-    Height="1000"
+    Height="960"
     mc:Ignorable="d"
     Background="LightGray"
     Title="Synthesizer">
@@ -789,10 +789,7 @@
                     <RowDefinition Height="60" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="200" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="200" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -952,23 +949,6 @@
                         ItemsSource="{Binding SelectableSemiTones}"
                         SelectedItem="{Binding Semitone2}" />
                 </StackPanel>
-                <StackPanel
-                    Grid.Row="10"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="4"
-                    Margin="5"
-                    Orientation="Horizontal">
-                    <Button
-                        Width="50"
-                        Margin="5"
-                        Command="{Binding OnCommand}"
-                        Content="On" />
-                    <Button
-                        Width="50"
-                        Margin="5"
-                        Command="{Binding OffCommand}"
-                        Content="Off" />
-                </StackPanel>
             </Grid>
         </TabItem>
         <TabItem Header="Voice 3">
@@ -986,10 +966,7 @@
                     <RowDefinition Height="60" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="200" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="200" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -1148,23 +1125,6 @@
                         HorizontalAlignment="Left"
                         ItemsSource="{Binding SelectableSemiTones}"
                         SelectedItem="{Binding Semitone3}" />
-                </StackPanel>
-                <StackPanel
-                    Grid.Row="10"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="4"
-                    Margin="5"
-                    Orientation="Horizontal">
-                    <Button
-                        Width="50"
-                        Margin="5"
-                        Command="{Binding OnCommand}"
-                        Content="On" />
-                    <Button
-                        Width="50"
-                        Margin="5"
-                        Command="{Binding OffCommand}"
-                        Content="Off" />
                 </StackPanel>
             </Grid>
         </TabItem>
