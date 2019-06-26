@@ -338,7 +338,10 @@
                                         Name="Tremolo">
                                         Enable
                                     </CheckBox>
-                                    <Label Margin="5,0,0,0" Content="x Freq." FontWeight="Normal"/>
+                                    <Label
+                                        Margin="5,0,0,0"
+                                        Content="x Freq."
+                                        FontWeight="Normal" />
                                     <Slider
                                         Height="120"
                                         Margin="15,0,10,0"
@@ -447,21 +450,21 @@
                                 <Label
                                     Width="40"
                                     Height="30"
-                                    FontWeight="Normal"
                                     Margin="10,0,0,0"
-                                    Content="{Binding ChorusWidthLabel}" />
+                                    Content="{Binding ChorusWidthLabel}"
+                                    FontWeight="Normal" />
                                 <Label
                                     Width="40"
                                     Height="30"
-                                    FontWeight="Normal"
                                     Margin="15,0,0,0"
-                                    Content="{Binding ChorusSweepLabel}" />
+                                    Content="{Binding ChorusSweepLabel}"
+                                    FontWeight="Normal" />
                                 <Label
                                     Width="40"
                                     Height="30"
-                                    FontWeight="Normal"
                                     Margin="10,0,0,0"
-                                    Content="{Binding ChorusDelayLabel}" />
+                                    Content="{Binding ChorusDelayLabel}"
+                                    FontWeight="Normal" />
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
@@ -720,6 +723,33 @@
                                 Content="{Binding DelayWetLabel}"
                                 FontWeight="Normal" />
                         </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox
+                    Grid.Row="5"
+                    Grid.RowSpan="3"
+                    Grid.Column="2"
+                    FontWeight="Bold"
+                    Header="Patches">
+                    <StackPanel Orientation="Vertical">
+                        <Button
+                            x:Name="savePatch"
+                            Width="100"
+                            Height="30"
+                            Margin="10"
+                            Click="SavePatch_Click"
+                            FontWeight="Normal">
+                            	Save Patch
+                        </Button>
+                        <Button
+                            x:Name="loadPatch"
+                            Width="100"
+                            Height="30"
+                            Margin="10"
+                            Click="LoadPatch_Click"
+                            FontWeight="Normal">
+                            Load Patch
+                        </Button>
                     </StackPanel>
                 </GroupBox>
                 <StackPanel

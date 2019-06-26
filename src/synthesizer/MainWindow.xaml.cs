@@ -1,4 +1,5 @@
 ﻿using NAudio.Midi;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -54,6 +55,41 @@ namespace synthesizer
             if (_viewModel != null && _viewModel.MidiEnabled)
             {
                 _viewModel.SelectedMidiDevice = selection.SelectedIndex;
+            }
+        }
+
+        private void SavePatch_Click(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel != null)
+            {
+                var saveFileDialog = new System.Windows.Forms.SaveFileDialog()
+                {
+                    Filter = "JSON file (*.json)|*.json"
+                };
+                
+                var result = saveFileDialog.ShowDialog();
+
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    var fileName = saveFileDialog.FileName;
+                    var json = _viewModel.CreatePatch(fileName);
+                    File.WriteAllText(fileName, json);
+                }
+            }
+        }
+
+        private void LoadPatch_Click(object sender, RoutedEventArgs e)
+        {
+            if (_viewModel != null)
+            {
+                var openFileDialog = new System.Windows.Forms.OpenFileDialog();
+                var result = openFileDialog.ShowDialog();
+
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    var patchJson = File.ReadAllText(openFileDialog.FileName);
+                    _viewModel.RecallPatch(patchJson);
+                }
             }
         }
     }

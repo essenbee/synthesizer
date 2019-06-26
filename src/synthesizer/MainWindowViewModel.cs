@@ -3,6 +3,7 @@ using NAudio.Midi;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using synthesizer.TypeConverters;
+using synthesizer.Patch;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -165,16 +166,145 @@ namespace synthesizer
             NoteOff(keyVal);
         }
 
-        private void NoteOff(int keyVal)
+        public string CreatePatch(string name)
         {
-            if (keyVal > -1 && keyVal <= 88)
+            var voices = new Voice[2];
+
+            voices[0] = new Voice
             {
-                _oscillators[0, keyVal].Stop();
-                _oscillators[1, keyVal].Stop();
-                _oscillators[2, keyVal].Stop();
-                _oscillators[0, keyVal] = null;
-                _oscillators[1, keyVal] = null;
-                _oscillators[2, keyVal] = null;
+                Level = Level2,
+                WaveType = (int)WaveType2,
+                Attack = Attack2,
+                Decay = Decay2,
+                Sustain = Sustain2,
+                Release = Release2,
+                Octave = (int)Octave2,
+                Semitone = (int)Semitone2,
+            };
+
+            voices[1] = new Voice
+            {
+                Level = Level3,
+                WaveType = (int)WaveType3,
+                Attack = Attack3,
+                Decay = Decay3,
+                Sustain = Sustain3,
+                Release = Release3,
+                Octave = (int)Octave3,
+                Semitone = (int)Semitone3,
+            };
+
+            var patch = new Patch.Patch
+            {
+                PatchName = name,
+                WaveType = (int)WaveType1,
+                MidiEnabled = MidiEnabled,
+                Level = Level1,
+                Attack = Attack,
+                Decay = Decay,
+                Sustain = Sustain,
+                Release = Release,
+                SubOscEnabled = EnableSubOsc,
+                VibratoEnabled = EnableVibrato,
+                Voice = voices,
+                Lpf = new Lpf
+                {
+                    Enabled = EnableLpf,
+                    Cutoff = CutOff,
+                    Q = Q,
+                },
+                Tremolo = new Tremolo
+                {
+                    Enabled = EnableTremolo,
+                    FreqMult = TremoloFreqMult,
+                    Freq = TremoloFreq,
+                },
+                Chorus = new Chorus
+                {
+                    Delay = ChorusDelay,
+                    Width = ChorusWidth,
+                    Sweep = ChorusSweep,
+                },
+                Phaser = new Phaser
+                {
+                    Dry = PhaserDry,
+                    Wet = PhaserWet,
+                    Feedback = PhaserFeedback,
+                    Freq = PhaserFreq,
+                    Sweep = PhaserSweep,
+                    Width = PhaserSweep,
+                },
+                Delay = new Delay
+                {
+                    Dry = DelayDry,
+                    Wet = DelayWet,
+                    Mix = DelayMix,
+                    Feedback = DelayFeedback,
+                    Ms = DelayMs,
+                },
+            };
+
+            return patch.ToJson();
+        }
+
+        public void RecallPatch(string json)
+        {
+            var patch = Patch.Patch.FromJson(json);
+
+            Level1 = patch.Level;
+            WaveType1 = (SignalGeneratorType)patch.WaveType;
+            MidiEnabled = patch.MidiEnabled;
+            Attack = patch.Attack;
+            Decay = patch.Decay;
+            Sustain = patch.Sustain;
+            Release = patch.Release;
+            EnableSubOsc = patch.SubOscEnabled;
+            EnableVibrato = patch.VibratoEnabled;
+
+            EnableLpf = patch.Lpf.Enabled;
+            CutOff = patch.Lpf.Cutoff;
+            Q = patch.Lpf.Q;
+
+            EnableTremolo = patch.Tremolo.Enabled;
+            TremoloFreq = patch.Tremolo.Freq;
+            TremoloFreqMult = patch.Tremolo.FreqMult;
+
+            ChorusDelay = patch.Chorus.Delay;
+            ChorusWidth = patch.Chorus.Width;
+            ChorusSweep = patch.Chorus.Sweep;
+
+            PhaserDry = patch.Phaser.Dry;
+            PhaserWet = patch.Phaser.Wet;
+            PhaserFeedback = patch.Phaser.Feedback;
+            PhaserFreq = patch.Phaser.Freq;
+            PhaserWidth = patch.Phaser.Width;
+            PhaserSweep = patch.Phaser.Sweep;
+
+            DelayMs = patch.Delay.Ms;
+            DelayDry = patch.Delay.Dry;
+            DelayWet = patch.Delay.Wet;
+            DelayMix = patch.Delay.Mix;
+            DelayFeedback = patch.Delay.Feedback;
+
+            if (patch.Voice != null && patch.Voice.Length == 2)
+            {
+                Level2 = patch.Voice[0].Level;
+                WaveType2 = (SignalGeneratorType)patch.Voice[0].WaveType;
+                Attack2 = patch.Voice[0].Attack;
+                Decay2 = patch.Voice[0].Decay;
+                Sustain2 = patch.Voice[0].Sustain;
+                Release2 = patch.Voice[0].Release;
+                Octave2 = (Octave)patch.Voice[0].Octave;
+                Semitone2 = (Semitone)patch.Voice[0].Semitone;
+
+                Level3 = patch.Voice[1].Level;
+                WaveType3 = (SignalGeneratorType)patch.Voice[1].WaveType;
+                Attack3 = patch.Voice[1].Attack;
+                Decay3 = patch.Voice[1].Decay;
+                Sustain3 = patch.Voice[1].Sustain;
+                Release3 = patch.Voice[1].Release;
+                Octave3 = (Octave)patch.Voice[1].Octave;
+                Semitone3 = (Semitone)patch.Voice[1].Semitone;
             }
         }
 
@@ -289,7 +419,7 @@ namespace synthesizer
             DelayWet = 0.5f;
             DelayDry = 1.0f;
 
-            // Voice Levels
+            // Voice Levels in dB
             Level1 = 0.0f;
             Level2 = -48.0f;
             Level3 = -48.0f;
@@ -566,6 +696,19 @@ namespace synthesizer
                 _mixer.AddMixerInput(EnableLpf
                     ? (ISampleProvider)new LowPassFilterSampleProvider(_oscillators[2, keyVal], CutOff, Q)
                     : _oscillators[2, keyVal]);
+            }
+        }
+
+        private void NoteOff(int keyVal)
+        {
+            if (keyVal > -1 && keyVal <= 88)
+            {
+                _oscillators[0, keyVal].Stop();
+                _oscillators[1, keyVal].Stop();
+                _oscillators[2, keyVal].Stop();
+                _oscillators[0, keyVal] = null;
+                _oscillators[1, keyVal] = null;
+                _oscillators[2, keyVal] = null;
             }
         }
     }
