@@ -6,10 +6,47 @@
     xmlns:local="clr-namespace:synthesizer"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1600"
-    Height="960"
+    Height="1080"
     mc:Ignorable="d"
     Background="LightGray"
     Title="Synthesizer">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}" x:Key="FatButton">
+            <Setter Property="Background" Value="#373737" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="SnapsToDevicePixels" Value="True" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                            <Grid Margin="16,4,16,4">
+                                <ContentPresenter x:Name="ContentPresenter" Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" />
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#E59400" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="OrangeRed" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                            
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#888888" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
 
     <Window.LayoutTransform>
         <ScaleTransform ScaleX="1.0" ScaleY="1.0" />
@@ -730,14 +767,14 @@
                     Margin="5"
                     Orientation="Horizontal">
                     <Button
+                        Style="{StaticResource FatButton}"
                         x:Name="On"
-                        Width="50"
                         Margin="5"
                         Command="{Binding OnCommand}"
                         Content="On" />
                     <Button
+                        Style="{StaticResource FatButton}"
                         x:Name="Off"
-                        Width="50"
                         Margin="5"
                         Command="{Binding OffCommand}"
                         Content="Off" />
