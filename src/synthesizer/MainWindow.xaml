@@ -409,115 +409,145 @@
                         Margin="10,0,0,0"
                         Content="{Binding ChorusDelayLabel}" />
                 </StackPanel>
-                <StackPanel
+                <GroupBox
                     Grid.Row="4"
+                    Grid.RowSpan="3"
                     Grid.Column="4"
-                    Orientation="Horizontal">
-                    <Label
-                        Margin="0,0,0,0"
-                        Content="Phaser"
-                        FontWeight="Bold" />
-                    <Label Margin="10,0,0,0" Content="Dry" />
-                    <Label Margin="10,0,0,0" Content="Wet" />
-                    <Label Margin="10,0,0,0" Content="Feedback" />
-                    <Label Margin="10,0,0,0" Content="Freq." />
-                    <Label Margin="10,0,0,0" Content="Width" />
-                    <Label Margin="10,0,0,0" Content="Sweep" />
-                </StackPanel>
-                <StackPanel
-                    Grid.Row="5"
-                    Grid.Column="4"
-                    Orientation="Horizontal">
-                    <Slider
-                        Margin="55,0,10,0"
-                        Value="{Binding PhaserDry}"
-                        IsSnapToTickEnabled="True"
-                        Maximum="1.0"
-                        Minimum="0.0"
-                        Orientation="Vertical"
-                        TickFrequency="0.1"
-                        TickPlacement="TopLeft" />
-                    <Slider
-                        Margin="5,0,10,0"
-                        Value="{Binding PhaserWet}"
-                        IsSnapToTickEnabled="True"
-                        Maximum="1.0"
-                        Minimum="0.0"
-                        Orientation="Vertical"
-                        TickFrequency="0.1"
-                        TickPlacement="TopLeft" />
-                    <Slider
-                        Margin="25,0,10,0"
-                        Value="{Binding PhaserFeedback}"
-                        IsSnapToTickEnabled="True"
-                        Maximum="0.95"
-                        Minimum="0.0"
-                        Orientation="Vertical"
-                        TickFrequency="0.05"
-                        TickPlacement="TopLeft" />
-                    <Slider
-                        Margin="25,0,10,0"
-                        Value="{Binding PhaserFreq}"
-                        IsSnapToTickEnabled="True"
-                        Maximum="150.0"
-                        Minimum="0.0"
-                        Orientation="Vertical"
-                        TickFrequency="10"
-                        TickPlacement="TopLeft" />
-                    <Slider
-                        Margin="15,0,10,0"
-                        Value="{Binding PhaserWidth}"
-                        IsSnapToTickEnabled="True"
-                        Maximum="1.0"
-                        Minimum="0.0"
-                        Orientation="Vertical"
-                        TickFrequency="0.1"
-                        TickPlacement="TopLeft" />
-                    <Slider
-                        Margin="15,0,10,0"
-                        Value="{Binding PhaserSweep}"
-                        IsSnapToTickEnabled="True"
-                        Maximum="1.0"
-                        Minimum="0.0"
-                        Orientation="Vertical"
-                        TickFrequency="0.1"
-                        TickPlacement="TopLeft" />
-                </StackPanel>
-                <StackPanel
-                    Grid.Row="6"
-                    Grid.Column="4"
-                    Orientation="Horizontal">
-                    <Label
-                        Width="30"
-                        Height="30"
-                        Margin="55,0,0,0"
-                        Content="{Binding PhaserDryLabel}" />
-                    <Label
-                        Width="30"
-                        Height="30"
-                        Margin="10,0,0,0"
-                        Content="{Binding PhaserWetLabel}" />
-                    <Label
-                        Width="30"
-                        Height="30"
-                        Margin="28,0,0,0"
-                        Content="{Binding PhaserFeedbackLabel}" />
-                    <Label
-                        Width="40"
-                        Height="30"
-                        Margin="25,0,0,0"
-                        Content="{Binding PhaserFreqLabel}" />
-                    <Label
-                        Width="30"
-                        Height="30"
-                        Margin="12,0,0,0"
-                        Content="{Binding PhaserWidthLabel}" />
-                    <Label
-                        Width="30"
-                        Height="30"
-                        Margin="20,0,0,0"
-                        Content="{Binding PhaserSweepLabel}" />
-                </StackPanel>
+                    FontWeight="Bold"
+                    Header="Phaser">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel
+                            Grid.Row="4"
+                            Grid.Column="4"
+                            Orientation="Horizontal">
+                            <Label
+                                Margin="10,0,0,0"
+                                Content="Dry"
+                                FontWeight="Normal" />
+                            <Label
+                                Margin="10,0,0,0"
+                                Content="Wet"
+                                FontWeight="Normal" />
+                            <Label
+                                Margin="10,0,0,0"
+                                Content="Feedback"
+                                FontWeight="Normal" />
+                            <Label
+                                Margin="10,0,0,0"
+                                Content="Freq."
+                                FontWeight="Normal" />
+                            <Label
+                                Margin="10,0,0,0"
+                                Content="Width"
+                                FontWeight="Normal" />
+                            <Label
+                                Margin="10,0,0,0"
+                                Content="Sweep"
+                                FontWeight="Normal" />
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Row="5"
+                            Grid.Column="4"
+                            Height="200"
+                            Orientation="Horizontal">
+                            <Slider
+                                Margin="15,0,10,0"
+                                Value="{Binding PhaserDry}"
+                                IsSnapToTickEnabled="True"
+                                Maximum="1.0"
+                                Minimum="0.0"
+                                Orientation="Vertical"
+                                TickFrequency="0.1"
+                                TickPlacement="TopLeft" />
+                            <Slider
+                                Margin="5,0,10,0"
+                                Value="{Binding PhaserWet}"
+                                IsSnapToTickEnabled="True"
+                                Maximum="1.0"
+                                Minimum="0.0"
+                                Orientation="Vertical"
+                                TickFrequency="0.1"
+                                TickPlacement="TopLeft" />
+                            <Slider
+                                Margin="25,0,10,0"
+                                Value="{Binding PhaserFeedback}"
+                                IsSnapToTickEnabled="True"
+                                Maximum="0.95"
+                                Minimum="0.0"
+                                Orientation="Vertical"
+                                TickFrequency="0.05"
+                                TickPlacement="TopLeft" />
+                            <Slider
+                                Margin="25,0,10,0"
+                                Value="{Binding PhaserFreq}"
+                                IsSnapToTickEnabled="True"
+                                Maximum="150.0"
+                                Minimum="0.0"
+                                Orientation="Vertical"
+                                TickFrequency="10"
+                                TickPlacement="TopLeft" />
+                            <Slider
+                                Margin="15,0,10,0"
+                                Value="{Binding PhaserWidth}"
+                                IsSnapToTickEnabled="True"
+                                Maximum="1.0"
+                                Minimum="0.0"
+                                Orientation="Vertical"
+                                TickFrequency="0.1"
+                                TickPlacement="TopLeft" />
+                            <Slider
+                                Margin="15,0,10,0"
+                                Value="{Binding PhaserSweep}"
+                                IsSnapToTickEnabled="True"
+                                Maximum="1.0"
+                                Minimum="0.0"
+                                Orientation="Vertical"
+                                TickFrequency="0.1"
+                                TickPlacement="TopLeft" />
+                        </StackPanel>
+                        <StackPanel
+                            Grid.Row="6"
+                            Grid.Column="4"
+                            Orientation="Horizontal">
+                            <Label
+                                Width="30"
+                                Height="30"
+                                Margin="15,0,0,0"
+                                Content="{Binding PhaserDryLabel}"
+                                FontWeight="Normal" />
+                            <Label
+                                Width="30"
+                                Height="30"
+                                Margin="10,0,0,0"
+                                Content="{Binding PhaserWetLabel}"
+                                FontWeight="Normal" />
+                            <Label
+                                Width="30"
+                                Height="30"
+                                Margin="28,0,0,0"
+                                Content="{Binding PhaserFeedbackLabel}"
+                                FontWeight="Normal" />
+                            <Label
+                                Width="40"
+                                Height="30"
+                                Margin="25,0,0,0"
+                                Content="{Binding PhaserFreqLabel}"
+                                FontWeight="Normal" />
+                            <Label
+                                Width="30"
+                                Height="30"
+                                Margin="12,0,0,0"
+                                Content="{Binding PhaserWidthLabel}"
+                                FontWeight="Normal" />
+                            <Label
+                                Width="30"
+                                Height="30"
+                                Margin="20,0,0,0"
+                                Content="{Binding PhaserSweepLabel}"
+                                FontWeight="Normal" />
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
                 <GroupBox
                     Grid.Row="7"
                     Grid.RowSpan="3"
