@@ -53,9 +53,9 @@ Added 2 additional voices per note, complete with GUI controls for level, wavefo
 
 Added support for using a MIDI controller to play the synthesizer - including velocity sensitivity. Also wired up the Delay effect to GUI controls. Hit a bug with the Delay effect - logged as Issue #29 (subsequently fixed off-stream).
 
-#### Episodew 42
+#### Episode 42
 
-TBC
+Added the facility to save and load settings files as JSON, which we refer to as "patches". Some refactoring is required to tidy up the code.
 
 ## Contributors
 
