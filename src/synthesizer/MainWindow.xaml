@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:synthesizer"
+    xmlns:controls="clr-namespace:synthesizer.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1600"
     Height="1000"
@@ -80,17 +81,16 @@
                     HorizontalAlignment="Right"
                     Content="Master Volume:"
                     FontWeight="Bold" />
-                <Slider
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    Margin="5"
-                    VerticalAlignment="Center"
-                    Value="{Binding Volume}"
-                    Maximum="0.0"
-                    Minimum="-48.0"
-                    Orientation="Horizontal" />
-                <Label
+        <controls:AudioKnob
+            Grid.Row="2"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Margin="5"
+            Value="{Binding Volume}"
+            To="0.0"
+            From="-48.0"/>
+        <Label
                     Grid.Row="2"
                     Grid.Column="3"
                     Width="50"
@@ -835,12 +835,12 @@
                         Command="{Binding MidiOffCommand}"
                         Content="MIDI Off" />
                 </StackPanel>
-                <local:AmplitudeVisualizer
+                <controls:AmplitudeVisualizer
                     Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="5"
                     Amplitudes ="{Binding FrequencyAmplitudes}" />
-                <local:WaveformVisualizer
+                <controls:WaveformVisualizer
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="5"
@@ -867,12 +867,12 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <local:AmplitudeVisualizer
+                <controls:AmplitudeVisualizer
                     Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="5"
                     Amplitudes ="{Binding FrequencyAmplitudes}" />
-                <local:WaveformVisualizer
+                <controls:WaveformVisualizer
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="5"
@@ -1044,12 +1044,12 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <local:AmplitudeVisualizer
+                <controls:AmplitudeVisualizer
                     Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="5"
                     Amplitudes ="{Binding FrequencyAmplitudes}" />
-                <local:WaveformVisualizer
+                <controls:WaveformVisualizer
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="5"

@@ -6,7 +6,7 @@ namespace synthesizer
     class ChorusSampleProvider : ISampleProvider
     {
         private const int BufferSize = 8192;
-        
+
         private readonly ISampleProvider _source;
         private float[] _circularBuffer = new float[BufferSize];
         private int _fillingPointer = 0;
@@ -50,7 +50,7 @@ namespace synthesizer
                 SetSweep();
             }
         }
-        
+
         private float delay;
         public float Delay
         {

@@ -169,7 +169,7 @@ namespace synthesizer
                             _delayBuffer[_resamplePositionIntPart + 1] = _delayBuffer[_pos + 1];
                         }
 
-                        _delayPosition = _delayResamplePosition != 0.0f 
+                        _delayPosition = _delayResamplePosition != 0.0f
                             ? _delayPosition / _delayResamplePosition
                             : _delayPosition;
                         _delayPosition = (_delayPosition < 0) ? 0 : (int)_delayPosition;
