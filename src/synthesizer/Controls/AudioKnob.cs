@@ -9,9 +9,9 @@ namespace synthesizer.Controls
   {
     readonly static Color s_backgroundColor   = Color.FromRgb(0x22, 0x22, 0x22);
     readonly static Color s_foregroundColor   = Color.FromRgb(0xEE, 0xEE, 0xEE);
-    readonly static Color s_beginRingColor    = Color.FromRgb(0xEE, 0x00, 0x00);
-    readonly static Color s_middleRingColor   = Color.FromRgb(0xEE, 0xEE, 0x00);
-    readonly static Color s_endRingColor      = Color.FromRgb(0x00, 0xEE, 0x00);
+    readonly static Color s_beginRingColor    = Color.FromRgb(0xEE, 0x00, 0x88);
+    readonly static Color s_middleRingColor   = Color.FromRgb(0xEE, 0xEE, 0x88);
+    readonly static Color s_endRingColor      = Color.FromRgb(0x00, 0xEE, 0x88);
 
     readonly static Brush s_foregroundBrush   = new SolidColorBrush(s_foregroundColor);
 
@@ -29,6 +29,14 @@ namespace synthesizer.Controls
           new GradientStop(s_backgroundColor, 0.9),
           new GradientStop(s_backgroundColor, 1.0),
         });
+
+    MouseEventHandler MouseMovedHandler ;
+    FrameworkElement  currentRoot       ;
+
+    partial void Constructed__AudioKnob()
+    {
+      MouseMovedHandler = MouseMoved;
+    }
 
     double ComputeRatio()
     {
@@ -81,33 +89,53 @@ namespace synthesizer.Controls
       CoerceValue(ValueProperty);
     }
 
+    static FrameworkElement FindRoot(FrameworkElement e)
+    {
+      if (e != null)
+      {
+        var p = e.Parent as FrameworkElement;
+        if (p != null)
+        {
+          return FindRoot(p);
+        }
+        else
+        {
+          return e;
+        }
+      }
+      else
+      {
+        return null;
+      }
+    }
+
     protected override void OnMouseDown(MouseButtonEventArgs e)
     {
       base.OnMouseDown(e);
 
-      var pos   = e.GetPosition(this);
+      var pos     = e.GetPosition(this);
 
-      Value     = ComputeValueFromPoint(pos);
+      Value       = ComputeValueFromPoint(pos);
+
+      currentRoot = FindRoot(this);
+
+      if(currentRoot != null)
+      {
+        currentRoot.AddHandler(MouseMoveEvent, MouseMovedHandler, true);
+      }
     }
 
-    protected override void OnMouseUp(MouseButtonEventArgs e)
+    void MouseMoved(object s, MouseEventArgs e)
     {
-      base.OnMouseDown(e);
-
       var pos   = e.GetPosition(this);
-
-      Value     = ComputeValueFromPoint(pos);
-    }
-
-    protected override void OnMouseMove(MouseEventArgs e)
-    {
-      base.OnMouseMove(e);
-
       if (e.LeftButton == MouseButtonState.Pressed)
       {
-        var pos   = e.GetPosition(this);
-
         Value     = ComputeValueFromPoint(pos);
+      }
+      else if (currentRoot != null)
+      {
+        currentRoot.RemoveHandler(MouseMoveEvent, MouseMovedHandler);
+        currentRoot = null;
       }
     }
 
