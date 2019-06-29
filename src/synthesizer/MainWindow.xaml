@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:synthesizer"
+    xmlns:controls="clr-namespace:synthesizer.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1600"
     Height="1000"
@@ -36,7 +37,7 @@
                                 <Setter Property="Background" Value="OrangeRed" />
                                 <Setter Property="Foreground" Value="White" />
                             </Trigger>
-                            
+
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="Background" Value="#888888" />
                             </Trigger>
@@ -80,17 +81,16 @@
                     HorizontalAlignment="Right"
                     Content="Master Volume:"
                     FontWeight="Bold" />
-                <Slider
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Grid.ColumnSpan="2"
-                    Margin="5"
-                    VerticalAlignment="Center"
-                    Value="{Binding Volume}"
-                    Maximum="0.0"
-                    Minimum="-48.0"
-                    Orientation="Horizontal" />
-                <Label
+        <controls:AudioKnob
+            Grid.Row="2"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Margin="5"
+            Value="{Binding Volume}"
+            To="0.0"
+            From="-48.0"/>
+        <Label
                     Grid.Row="2"
                     Grid.Column="3"
                     Width="50"
@@ -775,7 +775,7 @@
                             Width="200"
                             Height="50"
                             Margin="10"
-                            Click="SavePatch_Click"
+                            Command="{Binding SavePatchCommand}"
                             FontWeight="Normal">
                             	Save Patch
                         </Button>
@@ -785,7 +785,7 @@
                             Width="200"
                             Height="50"
                             Margin="10"
-                            Click="LoadPatch_Click"
+                            Command="{Binding LoadPatchCommand}"
                             FontWeight="Normal">
                             Load Patch
                         </Button>
@@ -810,37 +810,38 @@
                         Margin="5"
                         Command="{Binding OffCommand}"
                         Content="Off" />
-                    <Label
-                        x:Name="midiInLabel"
-                        Content="MIDI Controllers"
-                        FontWeight="Bold" 
-                        VerticalAlignment="Center"/>
-                    <ComboBox
-                        Width="300"
-                        Height="25"
-                        Name="midiInDevices"
-                        SelectedIndex="{Binding MidiIn}" />
-                    <Button
-                        x:Name="midiOn"
-                        Style="{StaticResource FatButton}"
-                        Width="150"
-                        Margin="5"
-                        Command="{Binding MidiOnCommand}"
-                        Content="MIDI On" />
-                    <Button
-                        x:Name="midiOff"
-                        Style="{StaticResource FatButton}"
-                        Width="150"
-                        Margin="5"
-                        Command="{Binding MidiOffCommand}"
-                        Content="MIDI Off" />
+                    <StackPanel Orientation="Horizontal" Visibility="{Binding MidiVisibility}">
+                      <Label
+                          Content="MIDI Controllers"
+                          FontWeight="Bold"
+                          VerticalAlignment="Center"/>
+                      <ComboBox
+                          FontSize="24"
+                          Width="300"
+                          Height="40"
+                          ItemsSource="{Binding MidiDevices}"
+                          SelectedItem="{Binding MidiDevice}"
+                          />
+                      <Button
+                          Style="{StaticResource FatButton}"
+                          Width="150"
+                          Margin="5"
+                          Command="{Binding MidiOnCommand}"
+                          Content="MIDI On" />
+                      <Button
+                          Style="{StaticResource FatButton}"
+                          Width="150"
+                          Margin="5"
+                          Command="{Binding MidiOffCommand}"
+                          Content="MIDI Off" />
+                  </StackPanel>
                 </StackPanel>
-                <local:AmplitudeVisualizer
+                <controls:AmplitudeVisualizer
                     Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="5"
                     Amplitudes ="{Binding FrequencyAmplitudes}" />
-                <local:WaveformVisualizer
+                <controls:WaveformVisualizer
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="5"
@@ -867,12 +868,12 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <local:AmplitudeVisualizer
+                <controls:AmplitudeVisualizer
                     Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="5"
                     Amplitudes ="{Binding FrequencyAmplitudes}" />
-                <local:WaveformVisualizer
+                <controls:WaveformVisualizer
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="5"
@@ -1044,12 +1045,12 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <local:AmplitudeVisualizer
+                <controls:AmplitudeVisualizer
                     Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="5"
                     Amplitudes ="{Binding FrequencyAmplitudes}" />
-                <local:WaveformVisualizer
+                <controls:WaveformVisualizer
                     Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="5"

@@ -1,7 +1,4 @@
-﻿using NAudio.Midi;
-using System.IO;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Input;
 
 namespace synthesizer
@@ -15,26 +12,8 @@ namespace synthesizer
             InitializeComponent();
             _viewModel = new MainWindowViewModel(Dispatcher);
             DataContext = _viewModel;
+
             Closing += ((obj, e) => _viewModel.OffCommand.Execute(null));
-
-            for (var device = 0; device < MidiIn.NumberOfDevices; device++)
-            {
-                midiInDevices.Items.Add(MidiIn.DeviceInfo(device).ProductName);
-            }
-
-            if (midiInDevices.Items.Count > 0)
-            {
-                midiInDevices.SelectedIndex = 0;
-                _viewModel.SelectedMidiDevice = midiInDevices.SelectedIndex;
-            }
-            else
-            {
-                midiInDevices.Visibility = Visibility.Hidden;
-                midiInLabel.Visibility = Visibility.Hidden;
-                midiOn.Visibility = Visibility.Hidden;
-                midiOff.Visibility = Visibility.Hidden;
-                _viewModel.MidiEnabled = false;
-            }
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -47,50 +26,6 @@ namespace synthesizer
         {
             base.OnKeyUp(e);
             _viewModel.KeyUp(e);
-        }
-
-        private void MidiInDevices_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selection = sender as ComboBox;
-            if (_viewModel != null && _viewModel.MidiEnabled)
-            {
-                _viewModel.SelectedMidiDevice = selection.SelectedIndex;
-            }
-        }
-
-        private void SavePatch_Click(object sender, RoutedEventArgs e)
-        {
-            if (_viewModel != null)
-            {
-                var saveFileDialog = new System.Windows.Forms.SaveFileDialog()
-                {
-                    Filter = "JSON file (*.json)|*.json"
-                };
-                
-                var result = saveFileDialog.ShowDialog();
-
-                if (result == System.Windows.Forms.DialogResult.OK)
-                {
-                    var fileName = saveFileDialog.FileName;
-                    var json = _viewModel.CreatePatch(fileName);
-                    File.WriteAllText(fileName, json);
-                }
-            }
-        }
-
-        private void LoadPatch_Click(object sender, RoutedEventArgs e)
-        {
-            if (_viewModel != null)
-            {
-                var openFileDialog = new System.Windows.Forms.OpenFileDialog();
-                var result = openFileDialog.ShowDialog();
-
-                if (result == System.Windows.Forms.DialogResult.OK)
-                {
-                    var patchJson = File.ReadAllText(openFileDialog.FileName);
-                    _viewModel.RecallPatch(patchJson);
-                }
-            }
         }
     }
 }

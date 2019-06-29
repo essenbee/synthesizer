@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+<#
+  Namespace   = "synthesizer.Controls";
+  Model       = new []
+  {
+    new ClassDefinition ("AudioKnob")
+    {
+      P ("double"                 , "Value"     , defaultValue:"0.0"    , metaDataOptions: "FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault"),
+      P ("double"                 , "From"      , defaultValue:"0.0"    , metaDataOptions: "FrameworkPropertyMetadataOptions.AffectsRender"),
+      P ("double"                 , "To"        , defaultValue:"100.0"  , metaDataOptions: "FrameworkPropertyMetadataOptions.AffectsRender"),
+    },
+    new ClassDefinition ("AmplitudeVisualizer")
+    {
+      P ("float[]"                , "Amplitudes" , metaDataOptions: "FrameworkPropertyMetadataOptions.AffectsRender"),
+    },
+    new ClassDefinition ("WaveformVisualizer")
+    {
+      P ("float[]"                , "Waveform"   , metaDataOptions: "FrameworkPropertyMetadataOptions.AffectsRender"),
+    },
+  };
+
+#>
+
+
+<#@ include     file        ="DependencyProperties.ttinclude"     #>

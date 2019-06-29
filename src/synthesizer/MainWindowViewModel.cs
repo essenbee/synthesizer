@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using Microsoft.Win32;
+using System.IO;
+using System.Windows;
 
 namespace synthesizer
 {
@@ -114,8 +117,8 @@ namespace synthesizer
           return Enum.GetValues(typeof(T)).Cast<T>().ToArray();
         }
 
-        public SignalGeneratorType[] SelectableWaveforms => 
-          new [] 
+        public SignalGeneratorType[] SelectableWaveforms =>
+          new []
           {
             SignalGeneratorType.SawTooth  ,
             SignalGeneratorType.Sin       ,
@@ -126,7 +129,6 @@ namespace synthesizer
             SignalGeneratorType.Sweep     ,
           };
 
-        public int SelectedMidiDevice { get; set; } = -1;
         public BaseFrequency[] SelectableBaseFrequencies => EnumValues<BaseFrequency> ();
 
         public Octave[] SelectableOctaves => EnumValues<Octave>();
@@ -147,8 +149,6 @@ namespace synthesizer
           }
         }
 
-        public bool MidiEnabled { get; set; }
-        
         public void KeyDown(KeyEventArgs e)
         {
             if (MidiEnabled) return;
@@ -358,7 +358,7 @@ namespace synthesizer
 
                     break;
                 case MidiCommandCode.MetaEvent:
-                    
+
                     break;
             }
         }
@@ -379,6 +379,21 @@ namespace synthesizer
         // Construction event
         partial void Constructed()
         {
+            for (var device = 0; device < NAudio.Midi.MidiIn.NumberOfDevices; device++)
+            {
+                _MidiDevices.Add(NAudio.Midi.MidiIn.DeviceInfo(device).ProductName);
+            }
+
+            if (_MidiDevices.Count > 0)
+            {
+                MidiDevice = MidiDevices[0];
+                MidiVisibility = Visibility.Visible;
+            }
+            else
+            {
+                MidiVisibility = Visibility.Collapsed;
+            }
+
             var waveFormat = WaveFormat.CreateIeeeFloatWaveFormat(44100, 1);
             _mixer = new MixingSampleProvider(waveFormat) { ReadFully = true }; // Always produce samples
             _volControl = new VolumeSampleProvider(_mixer)
@@ -617,14 +632,18 @@ namespace synthesizer
 
         partial void Execute_MidiOnCommand()
         {
-            MidiEnabled = true;
-            midiIn = new MidiIn(SelectedMidiDevice);
-            midiIn.MessageReceived += MidiMessageReceived;
-            // midiIn.ErrorReceived += MidiErrorReceived;
-            midiIn.Start();     
-            ResetCanExecute();
+            var selectedMidiDevice =MidiDevices.IndexOf(MidiDevice);
+            if (selectedMidiDevice > 0)
+            {
+              MidiEnabled = true;
+              midiIn = new MidiIn(selectedMidiDevice);
+              midiIn.MessageReceived += MidiMessageReceived;
+              // midiIn.ErrorReceived += MidiErrorReceived;
+              midiIn.Start();
+              ResetCanExecute();
+            }
         }
-        
+
         partial void Execute_MidiOffCommand()
         {
             MidiEnabled = false;
@@ -641,6 +660,48 @@ namespace synthesizer
         partial void CanExecute_MidiOffCommand(ref bool result)
         {
             result = MidiEnabled;
+        }
+
+        partial void CanExecute_LoadPatchCommand(ref bool result)
+        {
+          result = true;
+        }
+
+        partial void CanExecute_SavePatchCommand(ref bool result)
+        {
+          result = true;
+        }
+
+        partial void Execute_LoadPatchCommand()
+        {
+            var saveFileDialog = new Microsoft.Win32.SaveFileDialog()
+            {
+                Filter = "JSON file (*.json)|*.json"
+            };
+
+            var result = saveFileDialog.ShowDialog();
+
+            if (result??false)
+            {
+                var fileName = saveFileDialog.FileName;
+                var json = CreatePatch(fileName);
+                File.WriteAllText(fileName, json);
+            }
+        }
+
+        partial void Execute_SavePatchCommand()
+        {
+            var openFileDialog = new OpenFileDialog()
+            {
+                Filter = "JSON file (*.json)|*.json"
+            };
+            var result = openFileDialog.ShowDialog();
+
+            if (result??false)
+            {
+                var patchJson = File.ReadAllText(openFileDialog.FileName);
+                RecallPatch(patchJson);
+            }
         }
 
         private void NoteOn(int keyVal, int midiKeyVal, float velocity = 1.0f)

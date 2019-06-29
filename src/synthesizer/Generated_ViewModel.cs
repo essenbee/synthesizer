@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -15,6 +17,128 @@ namespace synthesizer
         readonly Dispatcher _dispatcher;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: MidiVisibility (Visibility)
+        // --------------------------------------------------------------------
+        Visibility _MidiVisibility = default;
+
+        void Raise_MidiVisibility ()
+        {
+          OnPropertyChanged ("MidiVisibility");
+        }
+
+        public Visibility MidiVisibility
+        {
+            get { return _MidiVisibility; }
+            set
+            {
+                if (_MidiVisibility == value)
+                {
+                    return;
+                }
+
+                var prev = _MidiVisibility;
+
+                _MidiVisibility = value;
+
+                Changed_MidiVisibility (prev, _MidiVisibility);
+
+                Raise_MidiVisibility ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_MidiVisibility (Visibility prev, Visibility current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: MidiVisibility (Visibility)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: MidiEnabled (bool)
+        // --------------------------------------------------------------------
+        bool _MidiEnabled = default;
+
+        void Raise_MidiEnabled ()
+        {
+          OnPropertyChanged ("MidiEnabled");
+        }
+
+        public bool MidiEnabled
+        {
+            get { return _MidiEnabled; }
+            set
+            {
+                if (_MidiEnabled == value)
+                {
+                    return;
+                }
+
+                var prev = _MidiEnabled;
+
+                _MidiEnabled = value;
+
+                Changed_MidiEnabled (prev, _MidiEnabled);
+
+                Raise_MidiEnabled ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_MidiEnabled (bool prev, bool current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: MidiEnabled (bool)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_PROPERTY: MidiDevice (string)
+        // --------------------------------------------------------------------
+        string _MidiDevice = default;
+
+        void Raise_MidiDevice ()
+        {
+          OnPropertyChanged ("MidiDevice");
+        }
+
+        public string MidiDevice
+        {
+            get { return _MidiDevice; }
+            set
+            {
+                if (_MidiDevice == value)
+                {
+                    return;
+                }
+
+                var prev = _MidiDevice;
+
+                _MidiDevice = value;
+
+                Changed_MidiDevice (prev, _MidiDevice);
+
+                Raise_MidiDevice ();
+            }
+        }
+        // --------------------------------------------------------------------
+        partial void Changed_MidiDevice (string prev, string current);
+        // --------------------------------------------------------------------
+        // END_PROPERTY: MidiDevice (string)
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_COLLECTION_PROPERTY: MidiDevices (string)
+        // --------------------------------------------------------------------
+        ObservableCollection<string> _MidiDevices = new ObservableCollection<string> ();
+
+        void Raise_MidiDevices ()
+        {
+        }
+
+        public ObservableCollection<string> MidiDevices
+        {
+            get { return _MidiDevices; }
+        }
+        // --------------------------------------------------------------------
+        // END_COLLECTION_PROPERTY: MidiDevices (string)
+        // --------------------------------------------------------------------
 
         // --------------------------------------------------------------------
         // BEGIN_PROPERTY: FrequencyAmplitudes (float[])
@@ -1976,6 +2100,58 @@ namespace synthesizer
         // END_COMMAND: MidiOffCommand
         // --------------------------------------------------------------------
 
+        // --------------------------------------------------------------------
+        // BEGIN_COMMAND: LoadPatchCommand
+        // --------------------------------------------------------------------
+        readonly UserCommand _LoadPatchCommand;
+
+        bool CanExecuteLoadPatchCommand ()
+        {
+          bool result = false;
+          CanExecute_LoadPatchCommand (ref result);
+
+          return result;
+        }
+
+        void ExecuteLoadPatchCommand ()
+        {
+          Execute_LoadPatchCommand ();
+        }
+
+        public ICommand LoadPatchCommand { get { return _LoadPatchCommand;} }
+        // --------------------------------------------------------------------
+        partial void CanExecute_LoadPatchCommand (ref bool result);
+        partial void Execute_LoadPatchCommand ();
+        // --------------------------------------------------------------------
+        // END_COMMAND: LoadPatchCommand
+        // --------------------------------------------------------------------
+
+        // --------------------------------------------------------------------
+        // BEGIN_COMMAND: SavePatchCommand
+        // --------------------------------------------------------------------
+        readonly UserCommand _SavePatchCommand;
+
+        bool CanExecuteSavePatchCommand ()
+        {
+          bool result = false;
+          CanExecute_SavePatchCommand (ref result);
+
+          return result;
+        }
+
+        void ExecuteSavePatchCommand ()
+        {
+          Execute_SavePatchCommand ();
+        }
+
+        public ICommand SavePatchCommand { get { return _SavePatchCommand;} }
+        // --------------------------------------------------------------------
+        partial void CanExecute_SavePatchCommand (ref bool result);
+        partial void Execute_SavePatchCommand ();
+        // --------------------------------------------------------------------
+        // END_COMMAND: SavePatchCommand
+        // --------------------------------------------------------------------
+
 
         partial void Constructed ();
 
@@ -1986,6 +2162,8 @@ namespace synthesizer
           _OffCommand = new UserCommand (CanExecuteOffCommand, ExecuteOffCommand);
           _MidiOnCommand = new UserCommand (CanExecuteMidiOnCommand, ExecuteMidiOnCommand);
           _MidiOffCommand = new UserCommand (CanExecuteMidiOffCommand, ExecuteMidiOffCommand);
+          _LoadPatchCommand = new UserCommand (CanExecuteLoadPatchCommand, ExecuteLoadPatchCommand);
+          _SavePatchCommand = new UserCommand (CanExecuteSavePatchCommand, ExecuteSavePatchCommand);
 
           Constructed ();
         }
@@ -1996,6 +2174,8 @@ namespace synthesizer
           _OffCommand.RefreshCanExecute ();
           _MidiOnCommand.RefreshCanExecute ();
           _MidiOffCommand.RefreshCanExecute ();
+          _LoadPatchCommand.RefreshCanExecute ();
+          _SavePatchCommand.RefreshCanExecute ();
         }
 
         void Dispatch(Action action)
