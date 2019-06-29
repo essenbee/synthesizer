@@ -7,14 +7,28 @@ namespace synthesizer.Controls
 {
   partial class AudioKnob : FrameworkElement
   {
-    readonly static Brush s_backgroundBrush   = new SolidColorBrush(Color.FromRgb(0x22, 0x22, 0x22));
-    readonly static Brush s_ringBrush         = new SolidColorBrush(Color.FromRgb(0xEE, 0xEE, 0xEE));
-    readonly static Brush s_beginRingBrush    = new SolidColorBrush(Color.FromRgb(0xEE, 0x00, 0x00));
-    readonly static Brush s_middleRingBrush   = new SolidColorBrush(Color.FromRgb(0xEE, 0xEE, 0x00));
-    readonly static Brush s_endRingBrush      = new SolidColorBrush(Color.FromRgb(0x00, 0xEE, 0x00));
-    readonly static Pen   s_beginStroke       = new Pen(s_beginRingBrush  , 4.0);
-    readonly static Pen   s_middleStroke      = new Pen(s_middleRingBrush , 4.0);
-    readonly static Pen   s_endStroke         = new Pen(s_endRingBrush    , 4.0);
+    readonly static Color s_backgroundColor   = Color.FromRgb(0x22, 0x22, 0x22);
+    readonly static Color s_foregroundColor   = Color.FromRgb(0xEE, 0xEE, 0xEE);
+    readonly static Color s_beginRingColor    = Color.FromRgb(0xEE, 0x00, 0x00);
+    readonly static Color s_middleRingColor   = Color.FromRgb(0xEE, 0xEE, 0x00);
+    readonly static Color s_endRingColor      = Color.FromRgb(0x00, 0xEE, 0x00);
+
+    readonly static Brush s_foregroundBrush   = new SolidColorBrush(s_foregroundColor);
+
+    readonly TranslateTransform _translate  = new TranslateTransform();
+    readonly ScaleTransform     _scale      = new ScaleTransform()    ;
+    readonly RotateTransform    _rotate     = new RotateTransform()   ;
+
+    readonly RadialGradientBrush _knobBrush = new RadialGradientBrush(
+      new GradientStopCollection
+        {
+          new GradientStop(s_backgroundColor, 0.0),
+          new GradientStop(s_backgroundColor, 0.8),
+          new GradientStop(s_foregroundColor, 0.8),
+          new GradientStop(s_foregroundColor, 0.9),
+          new GradientStop(s_backgroundColor, 0.9),
+          new GradientStop(s_backgroundColor, 1.0),
+        });
 
     double ComputeRatio()
     {
@@ -109,36 +123,36 @@ namespace synthesizer.Controls
 
       if (!zoom.IsNaN())
       {
-        if (IsFocused)
-        {
-          drawingContext.DrawRectangle(null, new Pen(s_backgroundBrush, 1.0), new Rect(0, 0, width, height));
-        }
-
         var ratio = ComputeRatio();
         var angle = ratio*270 + 45;
 
-        drawingContext.PushTransform(new TranslateTransform(width/2, height/2));
-        drawingContext.PushTransform(new ScaleTransform(zoom, zoom));
+        var origo = new Point();
 
-        drawingContext.DrawEllipse(s_backgroundBrush, null, new Point(0, 0), 50, 50);
+        _translate.X = width/2;
+        _translate.Y = height/2;
 
-        if (ratio < 0.5)
-        {
-          drawingContext.DrawEllipse(null, s_beginStroke, new Point(0, 0), 43, 43);
-          drawingContext.PushOpacity(ratio/0.5);
-          drawingContext.DrawEllipse(null, s_middleStroke, new Point(0, 0), 43, 43);
-          drawingContext.Pop();
-        }
-        else
-        {
-          drawingContext.DrawEllipse(null, s_middleStroke, new Point(0, 0), 43, 43);
-          drawingContext.PushOpacity((ratio - 0.5)/0.5);
-          drawingContext.DrawEllipse(null, s_endStroke, new Point(0, 0), 43, 43);
-          drawingContext.Pop();
-        }
+        _scale.ScaleX = zoom;
+        _scale.ScaleY = zoom;
 
-        drawingContext.PushTransform(new RotateTransform(angle));
-        drawingContext.DrawEllipse(s_ringBrush, null, new Point(0, 30), 10, 10);
+        _rotate.Angle = angle;
+
+        var stops     = _knobBrush.GradientStops;
+
+        var ringColor = ratio < 0.5
+          ? (2.0*ratio).Lerp(s_beginRingColor, s_middleRingColor)
+          : (2.0*(ratio - 0.5)).Lerp(s_middleRingColor, s_endRingColor)
+          ;
+
+        stops[2].Color= ringColor;
+        stops[3].Color= ringColor;
+
+        drawingContext.PushTransform(_translate);
+        drawingContext.PushTransform(_scale);
+
+        drawingContext.DrawEllipse(_knobBrush, null, origo, 50, 50);
+
+        drawingContext.PushTransform(_rotate);
+        drawingContext.DrawEllipse(s_foregroundBrush, null, new Point(0, 28), 10, 10);
 
         drawingContext.Pop();
         drawingContext.Pop();
