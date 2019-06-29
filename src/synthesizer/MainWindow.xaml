@@ -371,36 +371,40 @@
                                         Content="{Binding TremoloFreqMultLabel}"
                                         FontWeight="Normal" />
                                 </StackPanel>
-                                <controls:AudioKnob
-                                        Margin="5,10,0,0"
+                                <StackPanel Orientation="Vertical">
+
+                                    <controls:AudioKnob
+                                        Margin="5,45,0,0"
                                         Height="50"
                                         Width="50"
                                         HorizontalAlignment="Left"
                                         Value="{Binding TremoloFreq}"
                                         To="20"
                                         From="1" />
-                                <controls:AudioKnob
-                                        Margin="5,10,0,0"
+                                    <Label
+                                    Width="50"
+                                    Height="30"
+                                    Margin="10,5,0,0"
+                                    Content="{Binding TremoloFreqLabel}"
+                                    FontWeight="Normal" />
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical">
+
+                                    <controls:AudioKnob
+                                        Margin="5,45,0,0"
                                         Height="50"
                                         Width="50"
                                         HorizontalAlignment="Left"
                                         Value="{Binding TremoloGain}"
                                         To="1.0"
                                         From="0.0" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Label
-                                    Width="60"
-                                    Height="30"
-                                    Margin="70,0,0,0"
-                                    Content="{Binding TremoloFreqLabel}"
-                                    FontWeight="Normal" />
-                                <Label
+                                    <Label
                                     Width="40"
                                     Height="30"
-                                    Margin="3,0,0,0"
+                                    Margin="3,5,0,0"
                                     Content="{Binding TremoloGainLabel}"
                                     FontWeight="Normal" />
+                                </StackPanel>
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
