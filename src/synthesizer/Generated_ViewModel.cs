@@ -1284,7 +1284,7 @@ namespace synthesizer
           OnPropertyChanged ("TremoloGainLabel");
         }
 
-        public string TremoloGainLabel => $"{Math.Max(0, TremoloGain) * 100.0f}%";
+        public string TremoloGainLabel => $"{(int)(TremoloGain * 100.0f)}%";
 
         public float TremoloGain
         {

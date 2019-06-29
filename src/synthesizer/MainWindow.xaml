@@ -331,11 +331,11 @@
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
                                 <Label
-                                    Margin="70,0,0,0"
+                                    Margin="80,0,0,0"
                                     Content="Freq."
                                     FontWeight="Normal" />
                                 <Label
-                                    Margin="15,0,0,0"
+                                    Margin="20,0,0,0"
                                     Content="Gain"
                                     FontWeight="Normal" />
                             </StackPanel>
@@ -356,16 +356,14 @@
                                         Margin="5,0,0,0"
                                         Content="x Freq."
                                         FontWeight="Normal" />
-                                    <Slider
-                                        Height="120"
-                                        Margin="15,0,10,0"
+                                    <controls:AudioKnob
+                                        Margin="5"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
                                         Value="{Binding TremoloFreqMult}"
-                                        IsSnapToTickEnabled="True"
-                                        Maximum="50"
-                                        Minimum="1"
-                                        Orientation="Vertical"
-                                        TickPlacement="TopLeft"
-                                        Ticks="1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50" />
+                                        To="50"
+                                        From="1" />
                                     <Label
                                         Width="30"
                                         Height="30"
@@ -373,30 +371,28 @@
                                         Content="{Binding TremoloFreqMultLabel}"
                                         FontWeight="Normal" />
                                 </StackPanel>
-                                <Slider
-                                    Margin="5,0,10,0"
-                                    Value="{Binding TremoloFreq}"
-                                    IsSnapToTickEnabled="True"
-                                    Maximum="20"
-                                    Minimum="1"
-                                    Orientation="Vertical"
-                                    TickFrequency="1"
-                                    TickPlacement="TopLeft" />
-                                <Slider
-                                    Margin="17,0,10,0"
-                                    Value="{Binding TremoloGain}"
-                                    IsSnapToTickEnabled="True"
-                                    Maximum="0.5"
-                                    Minimum="0.0"
-                                    Orientation="Vertical"
-                                    TickFrequency="0.1"
-                                    TickPlacement="TopLeft" />
+                                <controls:AudioKnob
+                                        Margin="5,10,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding TremoloFreq}"
+                                        To="20"
+                                        From="1" />
+                                <controls:AudioKnob
+                                        Margin="5,10,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding TremoloGain}"
+                                        To="1.0"
+                                        From="0.0" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <Label
                                     Width="60"
                                     Height="30"
-                                    Margin="60,0,0,0"
+                                    Margin="70,0,0,0"
                                     Content="{Binding TremoloFreqLabel}"
                                     FontWeight="Normal" />
                                 <Label
@@ -429,8 +425,7 @@
                             </StackPanel>
                             <StackPanel Height="200" Orientation="Horizontal">
                                 <Slider
-                                    Margin="
-                        15,0,10,0"
+                                    Margin="15,0,10,0"
                                     Value="{Binding ChorusWidth}"
                                     IsSnapToTickEnabled="True"
                                     Maximum="1.0"
