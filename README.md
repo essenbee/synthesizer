@@ -35,8 +35,6 @@ Tidied up the GUI, adding wave form selection and realtime controls for the low 
 
 Added Sub-oscillator for sine wave and GUI controls for Vibrato and Tremolo.
 
-![image](https://user-images.githubusercontent.com/7979108/59459025-bb55dc80-8e13-11e9-81ed-5b924b92dc20.png)
-
 In order to practice creating audio effects, I implemented a Chorus effect off-stream. It still requires wiring up to the GUI.
 
 #### Episode 39
@@ -56,6 +54,10 @@ Added support for using a MIDI controller to play the synthesizer - including ve
 #### Episode 42
 
 Added the facility to save and load settings files as JSON, which we refer to as "patches". Some refactoring is required to tidy up the code.
+
+Current state of the GUI is as follows:
+
+![image](https://user-images.githubusercontent.com/7979108/60399119-fc5e2880-9b57-11e9-8eaf-8633c807bdb2.png)
 
 ## Contributors
 
