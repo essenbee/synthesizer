@@ -1360,7 +1360,7 @@ namespace synthesizer
           OnPropertyChanged ("ChorusWidthLabel");
         }
 
-        public string ChorusWidthLabel => $"{ChorusWidth}";
+        public string ChorusWidthLabel => $"{((int)(ChorusWidth * 100.0f)/100.0f)}";
 
         public float ChorusWidth
         {
@@ -1398,7 +1398,7 @@ namespace synthesizer
           OnPropertyChanged ("ChorusSweepLabel");
         }
 
-        public string ChorusSweepLabel => $"{ChorusSweep}";
+        public string ChorusSweepLabel => $"{((int)(ChorusSweep * 100.0f)/100.0f)}";
 
         public float ChorusSweep
         {
@@ -1436,7 +1436,7 @@ namespace synthesizer
           OnPropertyChanged ("ChorusDelayLabel");
         }
 
-        public string ChorusDelayLabel => $"{ChorusDelay}";
+        public string ChorusDelayLabel => $"{((int)(ChorusDelay * 100.0f)/100.0f)}";
 
         public float ChorusDelay
         {

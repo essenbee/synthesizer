@@ -61,9 +61,9 @@ using NAudio.Wave.SampleProviders;
       LP("int"        , "TremoloFreq"         , @"$""{TremoloFreqMult * TremoloFreq} Hz"""    ),
       LP("float"      , "TremoloGain"         , @"$""{(int)(TremoloGain * 100.0f)}%"""        ),
       LP("int"        , "TremoloFreqMult"     , @"$""x{TremoloFreqMult}"""                    ),
-      LP("float"      , "ChorusWidth"         , @"$""{ChorusWidth}"""                         ),
-      LP("float"      , "ChorusSweep"         , @"$""{ChorusSweep}"""                         ),
-      LP("float"      , "ChorusDelay"         , @"$""{ChorusDelay}"""                         ),
+      LP("float"      , "ChorusWidth"         , @"$""{((int)(ChorusWidth * 100.0f)/100.0f)}"""),
+      LP("float"      , "ChorusSweep"         , @"$""{((int)(ChorusSweep * 100.0f)/100.0f)}"""),
+      LP("float"      , "ChorusDelay"         , @"$""{((int)(ChorusDelay * 100.0f)/100.0f)}"""),
 
       LP("float"      , "PhaserDry"           , @"$""{PhaserDry}"""                           ),
       LP("float"      , "PhaserWet"           , @"$""{PhaserWet}"""                           ),

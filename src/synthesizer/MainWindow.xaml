@@ -7,7 +7,7 @@
     xmlns:controls="clr-namespace:synthesizer.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1600"
-    Height="1000"
+    Height="825"
     mc:Ignorable="d"
     Background="LightGray"
     Title="Synthesizer">
@@ -428,56 +428,61 @@
                                     FontWeight="Normal" />
                             </StackPanel>
                             <StackPanel Height="200" Orientation="Horizontal">
-                                <Slider
-                                    Margin="15,0,10,0"
-                                    Value="{Binding ChorusWidth}"
-                                    IsSnapToTickEnabled="True"
-                                    Maximum="1.0"
-                                    Minimum="0.0"
-                                    Orientation="Vertical"
-                                    TickFrequency="0.1"
-                                    TickPlacement="TopLeft" />
-                                <Slider
-                                    Margin="20,0,10,0"
-                                    Value="{Binding ChorusSweep}"
-                                    IsSnapToTickEnabled="True"
-                                    Maximum="1.0"
-                                    Minimum="0.0"
-                                    Orientation="Vertical"
-                                    TickFrequency="0.1"
-                                    TickPlacement="TopLeft" />
-                                <Slider
-                                    Margin="15,0,10,0"
-                                    Value="{Binding ChorusDelay}"
-                                    IsSnapToTickEnabled="True"
-                                    Maximum="1.0"
-                                    Minimum="0.0"
-                                    Orientation="Vertical"
-                                    TickFrequency="0.1"
-                                    TickPlacement="TopLeft" />
-                            </StackPanel>
-                            <StackPanel
-                                Grid.Row="6"
-                                Grid.Column="3"
-                                Orientation="Horizontal">
-                                <Label
+
+                                <StackPanel Orientation="Vertical">
+
+                                    <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding ChorusWidth}"
+                                        To="1.0"
+                                        From="0.0" />
+                                    <Label
                                     Width="40"
                                     Height="30"
-                                    Margin="10,0,0,0"
+                                    Margin="3,5,0,0"
                                     Content="{Binding ChorusWidthLabel}"
                                     FontWeight="Normal" />
-                                <Label
+                                </StackPanel>
+
+                                <StackPanel Orientation="Vertical">
+
+                                    <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding ChorusSweep}"
+                                        To="1.0"
+                                        From="0.0" />
+                                    <Label
                                     Width="40"
                                     Height="30"
-                                    Margin="15,0,0,0"
+                                    Margin="3,5,0,0"
                                     Content="{Binding ChorusSweepLabel}"
                                     FontWeight="Normal" />
-                                <Label
+                                </StackPanel>
+
+                                <StackPanel Orientation="Vertical">
+
+                                    <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding ChorusDelay}"
+                                        To="1.0"
+                                        From="0.0" />
+                                    <Label
                                     Width="40"
                                     Height="30"
-                                    Margin="10,0,0,0"
+                                    Margin="3,5,0,0"
                                     Content="{Binding ChorusDelayLabel}"
                                     FontWeight="Normal" />
+                                </StackPanel>
+
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
@@ -635,7 +640,7 @@
                             <Label
                                 Width="55"
                                 Height="25"
-                                Margin="20,0,0,0"
+                                Margin="10,0,0,0"
                                 Content="Delay"
                                 FontWeight="Normal" />
                             <Label
@@ -667,74 +672,99 @@
                             Grid.Row="8"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
-                            Height="200"
                             Orientation="Horizontal">
-                            <Slider
-                                Margin="30,0,10,0"
-                                Value="{Binding DelayMs}"
-                                Maximum="1000"
-                                Minimum="0"
-                                Orientation="Vertical" />
-                            <Slider
-                                Margin="40,0,10,0"
-                                Value="{Binding DelayFeedback}"
-                                Maximum="0.96"
-                                Minimum="0.0"
-                                Orientation="Vertical" />
-                            <Slider
-                                Margin="20,0,10,0"
-                                Value="{Binding DelayMix}"
-                                Maximum="1.0"
-                                Minimum="0.0"
-                                Orientation="Vertical" />
-                            <Slider
-                                Margin="30,0,10,0"
-                                Value="{Binding DelayDry}"
-                                Maximum="1.0"
-                                Minimum="0.0"
-                                Orientation="Vertical" />
-                            <Slider
-                                Margin="30,0,10,0"
-                                Value="{Binding DelayWet}"
-                                Maximum="1.0"
-                                Minimum="0.0"
-                                Orientation="Vertical" />
-                        </StackPanel>
-                        <StackPanel
-                            Grid.Row="9"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            Orientation="Horizontal">
-                            <Label
-                                Width="55"
-                                Height="25"
-                                Margin="5,0,0,0"
-                                Content="{Binding DelayMsLabel}"
-                                FontWeight="Normal" />
-                            <Label
-                                Width="40"
-                                Height="25"
-                                Margin="25,0,0,0"
-                                Content="{Binding DelayFeedbackLabel}"
-                                FontWeight="Normal" />
-                            <Label
-                                Width="55"
-                                Height="25"
-                                Margin="5,0,0,0"
-                                Content="{Binding DelayMixLabel}"
-                                FontWeight="Normal" />
-                            <Label
-                                Width="55"
-                                Height="25"
-                                Margin="3,0,0,0"
-                                Content="{Binding DelayDryLabel}"
-                                FontWeight="Normal" />
-                            <Label
-                                Width="55"
-                                Height="25"
-                                Margin="3,0,0,0"
-                                Content="{Binding DelayWetLabel}"
-                                FontWeight="Normal" />
+
+                            <StackPanel Orientation="Vertical">
+
+                                <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding DelayMs}"
+                                        To="1000"
+                                        From="0" />
+                                <Label
+                                    Width="55"
+                                    Height="30"
+                                    Margin="3,5,0,0"
+                                    Content="{Binding DelayMsLabel}"
+                                    FontWeight="Normal" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical">
+
+                                <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding DelayFeedback}"
+                                        To="0.95"
+                                        From="0.0" />
+                                <Label
+                                    Width="55"
+                                    Height="30"
+                                    Margin="3,5,0,0"
+                                    Content="{Binding DelayFeedbackLabel}"
+                                    FontWeight="Normal" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical">
+
+                                <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding DelayMix}"
+                                        To="1.0"
+                                        From="0.0" />
+                                <Label
+                                    Width="55"
+                                    Height="30"
+                                    Margin="3,5,0,0"
+                                    Content="{Binding DelayMixLabel}"
+                                    FontWeight="Normal" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical">
+
+                                <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding DelayDry}"
+                                        To="1.0"
+                                        From="0.0" />
+                                <Label
+                                    Width="55"
+                                    Height="30"
+                                    Margin="3,5,0,0"
+                                    Content="{Binding DelayDryLabel}"
+                                    FontWeight="Normal" />
+                            </StackPanel>
+
+
+                            <StackPanel Orientation="Vertical">
+
+                                <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding DelayWet}"
+                                        To="1.0"
+                                        From="0.0" />
+                                <Label
+                                    Width="55"
+                                    Height="30"
+                                    Margin="3,5,0,0"
+                                    Content="{Binding DelayWetLabel}"
+                                    FontWeight="Normal" />
+                            </StackPanel>
+
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
