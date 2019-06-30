@@ -7,7 +7,7 @@
     xmlns:controls="clr-namespace:synthesizer.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Width="1600"
-    Height="825"
+    Height="785"
     mc:Ignorable="d"
     Background="LightGray"
     Title="Synthesizer">
@@ -162,7 +162,7 @@
                                 Content="Release"
                                 FontWeight="Normal" />
                         </StackPanel>
-                        <StackPanel Height="200" Orientation="Horizontal">
+                        <StackPanel Height="150" Orientation="Horizontal">
                             <Slider
                                 Margin="30,0,10,0"
                                 Value="{Binding Attack}"
@@ -242,7 +242,7 @@
                             <StackPanel
                                 Grid.Row="5"
                                 Grid.Column="2"
-                                Height="200"
+                                Height="150"
                                 Orientation="Horizontal">
                                 <CheckBox
                                     Margin="20,0,0,0"
@@ -260,14 +260,24 @@
                                     Orientation="Vertical"
                                     TickFrequency="200"
                                     TickPlacement="TopLeft" />
-                                <Slider
-                                    Margin="12,0,10,0"
-                                    Value="{Binding Q}"
-                                    Maximum="1.0"
-                                    Minimum="0.0"
-                                    Orientation="Vertical"
-                                    TickFrequency="0.1"
-                                    TickPlacement="TopLeft" />
+
+                                <StackPanel Orientation="Vertical">
+
+                                    <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding Q}"
+                                        To="1.0"
+                                        From="0.0" />
+                                    <Label
+                                    Width="50"
+                                    Height="30"
+                                    Margin="10,5,0,0"
+                                    Content="{Binding QLabel}"
+                                    FontWeight="Normal" />
+                                </StackPanel>
                             </StackPanel>
                             <StackPanel
                                 Grid.Row="6"
@@ -279,12 +289,6 @@
                                     Margin="90,0,0,0"
                                     Content="{Binding CutOffLabel}"
                                     FontWeight="Normal" />
-                                <Label
-                                    Width="40"
-                                    Height="30"
-                                    Margin="10,0,0,0"
-                                    Content="{Binding QLabel}"
-                                    FontWeight="Normal" />
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
@@ -292,7 +296,7 @@
                         <StackPanel
                             Grid.Row="5"
                             Grid.Column="2"
-                            Height="200"
+                            Height="150"
                             Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox
@@ -310,7 +314,7 @@
                         <StackPanel
                             Grid.Row="5"
                             Grid.Column="2"
-                            Height="200"
+                            Height="150"
                             Orientation="Vertical">
                             <CheckBox
                                 Margin="17,0,0,0"
@@ -427,7 +431,7 @@
                                     Content="Delay"
                                     FontWeight="Normal" />
                             </StackPanel>
-                            <StackPanel Height="200" Orientation="Horizontal">
+                            <StackPanel Height="150" Orientation="Horizontal">
 
                                 <StackPanel Orientation="Vertical">
 
@@ -499,130 +503,144 @@
                             Grid.Column="4"
                             Orientation="Horizontal">
                             <Label
-                                Margin="10,0,0,0"
+                                Margin="15,0,0,0"
                                 Content="Dry"
                                 FontWeight="Normal" />
                             <Label
-                                Margin="10,0,0,0"
+                                Margin="30,0,0,0"
                                 Content="Wet"
                                 FontWeight="Normal" />
                             <Label
-                                Margin="10,0,0,0"
+                                Margin="15,0,0,0"
                                 Content="Feedback"
                                 FontWeight="Normal" />
                             <Label
-                                Margin="10,0,0,0"
+                                Margin="15,0,0,0"
                                 Content="Freq."
                                 FontWeight="Normal" />
                             <Label
-                                Margin="10,0,0,0"
+                                Margin="20,0,0,0"
                                 Content="Width"
                                 FontWeight="Normal" />
                             <Label
-                                Margin="10,0,0,0"
+                                Margin="15,0,0,0"
                                 Content="Sweep"
                                 FontWeight="Normal" />
                         </StackPanel>
                         <StackPanel
                             Grid.Row="5"
                             Grid.Column="4"
-                            Height="200"
+                            Height="150"
                             Orientation="Horizontal">
-                            <Slider
-                                Margin="15,0,10,0"
-                                Value="{Binding PhaserDry}"
-                                IsSnapToTickEnabled="True"
-                                Maximum="1.0"
-                                Minimum="0.0"
-                                Orientation="Vertical"
-                                TickFrequency="0.1"
-                                TickPlacement="TopLeft" />
-                            <Slider
-                                Margin="5,0,10,0"
-                                Value="{Binding PhaserWet}"
-                                IsSnapToTickEnabled="True"
-                                Maximum="1.0"
-                                Minimum="0.0"
-                                Orientation="Vertical"
-                                TickFrequency="0.1"
-                                TickPlacement="TopLeft" />
-                            <Slider
-                                Margin="15,0,10,0"
-                                Value="{Binding PhaserFeedback}"
-                                IsSnapToTickEnabled="True"
-                                Maximum="0.95"
-                                Minimum="0.0"
-                                Orientation="Vertical"
-                                TickFrequency="0.05"
-                                TickPlacement="TopLeft" />
-                            <Slider
-                                Margin="25,0,10,0"
-                                Value="{Binding PhaserFreq}"
-                                IsSnapToTickEnabled="True"
-                                Maximum="150.0"
-                                Minimum="0.0"
-                                Orientation="Vertical"
-                                TickFrequency="10"
-                                TickPlacement="TopLeft" />
-                            <Slider
-                                Margin="15,0,10,0"
-                                Value="{Binding PhaserWidth}"
-                                IsSnapToTickEnabled="True"
-                                Maximum="1.0"
-                                Minimum="0.0"
-                                Orientation="Vertical"
-                                TickFrequency="0.1"
-                                TickPlacement="TopLeft" />
-                            <Slider
-                                Margin="15,0,10,0"
-                                Value="{Binding PhaserSweep}"
-                                IsSnapToTickEnabled="True"
-                                Maximum="1.0"
-                                Minimum="0.0"
-                                Orientation="Vertical"
-                                TickFrequency="0.1"
-                                TickPlacement="TopLeft" />
-                        </StackPanel>
-                        <StackPanel
-                            Grid.Row="6"
-                            Grid.Column="4"
-                            Orientation="Horizontal">
-                            <Label
-                                Width="30"
-                                Height="30"
-                                Margin="15,0,0,0"
-                                Content="{Binding PhaserDryLabel}"
-                                FontWeight="Normal" />
-                            <Label
-                                Width="30"
-                                Height="30"
-                                Margin="10,0,0,0"
-                                Content="{Binding PhaserWetLabel}"
-                                FontWeight="Normal" />
-                            <Label
-                                Width="30"
-                                Height="30"
-                                Margin="18,0,0,0"
-                                Content="{Binding PhaserFeedbackLabel}"
-                                FontWeight="Normal" />
-                            <Label
-                                Width="40"
-                                Height="30"
-                                Margin="25,0,0,0"
-                                Content="{Binding PhaserFreqLabel}"
-                                FontWeight="Normal" />
-                            <Label
-                                Width="30"
-                                Height="30"
-                                Margin="12,0,0,0"
-                                Content="{Binding PhaserWidthLabel}"
-                                FontWeight="Normal" />
-                            <Label
-                                Width="30"
-                                Height="30"
-                                Margin="20,0,0,0"
-                                Content="{Binding PhaserSweepLabel}"
-                                FontWeight="Normal" />
+
+                            <StackPanel Orientation="Vertical">
+
+                                <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding PhaserDry}"
+                                        To="1.0"
+                                        From="0.0" />
+                                <Label
+                                    Width="50"
+                                    Height="30"
+                                    Margin="10,5,0,0"
+                                    Content="{Binding PhaserDryLabel}"
+                                    FontWeight="Normal" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical">
+
+                                <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding PhaserWet}"
+                                        To="1.0"
+                                        From="0.0" />
+                                <Label
+                                    Width="50"
+                                    Height="30"
+                                    Margin="10,5,0,0"
+                                    Content="{Binding PhaserWetLabel}"
+                                    FontWeight="Normal" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical">
+
+                                <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding PhaserFeedback}"
+                                        To="0.95"
+                                        From="0.0" />
+                                <Label
+                                    Width="50"
+                                    Height="30"
+                                    Margin="10,5,0,0"
+                                    Content="{Binding PhaserFeedbackLabel}"
+                                    FontWeight="Normal" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical">
+
+                                <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding PhaserFreq}"
+                                        To="150.0"
+                                        From="0.0" />
+                                <Label
+                                    Width="50"
+                                    Height="30"
+                                    Margin="10,5,0,0"
+                                    Content="{Binding PhaserFreqLabel}"
+                                    FontWeight="Normal" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical">
+
+                                <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding PhaserWidth}"
+                                        To="1.0"
+                                        From="0.0" />
+                                <Label
+                                    Width="50"
+                                    Height="30"
+                                    Margin="10,5,0,0"
+                                    Content="{Binding PhaserWidthLabel}"
+                                    FontWeight="Normal" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Vertical">
+
+                                <controls:AudioKnob
+                                        Margin="5,45,0,0"
+                                        Height="50"
+                                        Width="50"
+                                        HorizontalAlignment="Left"
+                                        Value="{Binding PhaserSweep}"
+                                        To="1.0"
+                                        From="0.0" />
+                                <Label
+                                    Width="50"
+                                    Height="30"
+                                    Margin="10,5,0,0"
+                                    Content="{Binding PhaserSweepLabel}"
+                                    FontWeight="Normal" />
+                            </StackPanel>
+
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
@@ -943,7 +961,7 @@
                                 Content="Release"
                                 FontWeight="Normal" />
                         </StackPanel>
-                        <StackPanel Height="200" Orientation="Horizontal">
+                        <StackPanel Height="150" Orientation="Horizontal">
                             <Slider
                                 Margin="30,0,10,0"
                                 Value="{Binding Attack2}"
@@ -1120,7 +1138,7 @@
                                 Content="Release"
                                 FontWeight="Normal" />
                         </StackPanel>
-                        <StackPanel Height="200" Orientation="Horizontal">
+                        <StackPanel Height="150" Orientation="Horizontal">
                             <Slider
                                 Margin="30,0,10,0"
                                 Value="{Binding Attack3}"

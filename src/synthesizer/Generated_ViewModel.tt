@@ -65,12 +65,12 @@ using NAudio.Wave.SampleProviders;
       LP("float"      , "ChorusSweep"         , @"$""{((int)(ChorusSweep * 100.0f)/100.0f)}"""),
       LP("float"      , "ChorusDelay"         , @"$""{((int)(ChorusDelay * 100.0f)/100.0f)}"""),
 
-      LP("float"      , "PhaserDry"           , @"$""{PhaserDry}"""                           ),
-      LP("float"      , "PhaserWet"           , @"$""{PhaserWet}"""                           ),
-      LP("float"      , "PhaserFeedback"      , @"$""{PhaserFeedback}"""                      ),
-      LP("float"      , "PhaserFreq"          , @"$""{PhaserFreq}"""                          ),
-      LP("float"      , "PhaserWidth"         , @"$""{PhaserWidth}"""                         ),
-      LP("float"      , "PhaserSweep"         , @"$""{PhaserSweep}"""                         ),
+      LP("float"      , "PhaserDry"           , @"$""{((int)(PhaserDry * 100.0f)/100.0f)}"""  ),
+      LP("float"      , "PhaserWet"           , @"$""{((int)(PhaserWet * 100.0f)/100.0f)}"""  ),
+      LP("float"      , "PhaserFeedback"      , @"$""{((int)(PhaserFeedback * 100.0f)/100.0f)}"""),
+      LP("float"      , "PhaserFreq"          , @"$""{((int)(PhaserFreq * 100.0f)/100.0f)}""" ),
+      LP("float"      , "PhaserWidth"         , @"$""{((int)(PhaserWidth * 100.0f)/100.0f)}"""),
+      LP("float"      , "PhaserSweep"         , @"$""{((int)(PhaserSweep * 100.0f)/100.0f)}"""),
 
       LP("float"      , "Level1"              , @"$""{(int)(Level1)}dB"""                     ),
       LP("float"      , "Level2"              , @"$""{(int)(Level2)}dB"""                     ),

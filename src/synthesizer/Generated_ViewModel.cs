@@ -1474,7 +1474,7 @@ namespace synthesizer
           OnPropertyChanged ("PhaserDryLabel");
         }
 
-        public string PhaserDryLabel => $"{PhaserDry}";
+        public string PhaserDryLabel => $"{((int)(PhaserDry * 100.0f)/100.0f)}";
 
         public float PhaserDry
         {
@@ -1512,7 +1512,7 @@ namespace synthesizer
           OnPropertyChanged ("PhaserWetLabel");
         }
 
-        public string PhaserWetLabel => $"{PhaserWet}";
+        public string PhaserWetLabel => $"{((int)(PhaserWet * 100.0f)/100.0f)}";
 
         public float PhaserWet
         {
@@ -1550,7 +1550,7 @@ namespace synthesizer
           OnPropertyChanged ("PhaserFeedbackLabel");
         }
 
-        public string PhaserFeedbackLabel => $"{PhaserFeedback}";
+        public string PhaserFeedbackLabel => $"{((int)(PhaserFeedback * 100.0f)/100.0f)}";
 
         public float PhaserFeedback
         {
@@ -1588,7 +1588,7 @@ namespace synthesizer
           OnPropertyChanged ("PhaserFreqLabel");
         }
 
-        public string PhaserFreqLabel => $"{PhaserFreq}";
+        public string PhaserFreqLabel => $"{((int)(PhaserFreq * 100.0f)/100.0f)}";
 
         public float PhaserFreq
         {
@@ -1626,7 +1626,7 @@ namespace synthesizer
           OnPropertyChanged ("PhaserWidthLabel");
         }
 
-        public string PhaserWidthLabel => $"{PhaserWidth}";
+        public string PhaserWidthLabel => $"{((int)(PhaserWidth * 100.0f)/100.0f)}";
 
         public float PhaserWidth
         {
@@ -1664,7 +1664,7 @@ namespace synthesizer
           OnPropertyChanged ("PhaserSweepLabel");
         }
 
-        public string PhaserSweepLabel => $"{PhaserSweep}";
+        public string PhaserSweepLabel => $"{((int)(PhaserSweep * 100.0f)/100.0f)}";
 
         public float PhaserSweep
         {
