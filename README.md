@@ -1,9 +1,12 @@
 # synthesizer
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
-[![Build status](https://ci.appveyor.com/api/projects/status/3wbcayq7poqp3k6o/branch/master?svg=true)](https://ci.appveyor.com/project/essenbee/synthesizer/branch/master)
+![Workflow](https://github.com/essenbee/synthesizer/workflows/.NET%20Core/badge.svg)
+![Licence](https://img.shields.io/github/license/essenbee/essenbee-bot)
+![Twitch](https://img.shields.io/twitch/status/codebasealpha)
 ![Open Issues](https://img.shields.io/github/issues/essenbee/synthesizer.svg)
 ![PRs](https://img.shields.io/github/issues-pr-closed/essenbee/synthesizer.svg)
 ![Last Commit](https://img.shields.io/github/last-commit/essenbee/synthesizer.svg)
+![Twitter](https://img.shields.io/twitter/follow/codebasealpha.svg?style=social)
 
 This is a project on my live coding stream [Codebase Alpha](https://twitch.tv/codebasealpha) starting with episode 34. The aim of the project is to explore some of the features of the extensive the **NAudio** digital audio library. To do this, I'm using **.NET Core 3.0** and **WPF** to develop a simple synthesizer, starting with a monophonic keyboard, but going on throughout the project to introduce such things as polyphony, ADSR envelopes, instruments and voices, and visualisations (such as a spectrum analyser). Basically, let's see how far we can take this!
 
