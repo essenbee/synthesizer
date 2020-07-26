@@ -633,7 +633,7 @@ namespace synthesizer
         partial void Execute_MidiOnCommand()
         {
             var selectedMidiDevice =MidiDevices.IndexOf(MidiDevice);
-            if (selectedMidiDevice > 0)
+            if (selectedMidiDevice >= 0)
             {
               MidiEnabled = true;
               midiIn = new MidiIn(selectedMidiDevice);
